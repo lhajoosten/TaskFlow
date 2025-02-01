@@ -1,0 +1,51 @@
+services:
+  backend:
+    container_name: taskflow-api
+    build:
+      context: .
+      dockerfile: ./src/TaskFlow.Api/Dockerfile
+    ports:
+      - "5000:5000"
+      - "5001:5001"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=localhost;Database=TaskFlow-dev;User Id=sa;Password=YourStrong!Passw0rd;MultipleActiveResultSets=true;TrustServerCertificate=True;
+    depends_on:
+      - db
+    networks:
+      - taskflow-network
+
+  frontend:
+    container_name: taskflow-web
+    build:
+      context: ./src/TaskFlow.Web
+      dockerfile: Dockerfile
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend
+    networks:
+      - taskflow-network
+    volumes:
+      - ./src/TaskFlow.Web/nginx/default.conf:/etc/nginx/conf.d/default.conf
+
+  db:
+    container_name: taskflow-db
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: "YourStrong!Passw0rd"
+      ACCEPT_EULA: "Y"
+    networks:
+      - taskflow-network
+    restart: unless-stopped
+    volumes:
+      - mssql_data:/var/opt/mssql
+
+networks:
+  taskflow-network:
+    driver: bridge
+
+volumes:
+  mssql_data:

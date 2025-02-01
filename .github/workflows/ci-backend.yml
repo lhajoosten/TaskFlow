@@ -1,0 +1,76 @@
+name: Backend CI Pipeline
+
+on:
+  push:
+    branches: [master, development]
+  pull_request:
+    branches: [master, development]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: "9.0.x"
+
+      - name: Restore Dependencies
+        run: dotnet restore TaskFlow.sln # ✅ Ensure this restores all projects
+
+      - name: Build Solution
+        run: dotnet build TaskFlow.sln --configuration Release --no-restore # ✅ Build entire solution
+
+      - name: Run Tests with Code Coverage
+        run: |
+          dotnet test tests/TaskFlow.Api.Tests --configuration Release --collect:"XPlat Code Coverage" --results-directory ./coverage
+          dotnet test tests/TaskFlow.Application.Tests --configuration Release --collect:"XPlat Code Coverage" --results-directory ./coverage
+          dotnet test tests/TaskFlow.Domain.Tests --configuration Release --collect:"XPlat Code Coverage" --results-directory ./coverage
+
+      - name: List Coverage Files
+        run: ls -R ./coverage
+
+      - name: Install Report Generator
+        run: dotnet tool install -g dotnet-reportgenerator-globaltool
+
+      - name: Merge Coverage Reports
+        run: |
+          reportgenerator -reports:./coverage/**/coverage.cobertura.xml \
+                          -targetdir:./coverage/merged \
+                          -reporttypes:Cobertura
+
+      - name: Inspect Merged Coverage Report
+        run: cat ./coverage/merged/Cobertura.xml
+
+      - name: Check if Coverage Report is Empty
+        id: check-coverage
+        run: |
+          if grep -q "<packages />" ./coverage/merged/Cobertura.xml; then
+            echo "empty=true" >> $GITHUB_ENV
+          else
+            echo "empty=false" >> $GITHUB_ENV
+          fi
+
+      - name: Upload Merged Coverage Report
+        if: env.empty == 'false'
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-coverage
+          path: ./coverage/merged/Cobertura.xml
+
+      - name: Generate Code Coverage Summary
+        if: env.empty == 'false'
+        uses: irongut/CodeCoverageSummary@v1.3.0
+        with:
+          filename: ./coverage/merged/Cobertura.xml
+          badge: true
+          format: markdown
+          output: both
+
+      - name: Add Coverage Summary to GitHub Actions
+        if: env.empty == 'false'
+        run: cat code-coverage-results.md >> $GITHUB_STEP_SUMMARY
