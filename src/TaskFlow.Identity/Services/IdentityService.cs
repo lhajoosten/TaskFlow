@@ -9,6 +9,8 @@ using TaskFlow.Identity.Configurations;
 using TaskFlow.Identity.DTOs;
 using TaskFlow.Identity.Interfaces;
 using TaskFlow.Identity.Models;
+using TaskFlow.Mailing.Interfaces;
+using TaskFlow.Mailing.Models;
 
 namespace TaskFlow.Identity.Services
 {
@@ -16,16 +18,15 @@ namespace TaskFlow.Identity.Services
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IEmailService _emailService;
         private readonly JwtSettings _jwtSettings;
 
-        public IdentityService(
-            UserManager<ApplicationUser> userManager, 
-            SignInManager<ApplicationUser> signInManager, 
-            IOptions<JwtSettings> jwtSettings)
+        public IdentityService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IEmailService emailService, IOptions<JwtSettings> jwtSettings)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _jwtSettings = jwtSettings.Value ?? throw new ArgumentNullException(nameof(jwtSettings));
+            _emailService = emailService;
+            _jwtSettings = jwtSettings.Value;
         }
 
         /// <summary>
@@ -43,7 +44,7 @@ namespace TaskFlow.Identity.Services
                 Lastname = lastname,
                 Email = email,
                 UserName = email,
-                EmailConfirmed = true,
+                EmailConfirmed = false,
                 CreatedAt = DateTime.UtcNow
             };
 
@@ -51,26 +52,20 @@ namespace TaskFlow.Identity.Services
             if (!result.Succeeded)
                 return new AuthResponse { Token = "", RefreshToken = "", ErrorMessage = "Registration failed: " + string.Join(", ", result.Errors.Select(e => e.Description)) };
 
-            // ✅ Assign a default role (e.g., "User")
-            // await _userManager.AddToRoleAsync(user, "User");
+            // ✅ Generate Email Confirmation Token
+            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            var confirmationLink = $"https://localhost:4200/confirm-email?email={email}&token={Uri.EscapeDataString(token)}";
 
-            // ✅ Automatically log in the user (optional)
-            await _signInManager.SignInAsync(user, isPersistent: false);
-
-            // ✅ Generate tokens after successful registration
-            var token = GenerateJwtToken(user);
-            var refreshToken = GenerateRefreshToken();
-
-            user.RefreshToken = refreshToken;
-            user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7);
-            await _userManager.UpdateAsync(user);
-
-            return new AuthResponse
+            // ✅ Send Email Confirmation
+            var emailMessage = new EmailDto
             {
-                Token = token,
-                RefreshToken = refreshToken,
-                ErrorMessage = null!
+                To = email,
+                Subject = "Confirm Your Email",
+                Body = $"Click the following link to confirm your email: <a href='{confirmationLink}'>Confirm Email</a>"
             };
+            await _emailService.SendEmailAsync(emailMessage);
+
+            return new AuthResponse { Token = "", RefreshToken = "", ErrorMessage = null! };
         }
 
         /// <summary>
@@ -161,7 +156,9 @@ namespace TaskFlow.Identity.Services
             if (!user.EmailConfirmed) return new AuthResponse { ErrorMessage = "Email is not confirmed." };
 
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-            return new AuthResponse { Token = token, ErrorMessage = null! }; // Normally sent via email.
+            await _emailService.SendPasswordResetEmailAsync(email, token);
+
+            return new AuthResponse { ErrorMessage = null! };
         }
 
         /// <summary>

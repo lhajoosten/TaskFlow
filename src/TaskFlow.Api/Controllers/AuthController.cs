@@ -113,7 +113,7 @@ namespace TaskFlow.Api.Controllers
             if (!string.IsNullOrEmpty(response.ErrorMessage))
                 return BadRequest(new { message = response.ErrorMessage });
 
-            return Ok(new { message = "Password reset token generated. Please check your email.", resetToken = response.Token });
+            return Ok(new { message = "Password reset email sent." });
         }
 
         /// <summary>
