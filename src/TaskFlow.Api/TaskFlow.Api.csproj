@@ -31,7 +31,8 @@
     <ProjectReference Include="..\TaskFlow.Application\TaskFlow.Application.csproj" />
     <ProjectReference Include="..\TaskFlow.Domain\TaskFlow.Domain.csproj" />
     <ProjectReference Include="..\TaskFlow.Identity\TaskFlow.Identity.csproj" />
-    <ProjectReference Include="..\TaskFlow.Infrastructure\TaskFlow.Infrastructure.csproj" />
+    <ProjectReference Include="..\TaskFlow.Mailing\TaskFlow.Mailing.csproj" />
+    <ProjectReference Include="..\TaskFlow.Persistence\TaskFlow.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

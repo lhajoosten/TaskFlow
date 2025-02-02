@@ -43,7 +43,7 @@ namespace TaskFlow.Identity.Services
                 Lastname = lastname,
                 Email = email,
                 UserName = email,
-                EmailConfirmed = true, // ✅ Optional: Auto-confirm email
+                EmailConfirmed = true,
                 CreatedAt = DateTime.UtcNow
             };
 

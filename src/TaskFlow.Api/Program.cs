@@ -1,7 +1,8 @@
 ﻿using Microsoft.OpenApi.Models;
 using TaskFlow.Application.Common.Configurations;
 using TaskFlow.Identity.Configurations;
-using TaskFlow.Infrastructure.Configurations;
+using TaskFlow.Persistence.Configurations;
+using TaskFlow.Mailing.Configurations;
 
 namespace TaskFlow.Api
 {
@@ -13,9 +14,10 @@ namespace TaskFlow.Api
             var configuration = builder.Configuration;
             var services = builder.Services;
 
-            // Register Infrastructure & Identity Modules
-            services.AddInfrastructure(configuration);
+            // Register Infrastructure
+            services.AddPersistenceServices(configuration);
             services.AddIdentityServices(configuration);
+            services.AddMailingServices(configuration);
 
             // Register IHttpContextAccessor
             services.AddHttpContextAccessor();

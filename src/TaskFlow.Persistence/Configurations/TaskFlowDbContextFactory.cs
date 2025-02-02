@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
-using TaskFlow.Infrastructure.Persistence;
+using TaskFlow.Persistence.Persistence;
 
-namespace TaskFlow.Infrastructure.Configurations
+namespace TaskFlow.Persistence.Configurations
 {
     public class TaskFlowDbContextFactory : IDesignTimeDbContextFactory<TaskFlowDbContext>
     {

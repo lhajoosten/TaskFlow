@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using TaskFlow.Infrastructure.Persistence;
+using TaskFlow.Persistence.Persistence;
 
-namespace TaskFlow.Infrastructure.Configurations
+namespace TaskFlow.Persistence.Configurations
 {
     public static class ServiceRegistration
     {
-        public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddPersistenceServices(this IServiceCollection services, IConfiguration configuration)
         {
             var connectionString = configuration.GetConnectionString("DevelopmentConnection");
 

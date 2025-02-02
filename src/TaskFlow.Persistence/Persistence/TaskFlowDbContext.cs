@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace TaskFlow.Infrastructure.Persistence
+namespace TaskFlow.Persistence.Persistence
 {
     public class TaskFlowDbContext : DbContext
     {

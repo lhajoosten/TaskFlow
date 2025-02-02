@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using TaskFlow.Identity.Interfaces;
@@ -28,12 +27,9 @@ namespace TaskFlow.Identity.Configurations
 
             // Register JWT Settings
             services.Configure<JwtSettings>(configuration.GetSection("Jwt"));
-            services.AddSingleton(sp => sp.GetRequiredService<IOptions<JwtSettings>>().Value);
 
             var jwtSettings = configuration.GetSection("Jwt").Get<JwtSettings>();
             var key = Encoding.UTF8.GetBytes(jwtSettings!.Secret);
-
-            Console.WriteLine($"🔑 JWT Signing Key Used (Validation): {Encoding.UTF8.GetString(key)}");
 
             // Register JWT Authentication
             services.AddAuthentication(options =>
