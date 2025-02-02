@@ -1,0 +1,11 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+.dropdown-menu {
+  display: none;
+}
+
+.relative:hover .dropdown-menu {
+  display: block;
+}
