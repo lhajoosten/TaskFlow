@@ -12,6 +12,7 @@ COPY src/TaskFlow.Api/TaskFlow.Api.csproj TaskFlow.Api/
 COPY src/TaskFlow.Application/TaskFlow.Application.csproj TaskFlow.Application/
 COPY src/TaskFlow.Domain/TaskFlow.Domain.csproj TaskFlow.Domain/
 COPY src/TaskFlow.Infrastructure/TaskFlow.Infrastructure.csproj TaskFlow.Infrastructure/
+COPY src/TaskFlow.Identity/TaskFlow.Identity.csproj TaskFlow.Identity/
 
 # Restore dependencies
 RUN dotnet restore TaskFlow.Api/TaskFlow.Api.csproj
