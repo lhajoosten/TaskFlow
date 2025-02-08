@@ -1,11 +1,24 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@use '@angular/material' as mat;
+@use 'styles/theme' as theme;
+@use 'styles/_theme-colors.scss' as *;
 
-.dropdown-menu {
-  display: none;
+// Include theme styles
+@include mat.core();
+@include mat.all-component-themes(theme.$theme);
+
+html, body {
+  height: 100%;
+  margin: 0;
 }
 
-.relative:hover .dropdown-menu {
-  display: block;
+body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: mat.get-theme-color(theme.$theme, background, background);
+  color: mat.get-theme-color(theme.$theme, foreground, text);
+}
+
+.mat-app-background {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
 }

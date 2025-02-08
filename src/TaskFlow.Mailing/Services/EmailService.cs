@@ -103,7 +103,7 @@ namespace TaskFlow.Mailing.Services
 
         public async Task<bool> SendConfirmationEmailAsync(string email, string token)
         {
-            var confirmationLink = $"https://localhost:4200/confirm-email?email={email}&token={Uri.EscapeDataString(token)}";
+            var confirmationLink = $"https://localhost:7228/auth/confirm-email?email={email}&token={Uri.EscapeDataString(token)}";
             var emailDto = new EmailDto
             {
                 To = email,
@@ -115,7 +115,7 @@ namespace TaskFlow.Mailing.Services
 
         public async Task<bool> SendPasswordResetEmailAsync(string email, string token)
         {
-            var resetLink = $"https://localhost:4200/reset-password?email={email}&token={Uri.EscapeDataString(token)}";
+            var resetLink = $"https://localhost:7288/auth/reset-password?email={email}&token={Uri.EscapeDataString(token)}";
             var emailDto = new EmailDto
             {
                 To = email,

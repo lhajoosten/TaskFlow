@@ -54,16 +54,9 @@ namespace TaskFlow.Identity.Services
 
             // ✅ Generate Email Confirmation Token
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-            var confirmationLink = $"https://localhost:4200/confirm-email?email={email}&token={Uri.EscapeDataString(token)}";
 
-            // ✅ Send Email Confirmation
-            var emailMessage = new EmailDto
-            {
-                To = email,
-                Subject = "Confirm Your Email",
-                Body = $"Click the following link to confirm your email: <a href='{confirmationLink}'>Confirm Email</a>"
-            };
-            await _emailService.SendEmailAsync(emailMessage);
+            // ✅ Send Confirmation Email
+            await _emailService.SendConfirmationEmailAsync(email, token);
 
             return new AuthResponse { Token = "", RefreshToken = "", ErrorMessage = null! };
         }
