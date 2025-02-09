@@ -1,23 +1,42 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-
 import { MaterialModule } from './material.module';
+import { HeaderComponent } from './layouts/header/header.component';
+import { SidebarComponent } from './layouts/sidebar/sidebar.component';
+import { MainContentComponent } from './layouts/main-content/main-content.component';
+import { FeaturesModule } from './features/features.module';
+import { AuthModule } from './auth/auth.module';
+import { LoggerService } from './core/services/logger.service';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HeaderComponent,
+    SidebarComponent,
+    MainContentComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
     AppRoutingModule,
-    MaterialModule
+    MaterialModule,
+    FeaturesModule,
+    AuthModule
   ],
   providers: [
-    provideAnimationsAsync()
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoggerService,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

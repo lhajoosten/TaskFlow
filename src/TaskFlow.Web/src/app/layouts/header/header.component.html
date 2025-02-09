@@ -1,0 +1,32 @@
+<mat-toolbar color="primary" class="toolbar">
+    <button mat-icon-button class="menu-button" (click)="toggleSidenav()">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <span class="app-title">TaskFlow</span>
+    <span class="toolbar-spacer"></span>
+
+    <ng-container *ngIf="isAuthenticated">
+        <button mat-button [matMenuTriggerFor]="userMenu" class="user-profile-button">
+            <img [src]="userProfilePic || 'assets/avatar-banner.jpg'" class="profile-pic" alt="Profile picture"
+                loading="lazy">
+            <span class="user-name">lhajoosten&#64;outlook.com</span>
+            <mat-icon>arrow_drop_down</mat-icon>
+        </button>
+
+        <mat-menu #userMenu="matMenu" class="user-menu">
+            <button mat-menu-item routerLink="/profile">
+                <mat-icon>person</mat-icon>
+                <span>My Profile</span>
+            </button>
+            <button mat-menu-item routerLink="/settings">
+                <mat-icon>settings</mat-icon>
+                <span>Settings</span>
+            </button>
+            <mat-divider></mat-divider>
+            <button mat-menu-item (click)="logout()">
+                <mat-icon>exit_to_app</mat-icon>
+                <span>Logout</span>
+            </button>
+        </mat-menu>
+    </ng-container>
+</mat-toolbar>

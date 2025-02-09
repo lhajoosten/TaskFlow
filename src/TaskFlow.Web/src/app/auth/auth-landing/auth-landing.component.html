@@ -1,0 +1,22 @@
+<div class="auth-landing-container">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Welcome to TaskFlow</mat-card-title>
+            <mat-card-subtitle>Your productivity partner</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <p>Manage your tasks efficiently and effectively with TaskFlow. Sign in to access your account or sign up to
+                get started.</p>
+            <div class="auth-options">
+                <button mat-raised-button color="primary" (click)="navigateToLogin()">
+                    <mat-icon>login</mat-icon>
+                    Sign In
+                </button>
+                <button mat-raised-button color="accent" (click)="navigateToRegister()">
+                    <mat-icon>person_add</mat-icon>
+                    Sign Up
+                </button>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

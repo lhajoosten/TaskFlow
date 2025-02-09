@@ -22,9 +22,15 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
     exports: [
+        MatMenuModule,
         MatButtonModule,
         MatToolbarModule,
         MatIconModule,
@@ -44,11 +50,14 @@ import { MatDividerModule } from '@angular/material/divider';
         MatBadgeModule,
         MatBottomSheetModule,
         MatButtonToggleModule,
-        MatMenuModule,
         MatGridListModule,
         MatExpansionModule,
-        MatDividerModule
-
+        MatDividerModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatTableModule,
+        MatTabsModule,
+        MatTooltipModule
     ]
 })
 export class MaterialModule { }

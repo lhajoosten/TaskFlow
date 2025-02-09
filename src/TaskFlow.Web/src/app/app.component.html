@@ -1,0 +1,30 @@
+<!-- <ng-container *ngIf="authService.isAuthenticated() | async; else authLayout"> -->
+<ng-container *ngIf="false; else authLayout">
+  <div class="app-container">
+    <app-header (menuClick)="sidenav.toggle()"></app-header>
+    <mat-sidenav-container class="sidenav-container">
+      <mat-sidenav #sidenav mode="side" opened>
+        <app-sidebar></app-sidebar>
+      </mat-sidenav>
+      <mat-sidenav-content>
+        <div class="content">
+          <router-outlet></router-outlet>
+        </div>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  </div>
+</ng-container>
+
+<ng-template #authLayout>
+  <div class="auth-layout">
+    <mat-toolbar class="auth-header">
+      <div class="auth-title">
+        <span>TaskFlow</span>
+      </div>
+    </mat-toolbar>
+
+    <main class="auth-content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</ng-template>

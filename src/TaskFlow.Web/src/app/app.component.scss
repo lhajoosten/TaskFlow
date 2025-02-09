@@ -1,0 +1,117 @@
+.auth-layout {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    135deg,
+    var(--primary-lighter) 0%,
+    var(--primary) 50%,
+    var(--primary-darker) 100%
+  );
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.03) 1px,
+        transparent 1px
+      ),
+      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(circle at 50% 50%, black, transparent 80%);
+  }
+
+  .auth-header {
+    flex: 0 0 80px; // Fixed header height
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+
+    .auth-title {
+      font-size: 2.5rem;
+      font-weight: 300;
+      letter-spacing: 1px;
+      color: white;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      position: relative;
+      padding: 0.5rem 1rem;
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.7),
+          transparent
+        );
+      }
+    }
+  }
+
+  .auth-content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    padding: 0 2rem;
+    height: calc(100vh - 80px); // Viewport height minus header height
+
+    ::ng-deep {
+      > * {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      mat-card {
+        backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.95);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow:
+          0 4px 16px rgba(0, 0, 0, 0.1),
+          0 1px 3px rgba(0, 0, 0, 0.05);
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
+
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow:
+            0 6px 20px rgba(0, 0, 0, 0.15),
+            0 2px 5px rgba(0, 0, 0, 0.08);
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .auth-layout {
+    .auth-header {
+      flex: 0 0 64px; // Smaller header for mobile
+
+      .auth-title {
+        font-size: 2rem;
+      }
+    }
+
+    .auth-content {
+      height: calc(100vh - 64px);
+      padding: 0 1rem;
+    }
+  }
+}
