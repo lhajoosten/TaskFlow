@@ -9,5 +9,10 @@ export const environment = {
         confirmEmail: '/api/auth/confirm-email',
         forgotPassword: '/api/auth/forgot-password',
         resetPassword: '/api/auth/reset-password'
-    }
+    },
+    // Logging configuration
+    logLevel: 'debug',
+    logHttpResponses: true,
+    logHttpRequests: true,
+    logPerformance: true
 };

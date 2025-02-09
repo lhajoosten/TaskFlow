@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AuthResponse, LoginRequest, RegisterRequest, ResetPasswordRequest, ForgotPasswordRequest, RefreshTokenRequest, AuthenticatedUser } from '../models/auth.models';
 import { environment } from '../../../environments/environment';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { LoggerService } from './logger.service';
 
 @Injectable({
     providedIn: 'root'
@@ -20,7 +21,8 @@ export class AuthService {
 
     constructor(
         private http: HttpClient,
-        private router: Router
+        private router: Router,
+        private logger: LoggerService
     ) {
         this.loadStoredAuth();  // Re-enable this call
     }
@@ -31,6 +33,7 @@ export class AuthService {
     }
 
     login(email: string, password: string, rememberMe: boolean = false): Observable<AuthResponse> {
+        this.logger.info('Attempting login for user:', email);
         const request: LoginRequest = { email, password, rememberMe };
         const url = `${environment.apiUrl}${environment.authEndpoints.login}`;
 
@@ -116,14 +119,16 @@ export class AuthService {
                 };
                 // Single auth state update at the end
                 this.authState.next(user);
+                this.logger.info('Successfully authenticated user:', user.email);
             } catch (error) {
-                console.error('Error decoding token:', error);
+                this.logger.error('Failed to decode token:', error);
                 this.clearAuth();
             }
         }
     }
 
     private loadStoredAuth(): void {
+        this.logger.debug('Loading stored authentication');
         // Try localStorage first, then sessionStorage if not found
         let storage = localStorage;
         let token = storage.getItem('token');
@@ -186,6 +191,7 @@ export class AuthService {
     }
 
     private clearAuth(): void {
+        this.logger.debug('Clearing authentication state');
         // Clear both storages
         localStorage.removeItem('token');
         localStorage.removeItem('refreshToken');
