@@ -14,6 +14,15 @@ namespace TaskFlow.Api
             var configuration = builder.Configuration;
             var services = builder.Services;
 
+            // In your API's Program.cs
+            builder.WebHost.ConfigureKestrel(serverOptions =>
+            {
+                serverOptions.ConfigureHttpsDefaults(configureOptions =>
+                {
+                    configureOptions.SslProtocols = System.Security.Authentication.SslProtocols.Tls12 | System.Security.Authentication.SslProtocols.Tls13;
+                });
+            });
+
             // Register Infrastructure
             services.AddPersistenceServices(configuration);
             services.AddIdentityServices(configuration);
@@ -68,9 +77,9 @@ namespace TaskFlow.Api
             app.UseCors(options =>
             {
                 options.WithOrigins("http://localhost:4200");
-                options.AllowAnyOrigin();
                 options.AllowAnyMethod();
                 options.AllowAnyHeader();
+                options.AllowCredentials();
             });
 
             // Configure the HTTP request pipeline.

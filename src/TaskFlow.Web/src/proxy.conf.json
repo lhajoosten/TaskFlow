@@ -3,6 +3,12 @@
         "target": "https://localhost:7228",
         "secure": false,
         "changeOrigin": true,
-        "logLevel": "debug"
+        "logLevel": "debug",
+        "headers": {
+            "Connection": "keep-alive"
+        },
+        "pathRewrite": {
+            "^/api": "/api"
+        }
     }
 }

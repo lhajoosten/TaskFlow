@@ -46,7 +46,8 @@ export class AuthService {
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
-            }
+            },
+            withCredentials: true  // Add this for cookies if needed
         }).pipe(
             tap(response => {
                 console.log('🔑 Login response:', response);
