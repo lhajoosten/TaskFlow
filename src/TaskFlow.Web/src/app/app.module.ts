@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule, HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -13,6 +13,7 @@ import { MainContentComponent } from './layouts/main-content/main-content.compon
 import { FeaturesModule } from './features/features.module';
 import { AuthModule } from './auth/auth.module';
 import { LoggerService } from './core/services/logger.service';
+import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -33,8 +34,17 @@ import { LoggerService } from './core/services/logger.service';
   ],
   providers: [
     {
+      provide: HttpClient,
+      useClass: HttpClient
+    },
+    {
       provide: HTTP_INTERCEPTORS,
       useClass: LoggerService,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
       multi: true
     }
   ],

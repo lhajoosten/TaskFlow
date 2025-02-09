@@ -1,8 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { MaterialModule } from '../../material.module';
+import { AuthService } from '../../core/services/auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-registration',
@@ -20,8 +22,14 @@ import { MaterialModule } from '../../material.module';
 export class RegistrationComponent implements OnInit {
   registrationForm!: FormGroup;
   hidePassword = true;
+  isLoading = false;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router,
+    private snackBar: MatSnackBar
+  ) { }
 
   ngOnInit(): void {
     this.registrationForm = this.fb.group({
@@ -48,8 +56,26 @@ export class RegistrationComponent implements OnInit {
 
   onSubmit(): void {
     if (this.registrationForm.valid) {
-      // TODO: Implement registration logic
-      console.log('Form submitted:', this.registrationForm.value);
+      this.isLoading = true;
+      const { firstName, lastName, email, password } = this.registrationForm.value;
+
+      this.authService.register({ firstName, lastName, email, password }).subscribe({
+        next: (response) => {
+          this.snackBar.open('Registration successful! Please check your email to verify your account.', 'Close', {
+            duration: 5000
+          });
+          this.router.navigate(['/auth/login']);
+        },
+        error: (error) => {
+          this.snackBar.open(error.error.message || 'Registration failed. Please try again.', 'Close', {
+            duration: 5000
+          });
+          this.isLoading = false;
+        },
+        complete: () => {
+          this.isLoading = false;
+        }
+      });
     }
   }
 }
