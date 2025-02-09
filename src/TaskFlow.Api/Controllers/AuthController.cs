@@ -64,7 +64,7 @@ namespace TaskFlow.Api.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
-            var response = await _identityService.LoginUserAsync(request.Email, request.Password);
+            var response = await _identityService.LoginUserAsync(request.Email, request.Password, request.RememberMe);
 
             if (!string.IsNullOrEmpty(response.ErrorMessage))
                 return Unauthorized(new { message = response.ErrorMessage });
@@ -78,7 +78,7 @@ namespace TaskFlow.Api.Controllers
         [HttpPost("refresh-token")]
         public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenRequest request)
         {
-            var response = await _identityService.RefreshTokenAsync(request.RefreshToken);
+            var response = await _identityService.RefreshTokenAsync(request.RefreshToken, request.RememberMe);
             if (!string.IsNullOrEmpty(response.ErrorMessage))
                 return Unauthorized(new { message = response.ErrorMessage });
 

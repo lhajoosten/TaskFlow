@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from '../../material.module';
 import { AuthService } from '../../core/services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -17,26 +18,29 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     RouterModule
   ],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrl: './login.component.scss'
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   loginForm!: FormGroup;
   hidePassword = true;
   isLoading = false;
+  private subscription?: Subscription;
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService,
+    protected authService: AuthService,
     private router: Router,
     private snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
-    // Redirect if already logged in
-    if (this.authService.isTokenValid()) {
-      this.router.navigate(['/dashboard']);
-    }
+    // Check auth state immediately and redirect if already logged in
+    this.subscription = this.authService.authState$.subscribe(user => {
+      if (user) {
+        this.router.navigate(['/dashboard'], { replaceUrl: true });
+      }
+    });
+
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
@@ -44,34 +48,34 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
+  }
+
   onSubmit(): void {
-    if (this.loginForm.valid) {
+    if (this.loginForm.valid && !this.isLoading) {
       this.isLoading = true;
-      const { email, password } = this.loginForm.value;
+      const { email, password, rememberMe } = this.loginForm.value;
 
-      console.log('📤 Attempting login with:', { email });
-
-      this.authService.login(email, password).subscribe({
-        next: (response) => {
-          console.log('✅ Login response:', response);
+      this.authService.login(email, password, rememberMe).subscribe({
+        next: async (response) => {
           if (response.token) {
             this.snackBar.open('Login successful!', 'Close', {
               duration: 3000
             });
-            this.router.navigate(['/dashboard'], { replaceUrl: true });
+            await this.router.navigate(['/dashboard'], {
+              replaceUrl: true,
+              onSameUrlNavigation: 'reload'
+            });
+            this.isLoading = false;
           }
         },
         error: (error) => {
-          console.error('❌ Login error:', error);
+          this.isLoading = false;
           const message = error.error?.message || 'Login failed. Please try again.';
           this.snackBar.open(message, 'Close', {
             duration: 5000
           });
-          this.isLoading = false;
-        },
-        complete: () => {
-          console.log('✨ Login request completed');
-          this.isLoading = false;
         }
       });
     }

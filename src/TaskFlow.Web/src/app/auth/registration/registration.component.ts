@@ -17,7 +17,6 @@ import { CommonModule } from '@angular/common';
   ],
   templateUrl: './registration.component.html',
   styleUrl: './registration.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RegistrationComponent implements OnInit {
   registrationForm!: FormGroup;

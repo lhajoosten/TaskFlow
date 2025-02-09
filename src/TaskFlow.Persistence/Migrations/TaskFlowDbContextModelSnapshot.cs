@@ -7,7 +7,7 @@ using TaskFlow.Persistence.Persistence;
 
 #nullable disable
 
-namespace TaskFlow.Infrastructure.Migrations
+namespace TaskFlow.Persistence.Migrations
 {
     [DbContext(typeof(TaskFlowDbContext))]
     partial class TaskFlowDbContextModelSnapshot : ModelSnapshot

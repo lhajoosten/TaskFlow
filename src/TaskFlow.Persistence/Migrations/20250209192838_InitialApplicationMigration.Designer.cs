@@ -8,10 +8,10 @@ using TaskFlow.Persistence.Persistence;
 
 #nullable disable
 
-namespace TaskFlow.Infrastructure.Migrations
+namespace TaskFlow.Persistence.Migrations
 {
     [DbContext(typeof(TaskFlowDbContext))]
-    [Migration("20250202155943_InitialApplicationMigration")]
+    [Migration("20250209192838_InitialApplicationMigration")]
     partial class InitialApplicationMigration
     {
         /// <inheritdoc />

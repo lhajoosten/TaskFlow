@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace TaskFlow.Infrastructure.Migrations
+namespace TaskFlow.Persistence.Migrations
 {
     /// <inheritdoc />
     public partial class InitialApplicationMigration : Migration

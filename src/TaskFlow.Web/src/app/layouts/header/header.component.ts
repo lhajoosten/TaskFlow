@@ -1,18 +1,21 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
+import { Subscription } from 'rxjs';
+import { AuthenticatedUser } from '../../core/models/auth.models';
 
 @Component({
     selector: 'app-header',
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss'],
-    standalone: false,
+    standalone: false
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
     @Output() menuClick = new EventEmitter<void>();
+
     isAuthenticated = false;
-    userName: string = '';
-    userProfilePic?: string = '';
+    currentUser: AuthenticatedUser | null = null;
+    private authSubscription?: Subscription;
 
     constructor(
         private authService: AuthService,
@@ -20,15 +23,17 @@ export class HeaderComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.authService.authState$.subscribe(
+        // Subscribe to auth state changes
+        this.authSubscription = this.authService.authState$.subscribe(
             (user) => {
                 this.isAuthenticated = !!user;
-                if (user) {
-                    this.userName = user.displayName || user.email;
-                    this.userProfilePic = user.photoURL;
-                }
+                this.currentUser = user;
             }
         );
+    }
+
+    ngOnDestroy() {
+        this.authSubscription?.unsubscribe();
     }
 
     toggleSidenav() {
@@ -36,7 +41,23 @@ export class HeaderComponent implements OnInit {
     }
 
     async logout() {
-        await this.authService.logout();
-        this.router.navigate(['/auth/login']);
+        try {
+            await this.authService.logout().toPromise();
+            await this.router.navigate(['/auth/login']);
+        } catch (error) {
+            console.error('Logout failed', error);
+        }
+    }
+
+    navigateToProfile() {
+        this.router.navigate(['/profile']);
+    }
+
+    navigateToSettings() {
+        this.router.navigate(['/settings']);
+    }
+
+    navigateToHelp() {
+        this.router.navigate(['/help']);
     }
 }

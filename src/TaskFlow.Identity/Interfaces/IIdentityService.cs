@@ -12,7 +12,7 @@ namespace TaskFlow.Identity.Interfaces
         /// <summary>
         /// 🔐 Logs in a user and returns a JWT access token and refresh token.
         /// </summary>
-        Task<AuthResponse> LoginUserAsync(string email, string password);
+        Task<AuthResponse> LoginUserAsync(string email, string password, bool rememberMe);
 
         /// <summary>
         /// 🚪 Logs out a user by invalidating their refresh token.
@@ -37,6 +37,6 @@ namespace TaskFlow.Identity.Interfaces
         /// <summary>
         /// 🔄 Generates a new JWT access token using a refresh token.
         /// </summary>
-        Task<AuthResponse> RefreshTokenAsync(string token);
+        Task<AuthResponse> RefreshTokenAsync(string token, bool rememberMe);
     }
 }

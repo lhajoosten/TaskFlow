@@ -48,23 +48,6 @@
       background-color: rgba(255, 255, 255, 0.1);
     }
 
-    .profile-pic {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      margin-right: 8px;
-      border: 2px solid rgba(255, 255, 255, 0.7);
-      transition: all 0.2s ease;
-      vertical-align: middle;
-      object-fit: cover;
-      display: inline-flex;
-      align-self: center;
-
-      &:hover {
-        transform: scale(1.1);
-      }
-    }
-
     .user-name {
       margin: 0 8px;
       font-weight: 500;
@@ -77,30 +60,37 @@
       align-items: center;
     }
   }
+
+  .user-button {
+    height: 48px; // Match toolbar height
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .avatar-small {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .username {
+      max-width: 150px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    mat-icon {
+      margin-left: 4px;
+      // Remove any custom display or alignment properties
+    }
+  }
 }
 
 .toolbar-spacer {
   flex: 1 1 auto;
-}
-
-.user-profile-button {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-
-  .profile-pic {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    object-fit: cover;
-  }
-
-  .user-name {
-    max-width: 150px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
 }
 
 ::ng-deep .mat-menu-content {
@@ -114,11 +104,77 @@
   transition: all 0.2s ease;
 
   mat-icon {
-    margin-right: 8px;
+    margin-right: 4px;
   }
 
   &:hover {
     background-color: rgba(0, 0, 0, 0.04);
     transform: translateX(4px);
+  }
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.logo {
+  margin-left: 16px;
+  font-size: 1.5em;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.user-menu-header {
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 250px;
+
+  .avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+  }
+
+  .user-info {
+    display: flex;
+    flex-direction: column;
+
+    strong {
+      font-size: 14px;
+    }
+
+    small {
+      color: rgba(0, 0, 0, 0.6);
+    }
+  }
+}
+
+.profile-pic {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  margin-right: 8px;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  transition: all 0.2s ease;
+  vertical-align: middle;
+  object-fit: cover;
+  display: inline-flex;
+  align-self: center;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+:host ::ng-deep {
+  .mat-mdc-menu-item.user-menu-header {
+    height: auto;
+    cursor: default;
+
+    &:hover {
+      background: none;
+    }
   }
 }

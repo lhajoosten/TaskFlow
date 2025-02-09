@@ -5,22 +5,40 @@
     <span class="app-title">TaskFlow</span>
     <span class="toolbar-spacer"></span>
 
+    <ng-container *ngIf="!isAuthenticated">
+        <button mat-button [routerLink]="['/auth/login']">Login</button>
+        <button mat-raised-button color="accent" [routerLink]="['/auth/register']">Sign Up</button>
+    </ng-container>
+
     <ng-container *ngIf="isAuthenticated">
-        <button mat-button [matMenuTriggerFor]="userMenu" class="user-profile-button">
-            <img [src]="userProfilePic || 'assets/avatar-banner.jpg'" class="profile-pic" alt="Profile picture"
-                loading="lazy">
-            <span class="user-name">lhajoosten&#64;outlook.com</span>
-            <mat-icon>arrow_drop_down</mat-icon>
+        <button mat-icon-button aria-label="Show notifications">
+            <mat-icon matBadge="21" matBadgeColor="warn" aria-hidden="false"
+                [attr.aria-label]="'You have 21 notifications'">
+                notifications
+            </mat-icon>
         </button>
 
-        <mat-menu #userMenu="matMenu" class="user-menu">
-            <button mat-menu-item routerLink="/profile">
-                <mat-icon>person</mat-icon>
+        <mat-menu #userMenu="matMenu">
+            <div class="user-menu-header" mat-menu-item disabled>
+                <img [src]="currentUser?.photoURL || '../../../assets/images/avatar-banner.jpg'" class="avatar"
+                    alt="Profile picture">
+                <div class="user-info">
+                    <strong>{{ currentUser?.name }}</strong>
+                    <small>{{ currentUser?.email }}</small>
+                </div>
+            </div>
+            <mat-divider></mat-divider>
+            <button mat-menu-item (click)="navigateToProfile()">
+                <mat-icon>account_circle</mat-icon>
                 <span>My Profile</span>
             </button>
-            <button mat-menu-item routerLink="/settings">
+            <button mat-menu-item (click)="navigateToSettings()">
                 <mat-icon>settings</mat-icon>
                 <span>Settings</span>
+            </button>
+            <button mat-menu-item (click)="navigateToHelp()">
+                <mat-icon>help</mat-icon>
+                <span>Help & Support</span>
             </button>
             <mat-divider></mat-divider>
             <button mat-menu-item (click)="logout()">
@@ -28,5 +46,12 @@
                 <span>Logout</span>
             </button>
         </mat-menu>
+
+        <button mat-button [matMenuTriggerFor]="userMenu" class="user-button">
+            <img [src]="currentUser?.photoURL || '../../../assets/images/avatar-banner.jpg'" class="profile-pic"
+                alt="Profile picture">
+            <span class="username">{{ currentUser?.email }}</span>
+            <mat-icon>arrow_drop_down</mat-icon>
+        </button>
     </ng-container>
 </mat-toolbar>

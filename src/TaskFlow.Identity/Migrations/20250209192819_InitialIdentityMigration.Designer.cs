@@ -12,7 +12,7 @@ using TaskFlow.Identity;
 namespace TaskFlow.Identity.Migrations
 {
     [DbContext(typeof(IdentityDbContext))]
-    [Migration("20250202155951_InitialIdentityMigration")]
+    [Migration("20250209192819_InitialIdentityMigration")]
     partial class InitialIdentityMigration
     {
         /// <inheritdoc />

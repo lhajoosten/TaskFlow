@@ -1,5 +1,4 @@
-<!-- <ng-container *ngIf="authService.isAuthenticated() | async; else authLayout"> -->
-<ng-container *ngIf="false; else authLayout">
+<ng-container *ngIf="authService.isAuthenticated() | async; else authLayout">
   <div class="app-container">
     <app-header (menuClick)="sidenav.toggle()"></app-header>
     <mat-sidenav-container class="sidenav-container">

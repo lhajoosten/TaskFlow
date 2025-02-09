@@ -30,11 +30,15 @@
                     <a mat-button color="primary" routerLink="/auth/forgot-password">Forgot Password?</a>
                 </div>
 
-                <div class="form-actions">
-                    <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid || isLoading">
+                <div class="form-actions full-width">
+                    <button mat-raised-button color="primary" type="submit" class="full-width"
+                        [disabled]="loginForm.invalid || isLoading">
                         <mat-spinner diameter="20" *ngIf="isLoading"></mat-spinner>
                         <span *ngIf="!isLoading">Sign In</span>
                     </button>
+                </div>
+                <div class="register-link">
+                    Don't have an account? <a mat-button color="primary" routerLink="/auth/register">Sign Up</a>
                 </div>
             </form>
         </mat-card-content>

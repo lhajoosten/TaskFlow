@@ -15,7 +15,6 @@ import { MaterialModule } from '../../material.module';
     ],
     templateUrl: './reset-password.component.html',
     styleUrl: './reset-password.component.scss',
-    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ResetPasswordComponent implements OnInit {
     resetForm!: FormGroup;

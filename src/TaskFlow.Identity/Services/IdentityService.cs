@@ -64,7 +64,7 @@ namespace TaskFlow.Identity.Services
         /// <summary>
         /// 🔐 User Login (JWT)
         /// </summary>
-        public async Task<AuthResponse> LoginUserAsync(string email, string password)
+        public async Task<AuthResponse> LoginUserAsync(string email, string password, bool rememberMe)
         {
             var user = await _userManager.FindByEmailAsync(email);
             if (user == null)
@@ -87,19 +87,29 @@ namespace TaskFlow.Identity.Services
             if (!result.Succeeded)
                 return new AuthResponse { Token = "", RefreshToken = "", ErrorMessage = "Invalid credentials." };
 
+            // Set different expiration times based on rememberMe
+            var tokenExpirationMinutes = rememberMe ?
+                _jwtSettings.ExtendedExpirationInMinutes :
+                _jwtSettings.StandardExpirationInMinutes;
+
+            var refreshTokenExpiryDays = rememberMe ? 30 : 7;
+
             // ✅ Generate JWT & Refresh Token after successful login
-            var token = GenerateJwtToken(user);
+            var token = GenerateJwtToken(user, tokenExpirationMinutes);
             var refreshToken = GenerateRefreshToken();
+            var refreshTokenExpiry = DateTime.UtcNow.AddDays(refreshTokenExpiryDays);
 
             user.RefreshToken = refreshToken;
-            user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7);
+            user.RefreshTokenExpiryTime = refreshTokenExpiry;
             await _userManager.UpdateAsync(user);
 
             return new AuthResponse
             {
                 Token = token,
                 RefreshToken = refreshToken,
-                ErrorMessage = null!
+                TokenExpiration = DateTime.UtcNow.AddMinutes(tokenExpirationMinutes),
+                RefreshTokenExpiration = refreshTokenExpiry,
+                Success = true
             };
         }
 
@@ -200,7 +210,7 @@ namespace TaskFlow.Identity.Services
         /// <summary>
         /// 🔄 Refresh Token System
         /// </summary>
-        public async Task<AuthResponse> RefreshTokenAsync(string token)
+        public async Task<AuthResponse> RefreshTokenAsync(string token, bool rememberMe)
         {
             var user = await _userManager.Users.FirstOrDefaultAsync(u => u.RefreshToken == token);
             if (user == null || user.RefreshTokenExpiryTime <= DateTime.UtcNow)
@@ -210,13 +220,22 @@ namespace TaskFlow.Identity.Services
                 return new AuthResponse { ErrorMessage = "Invalid or expired refresh token." };
             }
 
+            // Set different expiration times based on rememberMe
+            var tokenExpirationMinutes = rememberMe ?
+                _jwtSettings.ExtendedExpirationInMinutes :
+                _jwtSettings.StandardExpirationInMinutes;
+
+            var refreshTokenExpiryDays = rememberMe ? 30 : 7;
+
             // ✅ Generate a new JWT token
-            var newToken = GenerateJwtToken(user);
+            var newToken = GenerateJwtToken(user, tokenExpirationMinutes);
 
             // ✅ Generate a new refresh token & store it in DB
             var newRefreshToken = GenerateRefreshToken();
+            var refreshTokenExpiry = DateTime.UtcNow.AddDays(refreshTokenExpiryDays);
+
             user.RefreshToken = newRefreshToken;
-            user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7);
+            user.RefreshTokenExpiryTime = refreshTokenExpiry;
             await _userManager.UpdateAsync(user);
 
             return new AuthResponse
@@ -229,13 +248,13 @@ namespace TaskFlow.Identity.Services
         /// <summary>
         /// 🔑 Generate JWT Token
         /// </summary>
-        private string GenerateJwtToken(ApplicationUser user)
+        private string GenerateJwtToken(ApplicationUser user, int expirationMinutes)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.UTF8.GetBytes(_jwtSettings.Secret);
-            var issuedAt = DateTime.UtcNow;
+            var issuedAt = DateTime.Now;
             var notBefore = issuedAt;
-            var expiresAt = issuedAt.AddMinutes(_jwtSettings.ExpirationInMinutes);
+            var expiresAt = issuedAt.AddMinutes(expirationMinutes);
 
             Console.WriteLine($"🔐 JWT Signing Key Used (Token Generation): {_jwtSettings.Secret}");
 
