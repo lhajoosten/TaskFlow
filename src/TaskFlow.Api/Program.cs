@@ -11,6 +11,12 @@ namespace TaskFlow.Api
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            if (builder.Environment.IsDevelopment())
+            {
+                builder.WebHost.ConfigureKestrel(options => options.ListenAnyIP(5000));
+            }
+
             var configuration = builder.Configuration;
             var services = builder.Services;
 
@@ -76,7 +82,7 @@ namespace TaskFlow.Api
             // Use the CORS policy
             app.UseCors(options =>
             {
-                options.WithOrigins("http://localhost:4200");
+                options.WithOrigins(["http://localhost:4200", "http://127.0.0.1:4200"]);
                 options.AllowAnyMethod();
                 options.AllowAnyHeader();
                 options.AllowCredentials();

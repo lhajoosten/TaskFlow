@@ -6,7 +6,6 @@ services:
       dockerfile: ./src/TaskFlow.Api/Dockerfile
     ports:
       - "5000:5000"
-      - "5001:5001"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__DefaultConnection=Server=localhost;Database=TaskFlow-dev;User Id=sa;Password=YourStrong!Passw0rd;MultipleActiveResultSets=true;TrustServerCertificate=True;
@@ -14,7 +13,7 @@ services:
       - db
     networks:
       - taskflow-network
-
+   
   frontend:
     container_name: taskflow-web
     build:

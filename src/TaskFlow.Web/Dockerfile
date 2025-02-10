@@ -14,7 +14,7 @@ RUN npm ci
 COPY . .
 
 # Build the Angular app
-RUN npm run build --prod
+RUN npm run build --omit=dev
 
 # Stage 2: Serve the Angular app with Nginx
 FROM nginx:alpine
