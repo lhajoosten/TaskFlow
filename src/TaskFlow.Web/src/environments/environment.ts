@@ -1,14 +1,14 @@
 export const environment = {
     production: false,
-    apiUrl: 'https://localhost:7228',
+    apiUrl: 'https://localhost:7443/api',
     authEndpoints: {
-        register: '/api/auth/register',
-        login: '/api/auth/login',
-        logout: '/api/auth/logout',
-        refreshToken: '/api/auth/refresh-token',
-        confirmEmail: '/api/auth/confirm-email',
-        forgotPassword: '/api/auth/forgot-password',
-        resetPassword: '/api/auth/reset-password'
+        register: '/auth/register',
+        login: '/auth/login',
+        logout: '/auth/logout',
+        refreshToken: '/auth/refresh-token',
+        confirmEmail: '/auth/confirm-email',
+        forgotPassword: '/auth/forgot-password',
+        resetPassword: '/auth/reset-password'
     },
     // Logging configuration
     logLevel: 'debug',

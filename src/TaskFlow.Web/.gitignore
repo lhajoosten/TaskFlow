@@ -40,3 +40,13 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Scripts
+*.sh
+*.ps1
+
+# SSL Certificates
+**/.angular-certs/
+*.crt
+*.key
+*.pfx

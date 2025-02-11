@@ -3,6 +3,7 @@ using TaskFlow.Application.Common.Configurations;
 using TaskFlow.Identity.Configurations;
 using TaskFlow.Persistence.Configurations;
 using TaskFlow.Mailing.Configurations;
+using Microsoft.AspNetCore.Http;
 
 namespace TaskFlow.Api
 {
@@ -11,16 +12,9 @@ namespace TaskFlow.Api
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
-            if (builder.Environment.IsDevelopment())
-            {
-                builder.WebHost.ConfigureKestrel(options => options.ListenAnyIP(5000));
-            }
-
             var configuration = builder.Configuration;
             var services = builder.Services;
 
-            // In your API's Program.cs
             builder.WebHost.ConfigureKestrel(serverOptions =>
             {
                 serverOptions.ConfigureHttpsDefaults(configureOptions =>
@@ -77,6 +71,12 @@ namespace TaskFlow.Api
                 c.AddServer(new OpenApiServer { Url = "https://localhost:7228" });
             });
 
+            builder.Services.AddHttpsRedirection(options =>
+            {
+                options.RedirectStatusCode = StatusCodes.Status308PermanentRedirect;
+                options.HttpsPort = 7443; // or your preferred HTTPS port
+            });
+
             var app = builder.Build();
 
             // Use the CORS policy
@@ -97,6 +97,12 @@ namespace TaskFlow.Api
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "TaskFlow API v1");
                     c.RoutePrefix = "swagger";
                 });
+            }
+
+            // Configure middleware pipeline
+            if (!app.Environment.IsDevelopment())
+            {
+                app.UseHsts();
             }
 
             // Use Https Redirection to enforce HTTPS

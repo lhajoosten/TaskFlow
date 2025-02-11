@@ -19,6 +19,9 @@ RUN npm run build --omit=dev
 # Stage 2: Serve the Angular app with Nginx
 FROM nginx:alpine
 
+# Create directory for certificates
+RUN mkdir -p /etc/nginx/certs
+
 # Set working directory for Nginx
 WORKDIR /usr/share/nginx/html
 
@@ -28,8 +31,9 @@ COPY --from=build /app/dist/task-flow.web/browser .
 # Copy custom Nginx configuration
 COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
 
-# Expose port 80
+# Expose port 80 and 443
 EXPOSE 80
+EXPOSE 443
 
 # Start Nginx server
 CMD ["nginx", "-g", "daemon off;"]

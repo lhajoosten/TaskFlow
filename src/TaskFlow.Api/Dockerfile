@@ -1,7 +1,11 @@
 ﻿# Use official .NET runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
 WORKDIR /app
-EXPOSE 5000
+EXPOSE 7000
+EXPOSE 7443
+
+# Create directory for the certificate
+RUN mkdir -p /https/ && chown -R 1000:1000 /https/
 
 # Build Stage
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
@@ -32,5 +36,5 @@ RUN dotnet publish TaskFlow.Api/TaskFlow.Api.csproj -c Release -o /app/publish /
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENV ASPNETCORE_URLS=http://+:5000
+ENV ASPNETCORE_URLS=http://+:7000;https://+:7443
 ENTRYPOINT ["dotnet", "TaskFlow.Api.dll"]

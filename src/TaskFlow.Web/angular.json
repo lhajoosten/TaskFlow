@@ -82,6 +82,10 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
+            "ssl": true,
+            "sslCert": "./.angular-certs/localhost.crt",
+            "sslKey": "./.angular-certs/localhost.key",
+            "port": 4443,
             "proxyConfig": "src/proxy.conf.json"
           },
           "configurations": {
