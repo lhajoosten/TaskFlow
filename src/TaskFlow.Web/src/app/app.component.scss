@@ -51,8 +51,63 @@
   }
 }
 
-.content {
-  margin-top: 80px;
+.layout-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+
+  .header-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    height: 64px;
+  }
+
+  mat-sidenav-container {
+    flex: 1;
+    margin-top: 64px; // Height of header
+
+    mat-sidenav {
+      width: 360px;
+      overflow: hidden;
+    }
+
+    // Add this to handle sidenav content scrolling
+    ::ng-deep .mat-drawer-inner-container {
+      overflow: hidden;
+    }
+
+    mat-sidenav-content {
+      overflow: hidden; // Remove default scrollbar
+
+      .main-content {
+        padding: 24px;
+        height: calc(100vh - 64px);
+        overflow-y: auto;
+
+        // Improve scrollbar appearance
+        &::-webkit-scrollbar {
+          width: 8px;
+        }
+
+        &::-webkit-scrollbar-track {
+          background: transparent;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background-color: rgba(0, 0, 0, 0.2);
+          border-radius: 4px;
+
+          &:hover {
+            background-color: rgba(0, 0, 0, 0.3);
+          }
+        }
+      }
+    }
+  }
 }
 
 @media (max-width: 600px) {

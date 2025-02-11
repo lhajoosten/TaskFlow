@@ -18,13 +18,19 @@ export class DashboardComponent implements OnInit {
   upcomingDeadlines = [
     { taskName: 'Frontend Development', date: new Date(Date.now() + 86400000 * 2), progress: 75 },
     { taskName: 'API Integration', date: new Date(Date.now() + 86400000 * 5), progress: 45 },
-    { taskName: 'User Testing', date: new Date(Date.now() + 86400000 * 7), progress: 20 }
+    { taskName: 'User Testing', date: new Date(Date.now() + 86400000 * 7), progress: 20 },
+    { taskName: 'API Integration', date: new Date(Date.now() + 86400000 * 4), progress: 95 },
+    { taskName: 'User Testing', date: new Date(Date.now() + 86400000 * 12), progress: 69 },
+    { taskName: 'Frontend Development', date: new Date(Date.now() + 86400000 * 2), progress: 75 },
+    { taskName: 'Frontend Development', date: new Date(Date.now() + 86400000 * 2), progress: 75 }
   ];
 
   teamWorkload = [
-    { name: 'John Doe', avatar: 'assets/avatars/john.jpg', taskCount: 8, workloadPercentage: 80 },
-    { name: 'Jane Smith', avatar: 'assets/avatars/jane.jpg', taskCount: 5, workloadPercentage: 60 },
-    { name: 'Mike Johnson', avatar: 'assets/avatars/mike.jpg', taskCount: 3, workloadPercentage: 40 }
+    { name: 'John Doe', avatar: 'assets/images/avatar-banner.jpg', taskCount: 8, workloadPercentage: 80 },
+    { name: 'Jane Smith', avatar: 'assets/images/avatar-banner.jpg', taskCount: 5, workloadPercentage: 60 },
+    { name: 'Mike Johnson', avatar: 'assets/images/avatar-banner.jpg', taskCount: 3, workloadPercentage: 40 },
+    { name: 'Jane Smith', avatar: 'assets/images/avatar-banner.jpg', taskCount: 5, workloadPercentage: 60 },
+    { name: 'Mike Johnson', avatar: 'assets/images/avatar-banner.jpg', taskCount: 3, workloadPercentage: 40 }
   ];
 
   constructor() { }

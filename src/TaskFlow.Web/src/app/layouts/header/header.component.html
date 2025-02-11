@@ -1,57 +1,157 @@
-<mat-toolbar color="primary" class="toolbar">
-    <button mat-icon-button class="menu-button" (click)="toggleSidenav()">
-        <mat-icon>menu</mat-icon>
-    </button>
-    <span class="app-title">TaskFlow</span>
-    <span class="toolbar-spacer"></span>
+<mat-toolbar class="header">
+    <div class="header-left">
+        <div class="brand">
+            <div class="brand-text" style="display: flex; flex-direction: column; align-items: center;">
+                <span class="brand-name" style="font-size: x-large;">TaskFlow</span>
+                <span class="brand-subtitle" style="font-size: smaller;">Task Management & Workflow Automation</span>
+            </div>
+        </div>
+        <div class="quick-actions">
+            <button mat-icon-button matTooltip="New Task" (click)="openQuickTaskDialog()">
+                <mat-icon>add_task</mat-icon>
+            </button>
+            <button mat-icon-button matTooltip="Quick Meeting" (click)="openQuickMeetingDialog()">
+                <mat-icon>meeting_room</mat-icon>
+            </button>
+        </div>
+    </div>
 
-    <ng-container *ngIf="!isAuthenticated">
-        <button mat-button [routerLink]="['/auth/login']">Login</button>
-        <button mat-raised-button color="accent" [routerLink]="['/auth/register']">Sign Up</button>
-    </ng-container>
+    <div class="header-center">
+        <mat-form-field appearance="outline" class="search-field">
+            <mat-icon matPrefix>search</mat-icon>
+            <input matInput placeholder="Search tasks, projects, or team members..." [matAutocomplete]="auto">
+            <button mat-icon-button matSuffix matTooltip="Advanced Search" (click)="openAdvancedSearch()">
+                <mat-icon>tune</mat-icon>
+            </button>
+        </mat-form-field>
+        <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let result of searchResults" [value]="result.title">
+                <mat-icon>{{result.icon}}</mat-icon>
+                <span>{{result.title}}</span>
+                <small>{{result.category}}</small>
+            </mat-option>
+        </mat-autocomplete>
+    </div>
 
-    <ng-container *ngIf="isAuthenticated">
-        <button mat-icon-button aria-label="Show notifications">
-            <mat-icon matBadge="21" matBadgeColor="warn" aria-hidden="false"
-                [attr.aria-label]="'You have 21 notifications'">
-                notifications
-            </mat-icon>
+    <div class="header-right">
+        <div class="quick-stats">
+            <div class="stat-item" matTooltip="Tasks Due Today">
+                <mat-icon [class.warning]="dueTodayCount > 5">assignment_late</mat-icon>
+                <span>{{dueTodayCount}}</span>
+            </div>
+            <div class="stat-item" matTooltip="Active Projects">
+                <mat-icon>folder_special</mat-icon>
+                <span>{{activeProjectsCount}}</span>
+            </div>
+        </div>
+
+        <button mat-icon-button [matMenuTriggerFor]="notificationsMenu" class="notification-btn"
+            matTooltip="Notifications">
+            <mat-icon [matBadge]="notificationCount" [matBadgeHidden]="notificationCount === 0"
+                matBadgeColor="warn">notifications</mat-icon>
         </button>
 
-        <mat-menu #userMenu="matMenu">
-            <div class="user-menu-header" mat-menu-item disabled>
-                <img [src]="currentUser?.photoURL || '../../../assets/images/avatar-banner.jpg'" class="avatar"
-                    alt="Profile picture">
-                <div class="user-info">
-                    <strong>{{ currentUser?.name }}</strong>
-                    <small>{{ currentUser?.email }}</small>
-                </div>
-            </div>
-            <mat-divider></mat-divider>
-            <button mat-menu-item (click)="navigateToProfile()">
-                <mat-icon>account_circle</mat-icon>
-                <span>My Profile</span>
-            </button>
-            <button mat-menu-item (click)="navigateToSettings()">
-                <mat-icon>settings</mat-icon>
-                <span>Settings</span>
-            </button>
-            <button mat-menu-item (click)="navigateToHelp()">
-                <mat-icon>help</mat-icon>
-                <span>Help & Support</span>
-            </button>
-            <mat-divider></mat-divider>
-            <button mat-menu-item (click)="logout()">
-                <mat-icon>exit_to_app</mat-icon>
-                <span>Logout</span>
-            </button>
-        </mat-menu>
+        <button mat-icon-button class="theme-toggle" (click)="toggleTheme()"
+            [matTooltip]="isDarkTheme ? 'Switch to Light Mode' : 'Switch to Dark Mode'">
+            <mat-icon>{{ isDarkTheme ? 'light_mode' : 'dark_mode' }}</mat-icon>
+        </button>
 
-        <button mat-button [matMenuTriggerFor]="userMenu" class="user-button">
-            <img [src]="currentUser?.photoURL || '../../../assets/images/avatar-banner.jpg'" class="profile-pic"
-                alt="Profile picture">
-            <span class="username">{{ currentUser?.email }}</span>
+        <button mat-button [matMenuTriggerFor]="profileMenu" class="profile-btn">
+            <div class="user-info">
+                <img [src]="userAvatar" alt="Profile" class="avatar" [class.online]="userStatus === 'online'">
+                <span class="user-name">{{ userName }}</span>
+                <span class="user-role">{{ userRole }}</span>
+            </div>
             <mat-icon>arrow_drop_down</mat-icon>
         </button>
-    </ng-container>
+    </div>
 </mat-toolbar>
+
+<mat-menu #notificationsMenu="matMenu" class="notifications-menu">
+    <div class="notifications-header">
+        <h3>Notifications</h3>
+        <div class="notification-actions">
+            <button mat-icon-button matTooltip="Filter Notifications" [matMenuTriggerFor]="filterMenu">
+                <mat-icon>filter_list</mat-icon>
+            </button>
+            <button mat-button color="primary" (click)="markAllAsRead()">
+                Mark all as read
+            </button>
+        </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="notifications-list" *ngIf="notifications.length; else noNotifications">
+        <button mat-menu-item *ngFor="let notification of notifications" [class.unread]="!notification.read"
+            (click)="handleNotification(notification)">
+            <mat-icon [class.unread]="!notification.read">{{ notification.icon }}</mat-icon>
+            <div class="notification-content">
+                <span class="notification-message">{{ notification.message }}</span>
+                <span class="notification-time">{{ notification.time | timeAgo }}</span>
+            </div>
+            <button mat-icon-button class="notification-action"
+                (click)="$event.stopPropagation(); markAsRead(notification)">
+                <mat-icon>check</mat-icon>
+            </button>
+        </button>
+    </div>
+    <ng-template #noNotifications>
+        <div class="no-notifications">
+            <mat-icon>notifications_none</mat-icon>
+            <span>No new notifications</span>
+        </div>
+    </ng-template>
+</mat-menu>
+
+<mat-menu #filterMenu="matMenu">
+    <button mat-menu-item *ngFor="let filter of notificationFilters" (click)="filterNotifications(filter.type)">
+        <mat-icon>{{filter.icon}}</mat-icon>
+        <span>{{filter.label}}</span>
+    </button>
+</mat-menu>
+
+<mat-menu #profileMenu="matMenu" class="profile-menu">
+    <div class="profile-header">
+        <img [src]="userAvatar" alt="Profile" class="large-avatar" [class.online]="userStatus === 'online'">
+        <div class="profile-info">
+            <span class="user-name">{{ userName }}</span>
+            <span class="user-email">{{ userEmail }}</span>
+        </div>
+    </div>
+    <mat-divider></mat-divider>
+    <button mat-menu-item routerLink="/profile">
+        <mat-icon>person</mat-icon>
+        <span>My Profile</span>
+    </button>
+    <button mat-menu-item routerLink="/tasks/my-tasks">
+        <mat-icon>assignment</mat-icon>
+        <span>My Tasks</span>
+    </button>
+    <button mat-menu-item routerLink="/calendar">
+        <mat-icon>calendar_today</mat-icon>
+        <span>My Calendar</span>
+    </button>
+    <button mat-menu-item routerLink="/settings">
+        <mat-icon>settings</mat-icon>
+        <span>Settings</span>
+    </button>
+    <mat-divider></mat-divider>
+    <div class="status-selector">
+        <span class="status-label">Status:</span>
+        <mat-button-toggle-group [(ngModel)]="userStatus">
+            <mat-button-toggle value="online">
+                <span class="status-dot online"></span>Online
+            </mat-button-toggle>
+            <mat-button-toggle value="busy">
+                <span class="status-dot busy"></span>Busy
+            </mat-button-toggle>
+            <mat-button-toggle value="away">
+                <span class="status-dot away"></span>Away
+            </mat-button-toggle>
+        </mat-button-toggle-group>
+    </div>
+    <mat-divider></mat-divider>
+    <button mat-menu-item (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        <span>Logout</span>
+    </button>
+</mat-menu>

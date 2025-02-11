@@ -1,18 +1,157 @@
-<mat-nav-list>
-    <a mat-list-item routerLink="/dashboard">
-        <mat-icon matListItemIcon>dashboard</mat-icon>
-        <span matListItemTitle>Dashboard</span>
-    </a>
-    <a mat-list-item routerLink="/tasks">
-        <mat-icon matListItemIcon>task</mat-icon>
-        <span matListItemTitle>Tasks</span>
-    </a>
-    <a mat-list-item routerLink="/calendar">
-        <mat-icon matListItemIcon>calendar_today</mat-icon>
-        <span matListItemTitle>Calendar</span>
-    </a>
-    <a mat-list-item routerLink="/settings">
-        <mat-icon matListItemIcon>settings</mat-icon>
-        <span matListItemTitle>Settings</span>
-    </a>
-</mat-nav-list>
+<div class="sidebar-container">
+    <div class="sidebar-content">
+        <mat-nav-list class="sidebar-list">
+            <!-- Dashboard -->
+            <a mat-list-item routerLink="/dashboard" routerLinkActive="active">
+                <mat-icon matListItemIcon>dashboard</mat-icon>
+                <span matListItemTitle>Dashboard</span>
+            </a>
+
+            <!-- Tasks Section -->
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <mat-icon>task</mat-icon>
+                        <span>Tasks</span>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <mat-nav-list dense>
+                    <a mat-list-item routerLink="/tasks/all" routerLinkActive="active">
+                        <mat-icon matListItemIcon>list</mat-icon>
+                        <span matListItemTitle>All Tasks</span>
+                    </a>
+                    <a mat-list-item routerLink="/tasks/my-tasks" routerLinkActive="active">
+                        <mat-icon matListItemIcon>person</mat-icon>
+                        <span matListItemTitle>My Tasks</span>
+                    </a>
+                    <a mat-list-item routerLink="/tasks/assigned" routerLinkActive="active">
+                        <mat-icon matListItemIcon>group</mat-icon>
+                        <span matListItemTitle>Assigned to Me</span>
+                    </a>
+                    <a mat-list-item routerLink="/tasks/archived" routerLinkActive="active">
+                        <mat-icon matListItemIcon>archive</mat-icon>
+                        <span matListItemTitle>Archived</span>
+                    </a>
+                </mat-nav-list>
+            </mat-expansion-panel>
+
+            <!-- Projects Section -->
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <mat-icon>folder</mat-icon>
+                        <span>Projects</span>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <mat-nav-list dense>
+                    <a mat-list-item routerLink="/projects/overview" routerLinkActive="active">
+                        <mat-icon matListItemIcon>space_dashboard</mat-icon>
+                        <span matListItemTitle>Overview</span>
+                    </a>
+                    <a mat-list-item routerLink="/projects/active" routerLinkActive="active">
+                        <mat-icon matListItemIcon>rocket_launch</mat-icon>
+                        <span matListItemTitle>Active Projects</span>
+                    </a>
+                    <a mat-list-item routerLink="/projects/completed" routerLinkActive="active">
+                        <mat-icon matListItemIcon>task_alt</mat-icon>
+                        <span matListItemTitle>Completed</span>
+                    </a>
+                </mat-nav-list>
+            </mat-expansion-panel>
+
+            <!-- Calendar -->
+            <a mat-list-item routerLink="/calendar" routerLinkActive="active">
+                <mat-icon matListItemIcon>calendar_today</mat-icon>
+                <span matListItemTitle>Calendar</span>
+            </a>
+
+            <!-- Team -->
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <mat-icon>groups</mat-icon>
+                        <span>Team</span>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <mat-nav-list dense>
+                    <a mat-list-item routerLink="/team/members" routerLinkActive="active">
+                        <mat-icon matListItemIcon>people</mat-icon>
+                        <span matListItemTitle>Members</span>
+                    </a>
+                    <a mat-list-item routerLink="/team/workload" routerLinkActive="active">
+                        <mat-icon matListItemIcon>assessment</mat-icon>
+                        <span matListItemTitle>Workload</span>
+                    </a>
+                    <a mat-list-item routerLink="/team/performance" routerLinkActive="active">
+                        <mat-icon matListItemIcon>insights</mat-icon>
+                        <span matListItemTitle>Performance</span>
+                    </a>
+                </mat-nav-list>
+            </mat-expansion-panel>
+
+            <!-- Reports -->
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <mat-icon>bar_chart</mat-icon>
+                        <span>Reports</span>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <mat-nav-list dense>
+                    <a mat-list-item routerLink="/reports/analytics" routerLinkActive="active">
+                        <mat-icon matListItemIcon>analytics</mat-icon>
+                        <span matListItemTitle>Analytics</span>
+                    </a>
+                    <a mat-list-item routerLink="/reports/time-tracking" routerLinkActive="active">
+                        <mat-icon matListItemIcon>timer</mat-icon>
+                        <span matListItemTitle>Time Tracking</span>
+                    </a>
+                    <a mat-list-item routerLink="/reports/export" routerLinkActive="active">
+                        <mat-icon matListItemIcon>download</mat-icon>
+                        <span matListItemTitle>Export</span>
+                    </a>
+                </mat-nav-list>
+            </mat-expansion-panel>
+        </mat-nav-list>
+    </div>
+
+    <div class="sidebar-footer">
+        <mat-divider></mat-divider>
+        <mat-nav-list>
+            <!-- Settings Section -->
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <mat-icon>settings</mat-icon>
+                        <span>Settings</span>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <mat-nav-list dense>
+                    <a mat-list-item routerLink="/settings/profile" routerLinkActive="active">
+                        <mat-icon matListItemIcon>person_outline</mat-icon>
+                        <span matListItemTitle>Profile</span>
+                    </a>
+                    <a mat-list-item routerLink="/settings/preferences" routerLinkActive="active">
+                        <mat-icon matListItemIcon>tune</mat-icon>
+                        <span matListItemTitle>Preferences</span>
+                    </a>
+                    <a mat-list-item routerLink="/settings/notifications" routerLinkActive="active">
+                        <mat-icon matListItemIcon>notifications</mat-icon>
+                        <span matListItemTitle>Notifications</span>
+                    </a>
+                </mat-nav-list>
+            </mat-expansion-panel>
+
+            <!-- Toggle Sidebar Button -->
+            <a mat-list-item (click)="toggleSidenav.emit()" class="toggle-sidebar">
+                <mat-icon matListItemIcon>menu</mat-icon>
+                <span matListItemTitle>Toggle Sidebar</span>
+            </a>
+        </mat-nav-list>
+    </div>
+</div>

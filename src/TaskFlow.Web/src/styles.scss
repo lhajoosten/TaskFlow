@@ -6,19 +6,30 @@
 @include mat.core();
 @include mat.all-component-themes(theme.$theme);
 
-html, body {
+:root {
+  --primary: #1976d2;
+  --primary-light: rgba(25, 118, 210, 0.04);
+  --success: #22c55e;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --text-primary: #1a1f36;
+  --text-secondary: #4b5563;
+  --text-muted: #6b7280;
+  --border-color: #e5e7eb;
+  --background-light: #f8f9fa;
+  --background-lighter: #f3f4f6;
+}
+
+html,
+body {
   height: 100%;
   margin: 0;
+  padding: 0;
+  overflow: hidden;
 }
 
 body {
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
   background-color: mat.get-theme-color(theme.$theme, background, background);
   color: mat.get-theme-color(theme.$theme, foreground, text);
-}
-
-.mat-app-background {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
 }

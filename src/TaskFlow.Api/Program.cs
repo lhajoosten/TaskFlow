@@ -82,7 +82,7 @@ namespace TaskFlow.Api
             // Use the CORS policy
             app.UseCors(options =>
             {
-                options.WithOrigins(["http://localhost:4200", "http://127.0.0.1:4200"]);
+                options.WithOrigins(["https://localhost:4443", "http://localhost:4200"]);
                 options.AllowAnyMethod();
                 options.AllowAnyHeader();
                 options.AllowCredentials();

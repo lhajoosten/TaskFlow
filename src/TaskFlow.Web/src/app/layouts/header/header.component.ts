@@ -1,63 +1,110 @@
-import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService } from '../../core/services/auth.service';
-import { Subscription } from 'rxjs';
-import { AuthenticatedUser } from '../../core/models/auth.models';
+import { Component, EventEmitter, Output, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
     selector: 'app-header',
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss'],
-    standalone: false
+    standalone: false,
+
 })
-export class HeaderComponent implements OnInit, OnDestroy {
-    @Output() menuClick = new EventEmitter<void>();
+export class HeaderComponent implements OnInit {
+    isDarkTheme = false;
+    userName = 'John Doe';
+    userEmail = 'john.doe@taskflow.com';
+    userRole = 'Project Manager';
+    userAvatar = 'assets/images/avatar-banner.jpg';
+    userStatus = 'online';
+    notificationCount = 3;
+    dueTodayCount = 7;
+    activeProjectsCount = 4;
 
-    isAuthenticated = false;
-    currentUser: AuthenticatedUser | null = null;
-    private authSubscription?: Subscription;
+    searchResults = [
+        { icon: 'task', title: 'Update Dashboard', category: 'Task' },
+        { icon: 'folder', title: 'Website Redesign', category: 'Project' },
+        { icon: 'person', title: 'Jane Smith', category: 'Team Member' }
+    ];
 
-    constructor(
-        private authService: AuthService,
-        private router: Router
-    ) { }
+    notifications = [
+        {
+            id: 1,
+            icon: 'task_alt',
+            message: 'Task "Update Dashboard" has been completed',
+            time: new Date(),
+            read: false,
+            type: 'task'
+        },
+        {
+            id: 2,
+            icon: 'assignment',
+            message: 'New task assigned to you',
+            time: new Date(Date.now() - 3600000),
+            read: false,
+            type: 'assignment'
+        },
+        {
+            id: 3,
+            icon: 'schedule',
+            message: 'Meeting reminder: Team Sync at 2:00 PM',
+            time: new Date(Date.now() - 7200000),
+            read: true,
+            type: 'meeting'
+        }
+    ];
+
+    notificationFilters = [
+        { type: 'all', icon: 'all_inbox', label: 'All Notifications' },
+        { type: 'task', icon: 'task', label: 'Tasks' },
+        { type: 'meeting', icon: 'meeting_room', label: 'Meetings' },
+        { type: 'mention', icon: 'alternate_email', label: 'Mentions' }
+    ];
+
+    constructor(private dialog: MatDialog) { }
 
     ngOnInit() {
-        // Subscribe to auth state changes
-        this.authSubscription = this.authService.authState$.subscribe(
-            (user) => {
-                this.isAuthenticated = !!user;
-                this.currentUser = user;
-            }
-        );
+        this.updateNotificationCount();
     }
 
-    ngOnDestroy() {
-        this.authSubscription?.unsubscribe();
+    toggleTheme() {
+        this.isDarkTheme = !this.isDarkTheme;
+        document.body.classList.toggle('dark-theme');
     }
 
-    toggleSidenav() {
-        this.menuClick.emit();
+    openQuickTaskDialog() {
+        // Implement quick task dialog
     }
 
-    async logout() {
-        try {
-            await this.authService.logout().toPromise();
-            await this.router.navigate(['/auth/login']);
-        } catch (error) {
-            console.error('Logout failed', error);
-        }
+    openQuickMeetingDialog() {
+        // Implement quick meeting dialog
     }
 
-    navigateToProfile() {
-        this.router.navigate(['/profile']);
+    openAdvancedSearch() {
+        // Implement advanced search dialog
     }
 
-    navigateToSettings() {
-        this.router.navigate(['/settings']);
+    handleNotification(notification: any) {
+        // Handle notification click
     }
 
-    navigateToHelp() {
-        this.router.navigate(['/help']);
+    markAsRead(notification: any) {
+        notification.read = true;
+        this.updateNotificationCount();
     }
-}
+
+    markAllAsRead() {
+        this.notifications.forEach(n => n.read = true);
+        this.updateNotificationCount();
+    }
+
+    filterNotifications(type: string) {
+        // Implement notification filtering
+    }
+
+    private updateNotificationCount() {
+        this.notificationCount = this.notifications.filter(n => !n.read).length;
+    }
+
+    logout() {
+        // Implement logout logic
+    }
+} 

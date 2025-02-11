@@ -14,6 +14,8 @@ import { FeaturesModule } from './features/features.module';
 import { AuthModule } from './auth/auth.module';
 import { LoggerService } from './core/services/logger.service';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
+import { TimeAgoPipe } from './core/pipes/time-ago.pipe';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -24,13 +26,15 @@ import { AuthInterceptor } from './core/interceptors/auth.interceptor';
   ],
   imports: [
     CommonModule,
+    FormsModule,
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
     MaterialModule,
     FeaturesModule,
-    AuthModule
+    AuthModule,
+    TimeAgoPipe
   ],
   providers: [
     {
