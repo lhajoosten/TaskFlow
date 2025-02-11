@@ -18,7 +18,7 @@ import { Subscription } from 'rxjs';
     RouterModule
   ],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit, OnDestroy {
   loginForm!: FormGroup;
@@ -58,24 +58,21 @@ export class LoginComponent implements OnInit, OnDestroy {
       const { email, password, rememberMe } = this.loginForm.value;
 
       this.authService.login(email, password, rememberMe).subscribe({
-        next: async (response) => {
+        next: (response) => {
           if (response.token) {
-            this.snackBar.open('Login successful!', 'Close', {
-              duration: 3000
-            });
-            await this.router.navigate(['/dashboard'], {
+            this.snackBar.open('Login successful!', 'Close', { duration: 3000 });
+            this.router.navigate(['/dashboard'], {
               replaceUrl: true,
               onSameUrlNavigation: 'reload'
+            }).then(() => {
+              this.isLoading = false;
             });
-            this.isLoading = false;
           }
         },
         error: (error) => {
           this.isLoading = false;
           const message = error.error?.message || 'Login failed. Please try again.';
-          this.snackBar.open(message, 'Close', {
-            duration: 5000
-          });
+          this.snackBar.open(message, 'Close', { duration: 5000 });
         }
       });
     }

@@ -108,7 +108,12 @@
               "zone.js",
               "zone.js/testing"
             ],
+            "main": "src/test.ts",
             "tsConfig": "tsconfig.spec.json",
+            "karmaConfig": "karma.conf.js",
+            "include": [
+              "src/tests/**/*.spec.ts"
+            ],
             "inlineStyleLanguage": "scss",
             "assets": [
               {
