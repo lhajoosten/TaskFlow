@@ -8,11 +8,11 @@ services:
       - "5000:5000"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Server=localhost;Database=TaskFlow-dev;User Id=sa;Password=YourStrong!Passw0rd;MultipleActiveResultSets=true;TrustServerCertificate=True;
-    depends_on:
-      - db
+      - ConnectionStrings__DevelopmentConnection=Server=host.docker.internal;Database=TaskFlow-dev;User Id=sa;Password=YourStrong!Passw0rd;MultipleActiveResultSets=true;TrustServerCertificate=True;
     networks:
       - taskflow-network
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
    
   frontend:
     container_name: taskflow-web
@@ -28,23 +28,6 @@ services:
     volumes:
       - ./src/TaskFlow.Web/nginx/default.conf:/etc/nginx/conf.d/default.conf
 
-  db:
-    container_name: taskflow-db
-    image: mcr.microsoft.com/mssql/server:2022-latest
-    ports:
-      - "1433:1433"
-    environment:
-      SA_PASSWORD: "YourStrong!Passw0rd"
-      ACCEPT_EULA: "Y"
-    networks:
-      - taskflow-network
-    restart: unless-stopped
-    volumes:
-      - mssql_data:/var/opt/mssql
-
 networks:
   taskflow-network:
     driver: bridge
-
-volumes:
-  mssql_data:
