@@ -11,7 +11,7 @@ RUN mkdir -p /https/ && chown -R 1000:1000 /https/
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
 
-# ✅ Fix paths to correctly reference `src/` in GitHub Actions
+# Fix paths to correctly reference `src/` in GitHub Actions
 COPY src/TaskFlow.Api/TaskFlow.Api.csproj TaskFlow.Api/
 COPY src/TaskFlow.Application/TaskFlow.Application.csproj TaskFlow.Application/
 COPY src/TaskFlow.Domain/TaskFlow.Domain.csproj TaskFlow.Domain/
