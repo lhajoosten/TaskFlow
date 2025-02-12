@@ -15,14 +15,14 @@
             <button mat-icon-button matSuffix matTooltip="Advanced Search" (click)="openAdvancedSearch()">
                 <mat-icon>tune</mat-icon>
             </button>
+            <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let result of searchResults" [value]="result.title">
+                    <mat-icon>{{result.icon}}</mat-icon>
+                    <span>{{result.title}}</span>
+                    <small>{{result.category}}</small>
+                </mat-option>
+            </mat-autocomplete>
         </mat-form-field>
-        <mat-autocomplete #auto="matAutocomplete">
-            <mat-option *ngFor="let result of searchResults" [value]="result.title">
-                <mat-icon>{{result.icon}}</mat-icon>
-                <span>{{result.title}}</span>
-                <small>{{result.category}}</small>
-            </mat-option>
-        </mat-autocomplete>
     </div>
 
     <div class="header-right">
@@ -51,8 +51,7 @@
         <button mat-button [matMenuTriggerFor]="profileMenu" class="profile-btn">
             <div class="user-info">
                 <img [src]="userAvatar" alt="Profile" class="avatar" [class.online]="userStatus === 'online'">
-                <span class="user-name">{{ userName }}</span>
-                <span class="user-role">{{ userRole }}</span>
+                <span class="user-name">lhajoosten&#64;outlook.com</span>
             </div>
             <mat-icon>arrow_drop_down</mat-icon>
         </button>
@@ -103,47 +102,30 @@
 
 <mat-menu #profileMenu="matMenu" class="profile-menu">
     <div class="profile-header">
-        <img [src]="userAvatar" alt="Profile" class="large-avatar" [class.online]="userStatus === 'online'">
+        <img [src]="userAvatar" alt="Profile" class="profile-avatar">
         <div class="profile-info">
-            <span class="user-name">{{ userName }}</span>
-            <span class="user-email">{{ userEmail }}</span>
+            <strong>lhajoosten&#64;outlook.com</strong>
+            <small>Administrator</small>
         </div>
     </div>
     <mat-divider></mat-divider>
-    <button mat-menu-item routerLink="/profile">
-        <mat-icon>person</mat-icon>
-        <span>My Profile</span>
-    </button>
-    <button mat-menu-item routerLink="/tasks/my-tasks">
-        <mat-icon>assignment</mat-icon>
-        <span>My Tasks</span>
-    </button>
-    <button mat-menu-item routerLink="/calendar">
-        <mat-icon>calendar_today</mat-icon>
-        <span>My Calendar</span>
-    </button>
-    <button mat-menu-item routerLink="/settings">
-        <mat-icon>settings</mat-icon>
-        <span>Settings</span>
-    </button>
-    <mat-divider></mat-divider>
-    <div class="status-selector">
-        <span class="status-label">Status:</span>
-        <mat-button-toggle-group [(ngModel)]="userStatus">
-            <mat-button-toggle value="online">
-                <span class="status-dot online"></span>Online
-            </mat-button-toggle>
-            <mat-button-toggle value="busy">
-                <span class="status-dot busy"></span>Busy
-            </mat-button-toggle>
-            <mat-button-toggle value="away">
-                <span class="status-dot away"></span>Away
-            </mat-button-toggle>
-        </mat-button-toggle-group>
+    <div style="text-align: center">
+        <button mat-menu-item routerLink="/profile">
+            <mat-icon>account_circle</mat-icon>
+            <span>My Profile</span>
+        </button>
+        <button mat-menu-item routerLink="/settings">
+            <mat-icon>settings</mat-icon>
+            <span>Settings</span>
+        </button>
+        <button mat-menu-item routerLink="/help">
+            <mat-icon>help</mat-icon>
+            <span>Help Center</span>
+        </button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item (click)="logout()">
+            <mat-icon>logout</mat-icon>
+            <span>Sign Out</span>
+        </button>
     </div>
-    <mat-divider></mat-divider>
-    <button mat-menu-item (click)="logout()">
-        <mat-icon>logout</mat-icon>
-        <span>Logout</span>
-    </button>
 </mat-menu>

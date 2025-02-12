@@ -71,14 +71,6 @@ export class HeaderComponent implements OnInit {
         document.body.classList.toggle('dark-theme');
     }
 
-    openQuickTaskDialog() {
-        // Implement quick task dialog
-    }
-
-    openQuickMeetingDialog() {
-        // Implement quick meeting dialog
-    }
-
     openAdvancedSearch() {
         // Implement advanced search dialog
     }
