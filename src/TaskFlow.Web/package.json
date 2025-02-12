@@ -6,6 +6,10 @@
     "ng": "ng",
     "start": "ng serve",
     "start:ssl": "ng serve --ssl --ssl-cert ./.angular-certs/localhost.crt --ssl-key ./.angular-certs/localhost.key",
+    "start:ssl:prod": "ng serve --ssl --ssl-cert .angular-certs/localhost.crt --ssl-key .angular-certs/localhost.key --configuration production",
+    "ssl:setup": "powershell -ExecutionPolicy Bypass -File .\\scripts\\generate-ssl.ps1",
+    "ssl:clean": "rimraf .angular-certs",
+    "ssl:reset": "npm run ssl:clean && npm run ssl:setup",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
@@ -41,6 +45,7 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "prettier": "^3.4.2",
+    "rimraf": "^6.0.1",
     "typescript": "~5.7.2"
   }
 }
