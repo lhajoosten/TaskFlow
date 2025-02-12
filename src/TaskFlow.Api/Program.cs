@@ -68,7 +68,7 @@ namespace TaskFlow.Api
                 });
 
                 // ✅ Explicitly set Swagger base path
-                c.AddServer(new OpenApiServer { Url = "https://localhost:7228" });
+                c.AddServer(new OpenApiServer { Url = "https://localhost:7443" });
             });
 
             builder.Services.AddHttpsRedirection(options =>

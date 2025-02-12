@@ -15,12 +15,12 @@
       },
       "dotnetRunMessages": true,
       "launchBrowser": true,
-      "launchUrl": "https://localhost:7443/index.html",
+      "launchUrl": "https://localhost:7443/swagger",
       "applicationUrl": "https://localhost:7443;http://localhost:7000"
     },
     "Container (Dockerfile)": {
       "commandName": "Docker",
-      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/index.html",
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/swagger",
       "environmentVariables": {
         "ASPNETCORE_HTTPS_PORTS": "7443",
         "ASPNETCORE_HTTP_PORTS": "7000"

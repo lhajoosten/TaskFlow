@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
     selector: 'app-header',
@@ -58,8 +60,7 @@ export class HeaderComponent implements OnInit {
         { type: 'meeting', icon: 'meeting_room', label: 'Meetings' },
         { type: 'mention', icon: 'alternate_email', label: 'Mentions' }
     ];
-
-    constructor(private dialog: MatDialog) { }
+    constructor(private dialog: MatDialog, private authService: AuthService, private router: Router) { }
 
     ngOnInit() {
         this.updateNotificationCount();
@@ -105,6 +106,13 @@ export class HeaderComponent implements OnInit {
     }
 
     logout() {
-        // Implement logout logic
+        this.authService.logout().subscribe({
+            next: () => {
+                this.router.navigate(['/auth/login']);
+            },
+            error: (err: any) => {
+                console.error('Logout failed', err);
+            }
+        });
     }
 } 
