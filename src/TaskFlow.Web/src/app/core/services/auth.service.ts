@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, map, Observable, tap, throwError, catchError } from 'rxjs';
+import { BehaviorSubject, map, Observable, tap, throwError, catchError, finalize } from 'rxjs';
 import { Router } from '@angular/router';
-import { AuthResponse, LoginRequest, RegisterRequest, ResetPasswordRequest, ForgotPasswordRequest, RefreshTokenRequest, AuthenticatedUser } from '../models/auth.models';
+import { AuthResponse, LoginRequest, RegisterRequest, ResetPasswordRequest, ForgotPasswordRequest, RefreshTokenRequest, AuthenticatedUser } from '../../shared/models/auth.models';
 import { environment } from '../../../environments/environment';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { LoggerService } from './logger.service';
@@ -39,25 +39,31 @@ export class AuthService {
 
         return this.http.post<AuthResponse>(url, request).pipe(
             tap(response => {
-                if (response.success && response.token) {
+                if (response.token) {
                     this.handleAuthResponse(response, rememberMe);
-                } else if (response.errorMessage) {
-                    throw new Error(response.errorMessage);
+                    // Force auth state update
+                    this.authState.next(this.parseUserFromToken(response.token));
                 }
             }),
             catchError(error => {
-                this.clearAuth(); // Clear any partial auth state on error
-                return throwError(() => error?.error?.errorMessage || 'Login failed');
+                this.logger.error('Login failed:', error);
+                this.clearAuth();
+                return throwError(() => error);
             })
         );
     }
 
     logout(): Observable<AuthResponse> {
         return this.http.post<AuthResponse>(`${environment.apiUrl}${environment.authEndpoints.logout}`, {})
-            .pipe(tap(() => {
-                this.clearAuth();
-                this.router.navigate(['/auth/login']);
-            }));
+            .pipe(
+                tap(() => {
+                    this.clearAuth();
+                }),
+                // Add finalize to ensure navigation happens after everything
+                finalize(() => {
+                    this.router.navigate(['/auth/login'], { replaceUrl: true });
+                })
+            );
     }
 
     refreshToken(): Observable<AuthResponse> {
@@ -206,6 +212,16 @@ export class AuthService {
         this.tokenSubject.next(null);
         this.refreshTokenSubject.next(null);
         this.authState.next(null);
+    }
+
+    private parseUserFromToken(token: string): AuthenticatedUser {
+        const decodedToken = this.jwtHelper.decodeToken(token);
+        return {
+            id: decodedToken.sub,
+            email: decodedToken.email,
+            name: decodedToken.unique_name,
+            photoURL: decodedToken.photoURL || null
+        };
     }
 
     isAuthenticated(): Observable<boolean> {

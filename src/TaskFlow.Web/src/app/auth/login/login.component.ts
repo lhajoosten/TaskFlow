@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from '../../material.module';
 import { AuthService } from '../../core/services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Subscription } from 'rxjs';
+import { filter, Subscription, take } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -34,10 +34,16 @@ export class LoginComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    // Check auth state immediately and redirect if already logged in
-    this.subscription = this.authService.authState$.subscribe(user => {
+    // Check if already authenticated
+    this.subscription = this.authService.authState$.pipe(
+      filter(state => state !== null),  // Only react to non-null states
+      take(1)
+    ).subscribe(user => {
       if (user) {
-        this.router.navigate(['/dashboard'], { replaceUrl: true });
+        this.router.navigate(['/dashboard'], {
+          replaceUrl: true,
+          onSameUrlNavigation: 'reload'  // Force router state update
+        });
       }
     });
 
@@ -61,11 +67,14 @@ export class LoginComponent implements OnInit, OnDestroy {
         next: (response) => {
           if (response.token) {
             this.snackBar.open('Login successful!', 'Close', { duration: 3000 });
+            // Force a new navigation
             this.router.navigate(['/dashboard'], {
               replaceUrl: true,
-              onSameUrlNavigation: 'reload'
+              onSameUrlNavigation: 'reload',
+              skipLocationChange: false
             }).then(() => {
-              this.isLoading = false;
+              // Force route reload
+              window.location.reload();
             });
           }
         },
@@ -73,6 +82,9 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.isLoading = false;
           const message = error.error?.message || 'Login failed. Please try again.';
           this.snackBar.open(message, 'Close', { duration: 5000 });
+        },
+        complete: () => {
+          this.isLoading = false;
         }
       });
     }

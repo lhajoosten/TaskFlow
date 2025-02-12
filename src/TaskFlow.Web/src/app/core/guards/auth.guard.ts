@@ -1,24 +1,45 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
-import { AuthService } from '../services/auth.service';
-import { Observable } from 'rxjs';
+import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Observable, map, take, tap } from 'rxjs';
+import { AuthService } from '../../core/services/auth.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-
-    constructor(private authService: AuthService, private router: Router) { }
+    constructor(
+        private authService: AuthService,
+        private router: Router
+    ) { }
 
     canActivate(
-        _route: ActivatedRouteSnapshot,
-        _state: RouterStateSnapshot
-    ): Observable<boolean> | Promise<boolean> | boolean {
-        if (this.authService.isTokenValid()) {
-            return true;
-        }
+        route: ActivatedRouteSnapshot,
+        state: RouterStateSnapshot
+    ): Observable<boolean> {
+        return this.authService.authState$.pipe(
+            take(1),
+            tap(user => console.log('AuthGuard state check:', { url: state.url, user })),
+            map(user => {
+                const isAuthRoute = state.url.includes('/auth/login');
 
-        this.router.navigate(['/auth/login']);
-        return false;
+                if (isAuthRoute && user) {
+                    this.router.navigate(['/dashboard'], {
+                        replaceUrl: true,
+                        onSameUrlNavigation: 'reload'
+                    });
+                    return false;
+                }
+
+                if (!isAuthRoute && !user) {
+                    this.router.navigate(['/auth/login'], {
+                        replaceUrl: true,
+                        onSameUrlNavigation: 'reload'
+                    });
+                    return false;
+                }
+
+                return true;
+            })
+        );
     }
 }

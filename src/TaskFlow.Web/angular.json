@@ -65,8 +65,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "50kB",
-                  "maximumError": "100kB"
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
                 }
               ],
               "outputHashing": "all"
@@ -82,10 +82,10 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "ssl": true,
-            "sslCert": "./.angular-certs/localhost.crt",
-            "sslKey": "./.angular-certs/localhost.key",
             "port": 4443,
+            "ssl": true,
+            "sslCert": ".angular-certs/localhost.crt",
+            "sslKey": ".angular-certs/localhost.key",
             "proxyConfig": "src/proxy.conf.json"
           },
           "configurations": {

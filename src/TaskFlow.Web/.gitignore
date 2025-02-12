@@ -42,11 +42,12 @@ testem.log
 Thumbs.db
 
 # Scripts
-*.sh
-*.ps1
+scripts
 
 # SSL Certificates
 **/.angular-certs/
 *.crt
 *.key
 *.pfx
+
+ssl

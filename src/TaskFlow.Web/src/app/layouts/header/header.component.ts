@@ -100,10 +100,13 @@ export class HeaderComponent implements OnInit {
     logout() {
         this.authService.logout().subscribe({
             next: () => {
-                this.router.navigate(['/auth/login']);
+                // Remove navigation here since it's handled in the service
             },
             error: (err: any) => {
                 console.error('Logout failed', err);
+                // Force logout even on error
+                this.authService['clearAuth']();
+                this.router.navigate(['/auth/login'], { replaceUrl: true });
             }
         });
     }

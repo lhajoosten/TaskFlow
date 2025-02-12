@@ -16,25 +16,34 @@ import { LoggerService } from './core/services/logger.service';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { TimeAgoPipe } from './core/pipes/time-ago.pipe';
 import { FormsModule } from '@angular/forms';
+import { SpinnerComponent } from './shared/components/spinner.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     SidebarComponent,
-    MainContentComponent
+    MainContentComponent,
   ],
   imports: [
+    // Standalone components
+    SpinnerComponent,
+
+    // Angular modules
     CommonModule,
     FormsModule,
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+
+    // App modules
     AppRoutingModule,
     MaterialModule,
     FeaturesModule,
     AuthModule,
-    TimeAgoPipe
+
+    // Core items
+    TimeAgoPipe,
   ],
   providers: [
     {

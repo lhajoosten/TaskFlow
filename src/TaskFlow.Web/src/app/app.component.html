@@ -1,4 +1,4 @@
-<ng-container *ngIf="authService.isAuthenticated() | async; else authLayout">
+<ng-container *ngIf="!isLoading && (authService.isAuthenticated() | async); else authLayout">
   <div class="layout-container">
     <app-header class="header-fixed"></app-header>
     <mat-sidenav-container>
@@ -15,9 +15,13 @@
 </ng-container>
 
 <ng-template #authLayout>
-  <div class="auth-layout">
+  <div class="auth-layout" *ngIf="!isLoading">
     <main class="auth-content">
       <router-outlet></router-outlet>
     </main>
   </div>
 </ng-template>
+
+<div *ngIf="isLoading" class="preloader">
+  <app-spinner [overlay]="true" color="primary" [diameter]="60"></app-spinner>
+</div>
