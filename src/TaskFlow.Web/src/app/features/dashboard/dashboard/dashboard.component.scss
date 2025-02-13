@@ -1,6 +1,6 @@
 .dashboard-overview {
   padding: 32px;
-  background-color: #f8f9fa;
+  background-color: var(--background-color);
   min-height: 100vh;
 
   .dashboard-header {
@@ -13,7 +13,7 @@
       margin: 0;
       font-size: 2rem;
       font-weight: 500;
-      color: #2c3e50;
+      color: var(--text-color);
     }
 
     mat-form-field {
@@ -30,9 +30,9 @@
       gap: 24px;
 
       .stat-item {
-        background: white;
+        background: var(--surface-color);
         border-radius: 12px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 4px 20px var(--shadow-color);
         transition: transform 0.2s ease-in-out;
         border: none;
 
@@ -43,7 +43,7 @@
         mat-card-title {
           padding: 20px 24px 0;
           font-size: 1rem;
-          color: #6c757d;
+          color: var(--secondary-text-color);
         }
 
         .stat-content {
@@ -55,7 +55,7 @@
           .stat-number {
             font-size: 2.5rem;
             font-weight: 600;
-            color: #2c3e50;
+            color: var(--text-color);
           }
 
           .trend-percentage {
@@ -66,16 +66,16 @@
           }
 
           .trend-up {
-            color: #10b981;
-            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success-color);
+            background-color: var(--success-container-color);
           }
           .trend-down {
-            color: #ef4444;
-            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--error-color);
+            background-color: var(--error-container-color);
           }
           .trend-stable {
-            color: #f59e0b;
-            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--warn-color);
+            background-color: var(--warn-container-color);
           }
         }
       }
@@ -89,17 +89,18 @@
 
     mat-card {
       border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 4px 20px var(--shadow-color);
       border: none;
+      background: var(--surface-color);
 
       mat-card-title {
         padding: 24px;
-        border-bottom: 1px solid #e9ecef;
+        border-bottom: 1px solid var(--border-color);
 
         h2 {
           margin: 0;
           font-size: 1.25rem;
-          color: #2c3e50;
+          color: var(--text-color);
           font-weight: 500;
         }
       }
@@ -114,16 +115,16 @@
         margin-bottom: 16px;
 
         mat-icon {
-          color: #6c757d;
+          color: var(--secondary-text-color);
         }
 
         [matListItemTitle] {
-          color: #2c3e50;
+          color: var(--text-color);
           font-weight: 500;
         }
 
         [matListItemLine] {
-          color: #6c757d;
+          color: var(--secondary-text-color);
           font-size: 0.875rem;
         }
       }
@@ -138,13 +139,13 @@
 
         span {
           &:first-child {
-            color: #2c3e50;
+            color: var(--text-color);
             font-weight: 500;
           }
         }
 
         .deadline-date {
-          color: #6c757d;
+          color: var(--secondary-text-color);
           font-size: 0.875rem;
         }
       }
@@ -177,22 +178,22 @@
             height: 40px;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid #fff;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border: 2px solid var(--surface-color);
+            box-shadow: 0 2px 8px var(--shadow-color);
           }
 
           span {
             &:first-of-type {
-              color: #2c3e50;
+              color: var(--text-color);
               font-weight: 500;
             }
           }
 
           .task-count {
             margin-left: auto;
-            color: #6c757d;
+            color: var(--secondary-text-color);
             font-size: 0.875rem;
-            background-color: #f8f9fa;
+            background-color: var(--surface-variant-color);
             padding: 4px 8px;
             border-radius: 4px;
           }
@@ -210,11 +211,11 @@
 // Custom progress bar colors
 ::ng-deep {
   .mat-progress-bar-fill::after {
-    background-color: #10b981;
+    background-color: var(--success-color);
   }
 
   .mat-progress-bar-buffer {
-    background-color: #e9ecef;
+    background-color: var(--surface-variant-color);
   }
 }
 

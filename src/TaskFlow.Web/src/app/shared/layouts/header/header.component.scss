@@ -1,15 +1,3 @@
-// Variables
-$primary: #1976d2;
-$primary-light: rgba(25, 118, 210, 0.08);
-$success: #22c55e;
-$warning: #f59e0b;
-$danger: #ef4444;
-$gray-50: #f8f9fa;
-$gray-100: #f3f4f6;
-$gray-200: #e5e7eb;
-$gray-500: #6b7280;
-$gray-900: #1a1f36;
-
 // Main Header
 .header {
   display: flex;
@@ -17,13 +5,13 @@ $gray-900: #1a1f36;
   align-items: center;
   padding: 0 24px;
   height: 120px;
-  background-color: var(--surface);
-  color: var(--on-surface);
-  border-bottom: 1px solid var(--border);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+  background-color: var(--surface-color);
+  color: var(--text-color);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 2px 4px var(--shadow-color);
 
   .search-field {
-    background-color: var(--surface-variant);
+    background-color: var(--surface-variant-color);
   }
 
   // Left Section
@@ -40,7 +28,7 @@ $gray-900: #1a1f36;
       .brand-name {
         font-size: 1.4rem;
         font-weight: 600;
-        color: $gray-900;
+        color: var(--text-color);
         letter-spacing: -0.5px;
       }
     }
@@ -55,20 +43,18 @@ $gray-900: #1a1f36;
   .header-center {
     flex: 1;
     display: flex;
-    justify-content: flex-end; // Change from center to flex-end
+    justify-content: flex-end;
     align-items: center;
-    margin-right: 32px; // Add some spacing before header-right
+    margin-right: 32px;
 
     .search-field {
-      width: 450px; // Set fixed width instead of max-width
-      margin: 0; // Remove existing margins
+      width: 450px;
 
       ::ng-deep {
         .mat-mdc-form-field-subscript-wrapper {
-          display: none; // This completely removes the space
+          display: none;
         }
 
-        // Alternative approach if you want to keep the element but remove its height:
         .mat-mdc-form-field-bottom-align {
           height: 0;
           padding: 0;
@@ -85,18 +71,18 @@ $gray-900: #1a1f36;
           padding: 0 16px;
           align-items: center;
           border-radius: 24px;
-          background: $gray-50;
+          background: var(--surface-variant-color);
           transition: all 0.2s ease;
 
           &:hover {
-            background: $gray-100;
+            background: var(--hover-color);
           }
         }
 
         .mat-form-field-prefix,
         .mat-form-field-suffix {
           .mat-icon {
-            color: $gray-500;
+            color: var(--secondary-text-color);
             font-size: 20px;
             width: 20px;
             height: 20px;
@@ -112,16 +98,16 @@ $gray-900: #1a1f36;
 
         input {
           font-size: 14px;
-          color: $gray-900;
+          color: var(--text-color);
 
           &::placeholder {
-            color: $gray-500;
+            color: var(--secondary-text-color);
           }
         }
 
         .mat-focused .mat-form-field-flex {
-          background: #fff;
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+          background: var(--surface-color);
+          box-shadow: 0 2px 8px var(--shadow-color);
         }
       }
     }
@@ -137,18 +123,18 @@ $gray-900: #1a1f36;
       display: flex;
       gap: 16px;
       padding: 0 12px;
-      border-right: 1px solid $gray-200;
+      border-right: 1px solid var(--border-color);
 
       .stat-item {
         display: flex;
         align-items: center;
         gap: 6px;
-        color: $gray-500;
+        color: var(--secondary-text-color);
 
         mat-icon {
           font-size: 20px;
           &.warning {
-            color: $warning;
+            color: var(--warn-color);
           }
         }
 
@@ -161,12 +147,12 @@ $gray-900: #1a1f36;
 
     .notification-btn,
     .theme-toggle {
-      color: $gray-500;
+      color: var(--secondary-text-color);
       transition: all 0.2s ease;
 
       &:hover {
-        background-color: $gray-100;
-        color: $primary;
+        background-color: var(--hover-color);
+        color: var(--primary-color);
       }
     }
 
@@ -176,20 +162,20 @@ $gray-900: #1a1f36;
       gap: 8px;
       padding: 8px 12px;
       border-radius: 24px;
-      background: $gray-50;
+      background: var(--surface-variant-color);
       border: 1px solid transparent;
       transition: all 0.2s ease;
 
       &:hover {
-        background: $gray-100;
-        border-color: $gray-200;
+        background: var(--hover-color);
+        border-color: var(--border-color);
       }
 
       .avatar {
         width: 32px;
         height: 32px;
         border-radius: 50%;
-        border: 2px solid #fff;
+        border: 2px solid var(--surface-color);
       }
 
       .user-info {
@@ -200,12 +186,12 @@ $gray-900: #1a1f36;
         .user-name {
           font-size: 14px;
           font-weight: 500;
-          color: $gray-900;
+          color: var(--text-color);
         }
 
         .user-role {
           font-size: 12px;
-          color: $gray-500;
+          color: var(--secondary-text-color);
         }
       }
     }
@@ -242,12 +228,12 @@ $gray-900: #1a1f36;
 
       strong {
         font-size: 14px;
-        color: $gray-900;
+        color: var(--secondary-text-color);
       }
 
       small {
         font-size: 12px;
-        color: $gray-500;
+        color: var(--text-color);
       }
     }
   }
@@ -260,7 +246,7 @@ $gray-900: #1a1f36;
 
     .mat-icon {
       margin-right: 12px;
-      color: $gray-500;
+      color: var(--text-color);
     }
   }
 

@@ -1,34 +1,80 @@
 @use '@angular/material' as mat;
 @use './styles/theme' as theme;
 @use './styles/responsive' as responsive;
+@use 'sass:map';
 
 // Include the common styles for Angular Material. Only include this mixin once!
 @include mat.core();
 
 // Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
 @include mat.all-component-themes(theme.$theme);
 
 .dark-theme {
   @include mat.all-component-colors(theme.$dark-theme);
 }
 
+// Helper function to get color from palette
+@function get-color-from-palette($palette, $hue: 'default') {
+  @return map.get($palette, $hue);
+}
+
 // Custom CSS variables
 :root {
-  --primary: #{mat.get-theme-color(theme.$theme, 'primary')};
-  --accent: #{mat.get-theme-color(theme.$theme, 'accent')};
-  --warn: #{mat.get-theme-color(theme.$theme, 'warn')};
-  --surface: #{mat.get-theme-color(theme.$theme, 'background')};
-  --on-surface: #{mat.get-theme-color(theme.$theme, 'foreground')};
+  // Theme colors
+  --primary-color: #{mat.get-theme-color(theme.$theme, 'primary')};
+  --accent-color: #{mat.get-theme-color(theme.$theme, 'accent')};
+  --warn-color: #{mat.get-theme-color(theme.$theme, 'warn')};
+  //   --success-color: #{mat.get-theme-color(theme.$theme, 'success')};
+  //   --info-color: #{mat.get-theme-color(theme.$theme, 'info')};
+  //   --secondary-color: #{mat.get-theme-color(theme.$theme, 'secondary')};
+
+  // Background & Surface colors
+  --background-color: #{mat.get-theme-color(theme.$theme, 'background', 'background')};
+  --surface-color: #{mat.get-theme-color(theme.$theme, 'background', 'card')};
+  --card-background: rgba(255, 255, 255, 0.9);
+
+  // Text colors
+  --text-color: #{mat.get-theme-color(theme.$theme, 'foreground', 'text')};
+  --secondary-text-color: #{mat.get-theme-color(theme.$theme, 'foreground', 'secondary-text')};
+
+  // Utility colors
+  --border-color: rgba(0, 0, 0, 0.12);
+  --auth-overlay-color: rgba(255, 255, 255, 0.8);
+  --overlay-background: rgba(255, 255, 255, 0.9);
+
+  // Scrollbar colors
+  --scroll-track-color: rgba(0, 0, 0, 0.05);
+  --scroll-thumb-color: rgba(0, 0, 0, 0.2);
+  --scroll-thumb-hover-color: rgba(0, 0, 0, 0.3);
 }
 
 .dark-theme {
-  --primary: #{mat.get-theme-color(theme.$dark-theme, 'primary')};
-  --accent: #{mat.get-theme-color(theme.$dark-theme, 'accent')};
-  --warn: #{mat.get-theme-color(theme.$dark-theme, 'warn')};
-  --surface: #{mat.get-theme-color(theme.$dark-theme, 'background')};
-  --on-surface: #{mat.get-theme-color(theme.$dark-theme, 'foreground')};
+  // Theme colors
+  --primary-color: #{mat.get-theme-color(theme.$theme, 'primary')};
+  --accent-color: #{mat.get-theme-color(theme.$theme, 'accent')};
+  --warn-color: #{mat.get-theme-color(theme.$theme, 'warn')};
+  //   --success-color: #{mat.get-theme-color(theme.$theme, 'success')};
+  //   --info-color: #{mat.get-theme-color(theme.$theme, 'info')};
+  //   --secondary-color: #{mat.get-theme-color(theme.$theme, 'secondary')};
+
+  // Background & Surface colors
+  --background-color: #{mat.get-theme-color(theme.$dark-theme, 'background', 'background')};
+  --surface-color: #{mat.get-theme-color(theme.$dark-theme, 'background', 'card')};
+  --card-background: rgba(0, 0, 0, 0.8);
+
+  // Text colors
+  --text-color: #{mat.get-theme-color(theme.$dark-theme, 'foreground', 'text')};
+  --secondary-text-color: #{mat.get-theme-color(theme.$dark-theme, 'foreground', 'secondary-text')};
+
+  // Utility colors
+  --border-color: rgba(255, 255, 255, 0.12);
+  --auth-overlay-color: rgba(0, 0, 0, 0.8);
+  --overlay-background: rgba(0, 0, 0, 0.9);
+
+  // Scrollbar colors
+  --scroll-track-color: rgba(255, 255, 255, 0.05);
+  --scroll-thumb-color: rgba(255, 255, 255, 0.2);
+  --scroll-thumb-hover-color: rgba(255, 255, 255, 0.3);
 }
 
 // Global styles

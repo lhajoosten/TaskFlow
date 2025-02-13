@@ -1,3 +1,5 @@
+@use '@angular/material' as mat;
+
 .login-container {
   width: 100%;
   display: flex;
@@ -9,7 +11,8 @@
   max-width: 600px;
   width: 90%;
   padding: 2rem;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  background-color: var(--surface-color);
+  color: var(--text-color);
 
   mat-card-header {
     margin-bottom: 1.5rem;
@@ -19,15 +22,13 @@
     mat-card-title {
       font-size: 1.5rem;
       margin-bottom: 0.5rem;
+      color: var(--primary-color);
+    }
+
+    mat-card-subtitle {
+      color: var(--secondary-text-color);
     }
   }
-}
-
-mat-card {
-  width: 600px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  overflow: hidden;
 }
 
 .full-width {
@@ -39,18 +40,36 @@ mat-card {
   justify-content: space-between;
   align-items: center;
   margin: 1rem 0;
+
+  a {
+    color: var(--primary-color);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 
-.login-button {
-  margin-top: 1rem;
-  padding: 0.5rem;
-}
+.form-actions {
+  margin-top: 1.5rem;
 
-mat-form-field {
-  margin-bottom: 0.5rem;
+  button {
+    height: 48px;
+  }
 }
 
 .register-link {
   margin-top: 1rem;
   text-align: center;
+  color: var(--secondary-text-color);
+
+  a {
+    color: var(--primary-color);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }

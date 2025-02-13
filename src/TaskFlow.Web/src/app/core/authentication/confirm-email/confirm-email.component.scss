@@ -7,16 +7,22 @@
   height: 100vh;
   background-color: transparent;
 }
+
 .center-content {
   text-align: center;
   padding: 4rem;
+  color: var(--text-color);
 }
+
 mat-icon {
   font-size: 48px;
   width: 48px;
   height: 48px;
   margin-bottom: 1.5rem;
+  color: var(--primary-color);
 }
+
 h2 {
   margin-bottom: 2rem;
+  color: var(--text-color);
 }

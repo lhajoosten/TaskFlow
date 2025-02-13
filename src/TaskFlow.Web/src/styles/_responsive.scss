@@ -1,17 +1,27 @@
 @use 'sass:map';
 
 $breakpoints: (
-  xs: 0,
   sm: 576px,
   md: 768px,
   lg: 992px,
   xl: 1200px,
   xxl: 1400px,
+  ultra: 1920px,
 );
 
 @mixin respond-to($breakpoint) {
   @if map.has-key($breakpoints, $breakpoint) {
     @media (min-width: map.get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  } @else {
+    @warn "Invalid breakpoint: #{$breakpoint}";
+  }
+}
+
+@mixin respond-down($breakpoint) {
+  @if map.has-key($breakpoints, $breakpoint) {
+    @media (max-width: map.get($breakpoints, $breakpoint)) {
       @content;
     }
   } @else {

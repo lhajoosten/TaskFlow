@@ -1,6 +1,7 @@
 @use '@angular/material' as mat;
 @use './theme-colors' as colors;
 @use './responsive' as responsive;
+@use 'sass:map';
 
 // Custom typography config
 $typography-config: mat.m2-define-typography-config(
@@ -10,8 +11,8 @@ $typography-config: mat.m2-define-typography-config(
   $headline-3: mat.m2-define-typography-level(48px, 48px, 400),
 );
 
-// Light theme configuration
-$light-theme: mat.m2-define-light-theme(
+// Define the base theme
+$light-theme-base: mat.m2-define-light-theme(
   (
     color: (
       primary: colors.$primary-palette,
@@ -23,8 +24,18 @@ $light-theme: mat.m2-define-light-theme(
   )
 );
 
+// Create a complete theme by merging the base theme with custom palettes
+$light-theme: map.merge(
+  $light-theme-base,
+  (
+    success: colors.$success-palette,
+    info: colors.$info-palette,
+    secondary: colors.$secondary-palette,
+  )
+);
+
 // Dark theme configuration
-$dark-theme: mat.m2-define-dark-theme(
+$dark-theme-base: mat.m2-define-dark-theme(
   (
     color: (
       primary: colors.$primary-palette,
@@ -33,6 +44,15 @@ $dark-theme: mat.m2-define-dark-theme(
     ),
     typography: $typography-config,
     density: 0,
+  )
+);
+
+$dark-theme: map.merge(
+  $dark-theme-base,
+  (
+    success: colors.$success-palette,
+    info: colors.$info-palette,
+    secondary: colors.$secondary-palette,
   )
 );
 

@@ -79,7 +79,88 @@ $warn-colors: (
   ),
 );
 
+$success-colors: (
+  50: #e8f5e9,
+  100: #c8e6c9,
+  200: #a5d6a7,
+  300: #81c784,
+  400: #66bb6a,
+  500: #4caf50,
+  // main success color
+  600: #43a047,
+  700: #388e3c,
+  800: #2e7d32,
+  900: #1b5e20,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #000000,
+    600: #000000,
+    700: #000000,
+    800: #ffffff,
+    900: #ffffff,
+  ),
+);
+
+$info-colors: (
+  50: #e1f5fe,
+  100: #b3e5fc,
+  200: #81d4fa,
+  300: #4fc3f7,
+  400: #29b6f6,
+  500: #03a9f4,
+  // main info color
+  600: #039be5,
+  700: #0288d1,
+  800: #0277bd,
+  900: #01579b,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #000000,
+    600: #000000,
+    700: #000000,
+    800: #ffffff,
+    900: #ffffff,
+  ),
+);
+
+$secondary-colors: (
+  50: #e8eaf6,
+  100: #c5cae9,
+  200: #9fa8da,
+  300: #7986cb,
+  400: #5c6bc0,
+  500: #3f51b5,
+  // main secondary color
+  600: #394aae,
+  700: #3140a5,
+  800: #29379d,
+  900: #1a237e,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+  ),
+);
+
 // Export the color palettes
 $primary-palette: mat.m2-define-palette($primary-colors);
 $accent-palette: mat.m2-define-palette($accent-colors);
 $warn-palette: mat.m2-define-palette($warn-colors);
+$success-palette: mat.m2-define-palette($success-colors);
+$info-palette: mat.m2-define-palette($info-colors);
+$secondary-palette: mat.m2-define-palette($secondary-colors);

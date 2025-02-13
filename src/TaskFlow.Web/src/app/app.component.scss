@@ -1,3 +1,4 @@
+@use '@angular/material' as mat;
 @use '../styles/theme-colors' as theme-colors;
 
 .auth-layout {
@@ -19,7 +20,7 @@
     background-image: url('../assets/overlays/auth-overlay.jpg');
     background-size: cover;
     background-attachment: fixed;
-    background-color: #40000e;
+    background-color: var(--auth-overlay-color);
     background-blend-mode: overlay;
 
     ::ng-deep {
@@ -30,21 +31,15 @@
       }
 
       mat-card {
+        @include mat.elevation(2);
         backdrop-filter: blur(10px);
-        background: rgba(255, 255, 255, 0.95);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        box-shadow:
-          0 4px 16px rgba(0, 0, 0, 0.1),
-          0 1px 3px rgba(0, 0, 0, 0.05);
-        transition:
-          transform 0.2s ease,
-          box-shadow 0.2s ease;
+        background: var(--card-background);
+        border: 1px solid var(--border-color);
+        transition: all 0.3s ease;
 
         &:hover {
           transform: translateY(-2px);
-          box-shadow:
-            0 6px 20px rgba(0, 0, 0, 0.15),
-            0 2px 5px rgba(0, 0, 0, 0.08);
+          @include mat.elevation(4);
         }
       }
     }
@@ -56,6 +51,8 @@
   flex-direction: column;
   height: 100vh;
   overflow: hidden;
+  background-color: var(--background-color);
+  color: var(--text-color);
 
   .header-fixed {
     position: fixed;
@@ -64,45 +61,42 @@
     right: 0;
     z-index: 2;
     height: auto;
+    background-color: var(--surface-color);
   }
 
   mat-sidenav-container {
     flex: 1;
-    margin-top: 120px; // Height of header
+    margin-top: 120px;
 
     mat-sidenav {
       width: 320px;
       overflow: hidden;
-    }
-
-    // Add this to handle sidenav content scrolling
-    ::ng-deep .mat-drawer-inner-container {
-      overflow: hidden;
+      background-color: var(--surface-color);
+      border-right: 1px solid var(--border-color);
     }
 
     mat-sidenav-content {
-      overflow: hidden; // Remove default scrollbar
+      background-color: var(--background-color);
 
       .main-content {
         padding: 24px;
         height: calc(100vh - 120px);
         overflow-y: auto;
 
-        // Improve scrollbar appearance
         &::-webkit-scrollbar {
           width: 8px;
         }
 
         &::-webkit-scrollbar-track {
-          background: transparent;
+          background: var(--scroll-track-color);
         }
 
         &::-webkit-scrollbar-thumb {
-          background-color: rgba(0, 0, 0, 0.2);
+          background-color: var(--scroll-thumb-color);
           border-radius: 4px;
 
           &:hover {
-            background-color: rgba(0, 0, 0, 0.3);
+            background-color: var(--scroll-thumb-hover-color);
           }
         }
       }
@@ -119,23 +113,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.9);
+  background: var(--overlay-background);
   z-index: 9999;
-}
-
-@media (max-width: 600px) {
-  .auth-layout {
-    .auth-header {
-      flex: 0 0 64px; // Smaller header for mobile
-
-      .auth-title {
-        font-size: 2rem;
-      }
-    }
-
-    .auth-content {
-      height: calc(100vh - 120px);
-      padding: 0 1rem;
-    }
-  }
 }
