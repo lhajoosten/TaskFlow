@@ -2,8 +2,8 @@
     <div class="header-left">
         <div class="brand">
             <div class="brand-text" style="display: flex; flex-direction: column; align-items: center;">
-                <span class="brand-name" style="font-size: x-large;">TaskFlow</span>
-                <span class="brand-subtitle" style="font-size: smaller;">Task Management & Workflow Automation</span>
+                <span class="brand-name" style="font-size: x-large;"><img src="assets/brand/taskflow-brand.svg"
+                        class="sidebar-logo" alt="TaskFlow Logo"></span>
             </div>
         </div>
     </div>
@@ -39,8 +39,10 @@
 
         <button mat-icon-button [matMenuTriggerFor]="notificationsMenu" class="notification-btn"
             matTooltip="Notifications">
-            <mat-icon [matBadge]="notificationCount" [matBadgeHidden]="notificationCount === 0"
-                matBadgeColor="warn">notifications</mat-icon>
+            <mat-icon [matBadge]="notificationCount" [matBadgeHidden]="notificationCount === 0" matBadgeColor="warn"
+                aria-hidden="false" [attr.aria-label]="'You have ' + notificationCount + ' notifications'">
+                notifications
+            </mat-icon>
         </button>
 
         <button mat-icon-button class="theme-toggle" (click)="toggleTheme()"

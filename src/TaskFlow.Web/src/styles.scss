@@ -7,17 +7,29 @@
 @include mat.all-component-themes(theme.$theme);
 
 :root {
-  --primary: #1976d2;
-  --primary-light: rgba(25, 118, 210, 0.04);
-  --success: #22c55e;
-  --warning: #f59e0b;
-  --danger: #ef4444;
-  --text-primary: #1a1f36;
-  --text-secondary: #4b5563;
-  --text-muted: #6b7280;
-  --border-color: #e5e7eb;
-  --background-light: #f8f9fa;
-  --background-lighter: #f3f4f6;
+  --primary: #{mat.get-color-config(theme.$theme-primary, 500)};
+  --primary-light: #{mat.get-color-config(theme.$theme-primary, 50)};
+  --success: #{mat.get-color-from-palette(theme.$theme-success, 500)};
+  --warning: #{mat.get-color-from-palette(theme.$theme-warn, 500)};
+  --danger: #{mat.get-color-from-palette(theme.$theme-error, 500)};
+  --text-primary: #{mat.get-color-from-palette(theme.$theme-foreground, text)};
+  --text-secondary: #{mat.get-color-from-palette(
+      theme.$theme-foreground,
+      secondary-text
+    )};
+  --text-muted: #{mat.get-color-from-palette(
+      theme.$theme-foreground,
+      hint-text
+    )};
+  --border-color: #{mat.get-color-from-palette(theme.$theme-divider, 500)};
+  --background-light: #{mat.get-color-from-palette(
+      theme.$theme-background,
+      background
+    )};
+  --background-lighter: #{mat.get-color-from-palette(
+      theme.$theme-background,
+      hover
+    )};
 }
 
 html,
@@ -30,6 +42,9 @@ body {
 
 body {
   font-family: Roboto, 'Helvetica Neue', sans-serif;
-  background-color: mat.get-theme-color(theme.$theme, background, background);
-  color: mat.get-theme-color(theme.$theme, foreground, text);
+  background-color: #{mat.get-color-from-palette(
+      theme.$theme-background,
+      background
+    )};
+  color: #{mat.get-color-from-palette(theme.$theme-foreground, text)};
 }

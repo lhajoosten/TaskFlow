@@ -9,7 +9,6 @@ import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
 import { HeaderComponent } from './layouts/header/header.component';
 import { SidebarComponent } from './layouts/sidebar/sidebar.component';
-import { MainContentComponent } from './layouts/main-content/main-content.component';
 import { FeaturesModule } from './features/features.module';
 import { AuthModule } from './auth/auth.module';
 import { LoggerService } from './core/services/logger.service';
@@ -23,7 +22,6 @@ import { SpinnerComponent } from './shared/components/spinner.component';
     AppComponent,
     HeaderComponent,
     SidebarComponent,
-    MainContentComponent,
   ],
   imports: [
     // Standalone components

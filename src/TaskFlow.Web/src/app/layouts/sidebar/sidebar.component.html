@@ -1,8 +1,4 @@
 <div class="sidebar-container">
-    <div class="sidebar-header">
-        <img src="assets/overlays/pattern-1.jpg" alt=" Sidebar Background" class="sidebar-background">
-    </div>
-
     <div class="sidebar-content">
         <mat-nav-list class="sidebar-list">
             <!-- Dashboard -->
@@ -153,6 +149,8 @@
                 <span class="user-name">{{userName}}</span>
                 <span class="user-role">{{userRole}}</span>
             </div>
+
+
         </div>
         <div class="quick-actions-footer">
             <button mat-icon-button matTooltip="New Task" (click)="openQuickTaskDialog()">
@@ -164,9 +162,7 @@
             <button mat-icon-button matTooltip="New Project" (click)="openQuickProjectDialog()">
                 <mat-icon>folder_open</mat-icon>
             </button>
-            <button mat-icon-button matTooltip="New Note" (click)="openQuickNoteDialog()">
-                <mat-icon>note</mat-icon>
-            </button>
+            <img src="assets/brand/taskflow-logo.svg" alt="TaskFlow Logo" style="width: 50px; height: fit-content;">
         </div>
     </div>
 </div>

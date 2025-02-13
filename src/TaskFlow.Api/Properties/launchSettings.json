@@ -14,7 +14,7 @@
       "launchUrl": "https://localhost:7443/swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "ASPNETCORE_Kestrel__Certificates__Default__Path": "C:/Users/lhajo/.aspnet/https/aspnetapp.pfx",
+        "ASPNETCORE_Kestrel__Certificates__Default__Path": "C:/Users/lhajo/.aspnet/https/dev-cert.pfx",
         "ASPNETCORE_Kestrel__Certificates__Default__Password": "YourSecurePassword123!"
       },
       "dotnetRunMessages": true,

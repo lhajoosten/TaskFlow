@@ -28,9 +28,4 @@ export class SidebarComponent {
         // Implement quick project dialog opening logic
         console.log('Opening quick project dialog');
     }
-
-    openQuickNoteDialog() {
-        // Implement quick note dialog opening logic
-        console.log('Opening quick note dialog');
-    }
 }
