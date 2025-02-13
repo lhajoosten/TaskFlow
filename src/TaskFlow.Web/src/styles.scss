@@ -1,37 +1,37 @@
 @use '@angular/material' as mat;
-@use 'styles/theme' as theme;
-@use 'styles/_theme-colors.scss' as *;
+@use './styles/theme' as theme;
+@use './styles/responsive' as responsive;
 
-// Include theme styles
+// Include the common styles for Angular Material. Only include this mixin once!
 @include mat.core();
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
 @include mat.all-component-themes(theme.$theme);
 
-:root {
-  --primary: #{mat.get-color-config(theme.$theme-primary, 500)};
-  --primary-light: #{mat.get-color-config(theme.$theme-primary, 50)};
-  --success: #{mat.get-color-from-palette(theme.$theme-success, 500)};
-  --warning: #{mat.get-color-from-palette(theme.$theme-warn, 500)};
-  --danger: #{mat.get-color-from-palette(theme.$theme-error, 500)};
-  --text-primary: #{mat.get-color-from-palette(theme.$theme-foreground, text)};
-  --text-secondary: #{mat.get-color-from-palette(
-      theme.$theme-foreground,
-      secondary-text
-    )};
-  --text-muted: #{mat.get-color-from-palette(
-      theme.$theme-foreground,
-      hint-text
-    )};
-  --border-color: #{mat.get-color-from-palette(theme.$theme-divider, 500)};
-  --background-light: #{mat.get-color-from-palette(
-      theme.$theme-background,
-      background
-    )};
-  --background-lighter: #{mat.get-color-from-palette(
-      theme.$theme-background,
-      hover
-    )};
+.dark-theme {
+  @include mat.all-component-colors(theme.$dark-theme);
 }
 
+// Custom CSS variables
+:root {
+  --primary: #{mat.get-theme-color(theme.$theme, 'primary')};
+  --accent: #{mat.get-theme-color(theme.$theme, 'accent')};
+  --warn: #{mat.get-theme-color(theme.$theme, 'warn')};
+  --surface: #{mat.get-theme-color(theme.$theme, 'background')};
+  --on-surface: #{mat.get-theme-color(theme.$theme, 'foreground')};
+}
+
+.dark-theme {
+  --primary: #{mat.get-theme-color(theme.$dark-theme, 'primary')};
+  --accent: #{mat.get-theme-color(theme.$dark-theme, 'accent')};
+  --warn: #{mat.get-theme-color(theme.$dark-theme, 'warn')};
+  --surface: #{mat.get-theme-color(theme.$dark-theme, 'background')};
+  --on-surface: #{mat.get-theme-color(theme.$dark-theme, 'foreground')};
+}
+
+// Global styles
 html,
 body {
   height: 100%;
@@ -42,9 +42,7 @@ body {
 
 body {
   font-family: Roboto, 'Helvetica Neue', sans-serif;
-  background-color: #{mat.get-color-from-palette(
-      theme.$theme-background,
-      background
-    )};
-  color: #{mat.get-color-from-palette(theme.$theme-foreground, text)};
+  background-color: var(--surface);
+  color: var(--on-surface);
+  @include responsive.theme-transition;
 }

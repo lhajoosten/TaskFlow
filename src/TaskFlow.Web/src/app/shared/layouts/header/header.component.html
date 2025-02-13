@@ -46,8 +46,8 @@
         </button>
 
         <button mat-icon-button class="theme-toggle" (click)="toggleTheme()"
-            [matTooltip]="isDarkTheme ? 'Switch to Light Mode' : 'Switch to Dark Mode'">
-            <mat-icon>{{ isDarkTheme ? 'light_mode' : 'dark_mode' }}</mat-icon>
+            [matTooltip]="(isDarkTheme$ | async) ? 'Switch to Light Mode' : 'Switch to Dark Mode'">
+            <mat-icon>{{ (isDarkTheme$ | async) ? 'light_mode' : 'dark_mode' }}</mat-icon>
         </button>
 
         <button mat-button [matMenuTriggerFor]="profileMenu" class="profile-btn">

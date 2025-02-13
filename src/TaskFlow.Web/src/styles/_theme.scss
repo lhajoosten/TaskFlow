@@ -1,18 +1,40 @@
 @use '@angular/material' as mat;
-@use 'theme-colors' as colors;
+@use './theme-colors' as colors;
+@use './responsive' as responsive;
 
-$primary-palette: mat.m2-define-palette(colors.$primary-palette);
-$accent-palette: mat.m2-define-palette(colors.$secondary-palette);
-$warn-palette: mat.m2-define-palette(colors.$error-palette);
+// Custom typography config
+$typography-config: mat.m2-define-typography-config(
+  $font-family: "'Roboto', sans-serif",
+  $headline-1: mat.m2-define-typography-level(96px, 96px, 300),
+  $headline-2: mat.m2-define-typography-level(60px, 60px, 300),
+  $headline-3: mat.m2-define-typography-level(48px, 48px, 400),
+);
 
-$theme: mat.m2-define-light-theme(
+// Light theme configuration
+$light-theme: mat.m2-define-light-theme(
   (
     color: (
-      primary: $primary-palette,
-      accent: $accent-palette,
-      warn: $warn-palette,
+      primary: colors.$primary-palette,
+      accent: colors.$accent-palette,
+      warn: colors.$warn-palette,
     ),
-    typography: mat.m2-define-typography-config(),
+    typography: $typography-config,
     density: 0,
   )
 );
+
+// Dark theme configuration
+$dark-theme: mat.m2-define-dark-theme(
+  (
+    color: (
+      primary: colors.$primary-palette,
+      accent: colors.$accent-palette,
+      warn: colors.$warn-palette,
+    ),
+    typography: $typography-config,
+    density: 0,
+  )
+);
+
+// Export themes
+$theme: $light-theme;

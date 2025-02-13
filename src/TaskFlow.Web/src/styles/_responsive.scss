@@ -1,0 +1,28 @@
+@use 'sass:map';
+
+$breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px,
+);
+
+@mixin respond-to($breakpoint) {
+  @if map.has-key($breakpoints, $breakpoint) {
+    @media (min-width: map.get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  } @else {
+    @warn "Invalid breakpoint: #{$breakpoint}";
+  }
+}
+
+// Helper classes for theme transitions
+@mixin theme-transition {
+  transition:
+    background-color 200ms linear,
+    color 200ms linear,
+    border-color 200ms linear;
+}

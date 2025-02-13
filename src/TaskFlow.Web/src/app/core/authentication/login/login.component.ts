@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { MaterialModule } from '../../material.module';
-import { AuthService } from '../../core/services/auth.service';
+import { MaterialModule } from '../../../material.module';
+import { AuthService } from '../../services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { filter, Subscription, take } from 'rxjs';
 

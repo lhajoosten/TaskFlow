@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { AuthService } from '../../core/services/auth.service';
+import { AuthService } from '../../../core/services/auth.service';
+import { ThemeService } from '../../../core/services/theme.service';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'app-header',
@@ -60,15 +62,19 @@ export class HeaderComponent implements OnInit {
         { type: 'meeting', icon: 'meeting_room', label: 'Meetings' },
         { type: 'mention', icon: 'alternate_email', label: 'Mentions' }
     ];
-    constructor(private dialog: MatDialog, private authService: AuthService, private router: Router) { }
+
+    isDarkTheme$: Observable<boolean>;
+
+    constructor(private themeService: ThemeService, private dialog: MatDialog, private authService: AuthService, private router: Router) {
+        this.isDarkTheme$ = this.themeService.isDarkMode$;
+    }
 
     ngOnInit() {
         this.updateNotificationCount();
     }
 
     toggleTheme() {
-        this.isDarkTheme = !this.isDarkTheme;
-        document.body.classList.toggle('dark-theme');
+        this.themeService.toggleDarkMode();
     }
 
     openAdvancedSearch() {
