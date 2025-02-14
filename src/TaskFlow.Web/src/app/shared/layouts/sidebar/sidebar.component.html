@@ -1,4 +1,4 @@
-<div class="sidebar-container">
+<div class="sidebar-container" [class.open]="isSidebarOpen$ | async">
     <div class="sidebar-content" appScrollbar variant="primary">
         <mat-nav-list class="sidebar-list">
             <!-- Dashboard -->

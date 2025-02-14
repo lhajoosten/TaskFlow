@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ThemeService } from '../../../core/services/theme.service';
+import { LayoutService } from '../../../core/services/layout.service';
 
 @Component({
     selector: 'app-sidebar',
@@ -14,9 +15,12 @@ export class SidebarComponent {
     userAvatar = 'assets/images/avatar-banner.jpg'; // Replace with actual user avatar
 
     isDarkTheme$: Observable<boolean>;
+    isSidebarOpen$: Observable<boolean>;
 
-    constructor(private themeService: ThemeService) {
+    constructor(private themeService: ThemeService, private layoutService: LayoutService) {
         this.isDarkTheme$ = this.themeService.isDarkMode$;
+        this.isSidebarOpen$ = this.layoutService.sidebarOpen$;
+
     }
 
     openQuickTaskDialog() {

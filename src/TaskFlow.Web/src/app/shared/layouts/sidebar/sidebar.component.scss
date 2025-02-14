@@ -4,36 +4,44 @@
   height: 100%;
   background-color: var(--surface-color);
   color: var(--text-color);
-  border-right: 1px solid var(--neutral-color);
-  position: relative;
-  min-width: 280px;
-  transition: all 0.3s ease;
+  width: 280px;
 
-  .mat-nav-list {
-    .active {
-      background-color: var(--elevation-1);
-      color: var(--primary-color);
+  @media screen and (max-width: 1024px) {
+    transform: translateX(-100%);
+    will-change: transform;
+
+    &.open {
+      transform: translateX(0);
     }
   }
 }
 
 .sidebar-content {
   flex: 1;
-  padding: 1.5rem;
+  padding: 16px;
   overflow-y: auto;
   overflow-x: hidden;
+
+  .mat-nav-list {
+    padding: 0;
+
+    .active {
+      background-color: var(--elevation-1);
+      color: var(--primary-color);
+    }
+  }
 
   .mat-expansion-panel {
     background: transparent;
     box-shadow: none;
-    margin: 0.5rem 0;
+    margin: 8px 0;
 
     &:not(.mat-expanded) {
       border-radius: 8px;
     }
 
     .mat-expansion-panel-header {
-      padding: 0 1rem;
+      padding: 0 16px;
       height: 48px;
 
       &:hover {
@@ -45,11 +53,12 @@
         font-weight: 500;
         display: flex;
         align-items: center;
-        gap: 1.9rem;
-        font-size: large;
+        gap: 16px;
+        font-size: 14px;
 
         mat-icon {
           color: var(--neutral-slim-light);
+          margin-right: 8px;
         }
       }
     }
@@ -60,11 +69,9 @@
   }
 
   .mat-nav-list {
-    padding: 0;
-
     .mat-list-item {
       border-radius: 6px;
-      margin: 0.25rem 0;
+      margin: 4px 0;
       height: 40px;
 
       &:hover {
@@ -81,7 +88,7 @@
       }
 
       .mat-list-item-content {
-        padding: 0 1rem;
+        padding: 0 16px;
       }
     }
   }
@@ -89,15 +96,15 @@
 
 .sidebar-footer {
   flex-shrink: 0;
-  padding: 1rem;
+  padding: 16px;
   background-color: var(--surface-color);
-  border-top: 1px solid var(--elevation-1);
+  border-top: 1px solid var(--neutral-color);
 
   .user-info {
     display: flex;
     align-items: center;
-    margin-bottom: 1rem;
-    padding: 0.5rem;
+    margin-bottom: 16px;
+    padding: 8px;
     border-radius: 8px;
     transition: background-color 0.2s ease;
 
@@ -109,23 +116,28 @@
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      margin-right: 0.75rem;
+      margin-right: 12px;
       border: 2px solid var(--primary-color);
     }
 
     .user-details {
       display: flex;
       flex-direction: column;
+      flex: 1;
+      min-width: 0;
 
       .user-name {
         font-weight: 500;
         color: var(--text-color);
-        font-size: 0.9rem;
+        font-size: 14px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
       .user-role {
         color: var(--neutral-color);
-        font-size: 0.8rem;
+        font-size: 12px;
       }
     }
   }
@@ -134,30 +146,29 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 0.5rem;
-    padding: 0.5rem;
+    padding: 8px;
 
     .brand-logo {
       img {
-        width: 45px;
-        height: 45px;
+        width: 32px;
+        height: 32px;
         opacity: 0.8;
         transition: opacity 0.2s ease;
-        margin-right: 0.75rem;
 
         &:hover {
           opacity: 1;
         }
       }
     }
+
     .action-buttons {
       display: flex;
-      gap: 0.5rem;
+      gap: 8px;
 
       button {
-        width: 42px;
-        height: 42px;
-        border-radius: 21px;
+        width: 36px;
+        height: 36px;
+        border-radius: 18px;
         transition: all 0.2s ease;
         display: flex;
         align-items: center;
@@ -176,13 +187,10 @@
 
         mat-icon {
           color: var(--text-color);
-          font-size: 32px;
-          width: 32px;
-          height: 32px;
-          line-height: 32px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
+          font-size: 24px;
+          width: 24px;
+          height: 24px;
+          line-height: 24px;
           transition: color 0.2s ease;
         }
 

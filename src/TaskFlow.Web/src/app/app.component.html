@@ -2,10 +2,13 @@
   <div class="layout-container">
     <app-header class="header-fixed"></app-header>
     <mat-sidenav-container>
-      <mat-sidenav mode="side" opened>
+      <mat-sidenav #sidenav [mode]="(layoutService.isLargeScreen$ | async) ? 'side' : 'over'"
+        [opened]="layoutService.sidebarOpen$ | async" [fixedInViewport]="true" [fixedTopGap]="80"
+        (closed)="layoutService.closeSidebar()">
         <app-sidebar></app-sidebar>
       </mat-sidenav>
-      <mat-sidenav-content appScrollbar variant="primary">
+      <mat-sidenav-content
+        [class.overlay-active]="(layoutService.sidebarOpen$ | async) && !(layoutService.isLargeScreen$ | async)">
         <div class="main-content">
           <router-outlet></router-outlet>
         </div>

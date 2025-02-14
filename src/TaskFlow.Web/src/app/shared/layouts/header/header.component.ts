@@ -1,9 +1,11 @@
-import { Component, EventEmitter, Output, OnInit } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
 import { ThemeService } from '../../../core/services/theme.service';
 import { Observable } from 'rxjs';
+import { LayoutService } from '../../../core/services/layout.service';
+import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
     selector: 'app-header',
@@ -13,6 +15,7 @@ import { Observable } from 'rxjs';
 
 })
 export class HeaderComponent implements OnInit {
+    @ViewChild('sidenav') sidenav!: MatSidenav;
     userName = 'John Doe';
     userEmail = 'john.doe@taskflow.com';
     userRole = 'Project Manager';
@@ -63,10 +66,15 @@ export class HeaderComponent implements OnInit {
     ];
 
     isDarkTheme$: Observable<boolean>;
-    isMobileMenuOpen = false;
+    isSidebarOpen$: Observable<boolean>;
 
-    constructor(private themeService: ThemeService, private dialog: MatDialog, private authService: AuthService, private router: Router) {
+    constructor(
+        private themeService: ThemeService,
+        private authService: AuthService,
+        private router: Router,
+        private layoutService: LayoutService,) {
         this.isDarkTheme$ = this.themeService.isDarkMode$;
+        this.isSidebarOpen$ = this.layoutService.sidebarOpen$;
     }
 
     ngOnInit() {
@@ -117,12 +125,7 @@ export class HeaderComponent implements OnInit {
         });
     }
 
-    toggleMobileMenu() {
-        this.isMobileMenuOpen = !this.isMobileMenuOpen;
-    }
-
-    openNotificationsMenu() {
-        this.isMobileMenuOpen = false;
-        // Implementation to show notifications on mobile
+    toggleSidebar() {
+        this.layoutService.toggleSidebar();
     }
 } 

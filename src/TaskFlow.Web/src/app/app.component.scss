@@ -2,6 +2,7 @@
 @use '../styles/theme-colors' as theme-colors;
 @use 'sass:map';
 
+// Auth Layout Styles
 .auth-layout {
   height: 100vh;
   display: flex;
@@ -47,6 +48,7 @@
   }
 }
 
+// Main Layout Styles
 .layout-container {
   display: flex;
   flex-direction: column;
@@ -55,39 +57,72 @@
   background-color: var(--background-color);
   color: var(--text-color);
 
+  // Fixed Header
   .header-fixed {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    z-index: 2;
-    height: auto;
+    z-index: 1000;
+    height: 80px;
     background-color: var(--surface-color);
     border-bottom: 1px solid var(--neutral-color);
   }
 
+  // Sidenav Container
   mat-sidenav-container {
     flex: 1;
-    margin-top: 120px;
+    margin-top: 80px;
 
     mat-sidenav {
-      width: 320px;
+      width: 280px;
       background-color: var(--surface-color);
       border-right: 1px solid var(--neutral-color);
+      position: fixed;
+      height: calc(100vh - 80px);
+
+      @media screen and (min-width: 1025px) {
+        transform: none !important;
+        visibility: visible !important;
+      }
     }
 
     mat-sidenav-content {
       background-color: var(--background-color);
-      display: flex;
-      flex-direction: column;
+      transition: margin-left 0.3s ease;
+
+      @media screen and (min-width: 1025px) {
+        margin-left: 280px;
+      }
 
       .main-content {
-        height: calc(100vh - 120px);
+        padding: 24px;
+        min-height: calc(100vh - 80px);
+        height: auto;
+        overflow-y: auto;
+      }
+
+      &.overlay-active {
+        @media screen and (max-width: 1024px) {
+          &::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 1;
+            transition: opacity 0.3s ease-in-out;
+          }
+        }
       }
     }
   }
 }
 
+// Preloader
 .preloader {
   position: fixed;
   top: 0;

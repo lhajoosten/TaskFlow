@@ -4,28 +4,29 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 24px;
-  height: 120px;
+  height: 80px;
   background-color: var(--surface-color);
   color: var(--text-color);
   border-bottom: 1px solid var(--neutral-color);
   box-shadow: 0 2px 4px var(--elevation-1);
 
-  .search-field {
-    background-color: var(--elevation-1);
+  // Menu Button
+  .menu-button {
+    display: none;
+    margin-right: 16px;
   }
 
   // Left Section
   .header-left {
+    display: flex;
+    align-items: center;
+
     .brand {
       .brand-text {
         display: flex;
-        flex-direction: column;
         align-items: center;
 
         .brand-name {
-          display: flex;
-          align-items: center;
-
           .brand-logo {
             height: 32px;
             width: auto;
@@ -33,7 +34,6 @@
 
             &.theme-transition {
               opacity: 0.95;
-
               &:hover {
                 opacity: 1;
               }
@@ -48,12 +48,13 @@
   .header-center {
     flex: 1;
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
-    margin-right: 32px;
+    margin: 0 32px;
 
     .search-field {
       width: 450px;
+      background-color: var(--elevation-1);
 
       ::ng-deep {
         .mat-mdc-form-field-subscript-wrapper {
@@ -106,7 +107,7 @@
           color: var(--text-color);
 
           &::placeholder {
-            color: var(----accent-lighter-color);
+            color: var(--accent-lighter-color);
           }
         }
 
@@ -139,7 +140,7 @@
         mat-icon {
           font-size: 20px;
           &.warning {
-            color: var(--accent-lighter-color);
+            color: var(--warn-color);
           }
         }
 
@@ -193,34 +194,25 @@
           font-weight: 500;
           color: var(--text-color);
         }
-
-        .user-role {
-          font-size: 12px;
-          color: var(--neutral-darker);
-        }
       }
     }
   }
 
-  .menu-button {
-    display: none; // Hidden by default
-    margin-right: 16px;
-  }
-
+  // Responsive Styles
   @media screen and (max-width: 1024px) {
-    height: 80px;
-
     .header-center {
       .search-field {
         width: 300px;
       }
     }
-  }
 
-  @media screen and (max-width: 768px) {
     .menu-button {
       display: block;
     }
+  }
+
+  @media screen and (max-width: 768px) {
+    padding: 0 16px;
 
     .header-center {
       display: none;
@@ -235,91 +227,29 @@
 
       .profile-btn {
         padding: 4px;
+        background: none;
+        border: none;
 
-        .user-info {
+        &:hover {
+          background: var(--hover-overlay);
+        }
+
+        .user-info,
+        mat-icon {
           display: none;
         }
 
         .avatar {
           margin: 0;
-        }
-
-        mat-icon {
-          display: none;
+          width: 36px;
+          height: 36px;
         }
       }
     }
   }
 }
 
-.mobile-menu {
-  position: fixed;
-  top: 80px;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: var(--surface-color);
-  z-index: 1000;
-  padding: 16px;
-  transform: translateX(-100%);
-  transition: transform 0.3s ease-in-out;
-  overflow-y: auto;
-
-  &.open {
-    transform: translateX(0);
-  }
-
-  .search-field {
-    width: 100%;
-    margin-bottom: 16px;
-  }
-
-  .mobile-menu-items {
-    .quick-stats {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      padding: 16px 0;
-      border-bottom: 1px solid var(--neutral-color);
-
-      .stat-item {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-
-        mat-icon {
-          color: var(--primary-color);
-          &.warning {
-            color: var(--warn-color);
-          }
-        }
-      }
-    }
-
-    .mobile-actions {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      padding: 16px 0;
-
-      button {
-        justify-content: flex-start;
-        padding: 12px;
-        width: 100%;
-        border-radius: 8px;
-
-        mat-icon {
-          margin-right: 12px;
-        }
-
-        &:hover {
-          background-color: var(--hover-overlay);
-        }
-      }
-    }
-  }
-}
-
+// Profile Menu Styles
 ::ng-deep .profile-menu {
   min-width: 280px;
 
@@ -327,53 +257,47 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center;
     padding: 24px 16px;
-    cursor: default;
-
-    &:hover {
-      background: none;
-    }
 
     .profile-avatar {
       width: 75px;
       height: 75px;
       border-radius: 50%;
       margin-bottom: 16px;
+      border: 3px solid var(--primary-color);
     }
 
     .profile-info {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
+      text-align: center;
 
       strong {
+        display: block;
         font-size: 14px;
-        color: var(--text-darker);
+        color: var(--text-color);
+        margin-bottom: 4px;
       }
 
       small {
         font-size: 12px;
-        color: var(--text-color);
+        color: var(--neutral-darker);
       }
     }
   }
 
   .mat-menu-item {
-    display: flex;
-    justify-content: center;
-    padding: 0 16px;
     height: 44px;
 
-    .mat-icon {
+    mat-icon {
       margin-right: 12px;
-      color: var(--text-color);
+      color: var(--neutral-darker);
+    }
+
+    &:hover mat-icon {
+      color: var(--primary-color);
     }
   }
 
   .mat-divider {
     margin: 8px 0;
-    border-color: var(--neutral-color);
   }
 }

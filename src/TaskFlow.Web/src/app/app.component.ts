@@ -3,6 +3,8 @@ import { AuthService } from './core/services/auth.service';
 import { AssetPreloaderService } from './core/services/asset-preloader.service';
 import { ThemeService } from './core/services/theme.service';
 import { CustomScrollbarDirective } from './core/directives/custom-scrollbar.directive';
+import { LayoutService } from './core/services/layout.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -12,11 +14,16 @@ import { CustomScrollbarDirective } from './core/directives/custom-scrollbar.dir
 })
 export class AppComponent implements OnInit {
   isLoading = true;
+  isLargeScreen$: Observable<boolean>;
 
   constructor(
     protected authService: AuthService,
+    protected layoutService: LayoutService,
     private assetPreloader: AssetPreloaderService,
-    private themeService: ThemeService) { }
+    private themeService: ThemeService,
+  ) {
+    this.isLargeScreen$ = this.layoutService.isLargeScreen$;
+  }
 
   ngOnInit() {
     this.assetPreloader.preloadAssets().subscribe({
