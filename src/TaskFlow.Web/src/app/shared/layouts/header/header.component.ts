@@ -13,7 +13,6 @@ import { Observable } from 'rxjs';
 
 })
 export class HeaderComponent implements OnInit {
-    isDarkTheme = false;
     userName = 'John Doe';
     userEmail = 'john.doe@taskflow.com';
     userRole = 'Project Manager';
@@ -64,6 +63,7 @@ export class HeaderComponent implements OnInit {
     ];
 
     isDarkTheme$: Observable<boolean>;
+    isMobileMenuOpen = false;
 
     constructor(private themeService: ThemeService, private dialog: MatDialog, private authService: AuthService, private router: Router) {
         this.isDarkTheme$ = this.themeService.isDarkMode$;
@@ -115,5 +115,14 @@ export class HeaderComponent implements OnInit {
                 this.router.navigate(['/auth/login'], { replaceUrl: true });
             }
         });
+    }
+
+    toggleMobileMenu() {
+        this.isMobileMenuOpen = !this.isMobileMenuOpen;
+    }
+
+    openNotificationsMenu() {
+        this.isMobileMenuOpen = false;
+        // Implementation to show notifications on mobile
     }
 } 

@@ -1,0 +1,70 @@
+@mixin custom-scrollbar(
+  $width: 10px,
+  $track-color: var(--surface-color),
+  $thumb-color: var(--neutral-color),
+  $thumb-radius: 20px
+) {
+  // Firefox
+  scrollbar-width: thin;
+  scrollbar-color: $thumb-color $track-color;
+
+  // IE/Edge
+  -ms-overflow-style: none;
+
+  // Webkit browsers (Chrome, Safari, Opera)
+  &::-webkit-scrollbar {
+    width: $width;
+    height: $width;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $track-color;
+    border-radius: $thumb-radius;
+    margin: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $thumb-color;
+    border-radius: $thumb-radius;
+    border: 3px solid $track-color;
+    min-height: 40px;
+    background-clip: padding-box;
+
+    &:hover {
+      background-color: var(--primary-contrast);
+      border: 2px solid $track-color;
+    }
+  }
+
+  // Completely remove scrollbar buttons/arrows
+  &::-webkit-scrollbar-button:single-button {
+    display: none;
+  }
+
+  &::-webkit-scrollbar-button {
+    display: none;
+  }
+
+  &::-webkit-scrollbar-corner {
+    background-color: transparent;
+  }
+}
+
+// Custom scrollbar variants with updated colors
+.scrollbar-primary {
+  @include custom-scrollbar(
+    $thumb-color: var(--primary-contrast),
+    $track-color: var(--surface-color)
+  );
+}
+
+.scrollbar-dark {
+  @include custom-scrollbar($thumb-color: var(--text-color), $track-color: var(--elevation-1));
+}
+
+.scrollbar-light {
+  @include custom-scrollbar(
+    $thumb-color: var(--neutral-slim-light),
+    $track-color: var(--surface-color)
+  );
+}

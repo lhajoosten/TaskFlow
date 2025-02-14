@@ -16,6 +16,7 @@ import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { TimeAgoPipe } from './core/pipes/time-ago.pipe';
 import { FormsModule } from '@angular/forms';
 import { SpinnerComponent } from './shared/components/spinner.component';
+import { CustomScrollbarDirective } from './core/directives/custom-scrollbar.directive';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { SpinnerComponent } from './shared/components/spinner.component';
 
     // Core items
     TimeAgoPipe,
+    CustomScrollbarDirective
   ],
   providers: [
     {

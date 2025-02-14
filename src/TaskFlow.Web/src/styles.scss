@@ -1,6 +1,7 @@
 @use '@angular/material' as mat;
 @use './styles/theme' as theme;
 @use './styles/responsive' as responsive;
+@use 'styles/scrollbar';
 @use 'sass:map';
 
 // Include the common styles for Angular Material
@@ -159,23 +160,4 @@ body {
   background-color: var(--background-color);
   color: var(--text-color);
   @include responsive.theme-transition;
-}
-
-// Scrollbar styling
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--neutral-lighter);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--neutral-color);
-  border-radius: 4px;
-
-  &:hover {
-    background: var(--neutral-darker);
-  }
 }

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
+import { ThemeService } from '../../../core/services/theme.service';
 
 @Component({
     selector: 'app-sidebar',
@@ -12,7 +13,11 @@ export class SidebarComponent {
     userRole = 'Project Manager'; // Replace with actual user role
     userAvatar = 'assets/images/avatar-banner.jpg'; // Replace with actual user avatar
 
-    constructor(private dialog: MatDialog) { }
+    isDarkTheme$: Observable<boolean>;
+
+    constructor(private themeService: ThemeService) {
+        this.isDarkTheme$ = this.themeService.isDarkMode$;
+    }
 
     openQuickTaskDialog() {
         // Implement quick task dialog opening logic

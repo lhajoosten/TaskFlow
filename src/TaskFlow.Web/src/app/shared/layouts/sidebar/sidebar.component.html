@@ -1,5 +1,5 @@
 <div class="sidebar-container">
-    <div class="sidebar-content">
+    <div class="sidebar-content" appScrollbar variant="primary">
         <mat-nav-list class="sidebar-list">
             <!-- Dashboard -->
             <a mat-list-item routerLink="/dashboard" routerLinkActive="active">
@@ -152,7 +152,8 @@
         </div>
         <div class="quick-actions-footer">
             <div class="brand-logo">
-                <img src="assets/brand/taskflow-logo.svg" alt="TaskFlow Logo">
+                <img [src]="(isDarkTheme$ | async) ? 'assets/brand/taskflow-icon-dark.svg' : 'assets/brand/taskflow-icon-light.svg'"
+                    alt="TaskFlow Logo">
             </div>
             <div class="action-buttons">
                 <button mat-icon-button matTooltip="New Task" (click)="openQuickTaskDialog()">

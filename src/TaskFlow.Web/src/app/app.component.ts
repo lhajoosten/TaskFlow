@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from './core/services/auth.service';
 import { AssetPreloaderService } from './core/services/asset-preloader.service';
 import { ThemeService } from './core/services/theme.service';
+import { CustomScrollbarDirective } from './core/directives/custom-scrollbar.directive';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  standalone: false
+  standalone: false,
 })
 export class AppComponent implements OnInit {
   isLoading = true;
