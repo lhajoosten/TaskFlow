@@ -7,35 +7,40 @@
   height: 120px;
   background-color: var(--surface-color);
   color: var(--text-color);
-  border-bottom: 1px solid var(--border-color);
-  box-shadow: 0 2px 4px var(--shadow-color);
+  border-bottom: 1px solid var(--neutral-color);
+  box-shadow: 0 2px 4px var(--elevation-1);
 
   .search-field {
-    background-color: var(--surface-variant-color);
+    background-color: var(--elevation-1);
   }
 
   // Left Section
   .header-left {
-    display: flex;
-    align-items: center;
-    gap: 45px;
-
     .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
+      .brand-text {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
 
-      .brand-name {
-        font-size: 1.4rem;
-        font-weight: 600;
-        color: var(--text-color);
-        letter-spacing: -0.5px;
+        .brand-name {
+          display: flex;
+          align-items: center;
+
+          .brand-logo {
+            height: 32px;
+            width: auto;
+            transition: opacity 0.2s ease-in-out;
+
+            &.theme-transition {
+              opacity: 0.95;
+
+              &:hover {
+                opacity: 1;
+              }
+            }
+          }
+        }
       }
-    }
-
-    .quick-actions {
-      display: flex;
-      gap: 8px;
     }
   }
 
@@ -71,18 +76,18 @@
           padding: 0 16px;
           align-items: center;
           border-radius: 24px;
-          background: var(--surface-variant-color);
+          background: var(--elevation-1);
           transition: all 0.2s ease;
 
           &:hover {
-            background: var(--hover-color);
+            background: var(--hover-overlay);
           }
         }
 
         .mat-form-field-prefix,
         .mat-form-field-suffix {
           .mat-icon {
-            color: var(--secondary-text-color);
+            color: var(--primary-color);
             font-size: 20px;
             width: 20px;
             height: 20px;
@@ -101,13 +106,13 @@
           color: var(--text-color);
 
           &::placeholder {
-            color: var(--secondary-text-color);
+            color: var(----accent-lighter-color);
           }
         }
 
         .mat-focused .mat-form-field-flex {
           background: var(--surface-color);
-          box-shadow: 0 2px 8px var(--shadow-color);
+          box-shadow: 0 2px 8px var(--elevation-2);
         }
       }
     }
@@ -123,18 +128,18 @@
       display: flex;
       gap: 16px;
       padding: 0 12px;
-      border-right: 1px solid var(--border-color);
+      border-right: 1px solid var(--neutral-color);
 
       .stat-item {
         display: flex;
         align-items: center;
         gap: 6px;
-        color: var(--secondary-text-color);
+        color: var(--accent-lighter-color);
 
         mat-icon {
           font-size: 20px;
           &.warning {
-            color: var(--warn-color);
+            color: var(--accent-lighter-color);
           }
         }
 
@@ -147,12 +152,12 @@
 
     .notification-btn,
     .theme-toggle {
-      color: var(--secondary-text-color);
+      color: var(--primary-contrast);
       transition: all 0.2s ease;
 
       &:hover {
-        background-color: var(--hover-color);
-        color: var(--primary-color);
+        background-color: var(--hover-overlay);
+        color: var(--accent-darker-color);
       }
     }
 
@@ -162,13 +167,13 @@
       gap: 8px;
       padding: 8px 12px;
       border-radius: 24px;
-      background: var(--surface-variant-color);
+      background: var(--elevation-1);
       border: 1px solid transparent;
       transition: all 0.2s ease;
 
       &:hover {
-        background: var(--hover-color);
-        border-color: var(--border-color);
+        background: var(--hover-overlay);
+        border-color: var(--neutral-color);
       }
 
       .avatar {
@@ -191,7 +196,7 @@
 
         .user-role {
           font-size: 12px;
-          color: var(--secondary-text-color);
+          color: var(--neutral-darker);
         }
       }
     }
@@ -228,7 +233,7 @@
 
       strong {
         font-size: 14px;
-        color: var(--secondary-text-color);
+        color: var(--text-darker);
       }
 
       small {
@@ -252,5 +257,6 @@
 
   .mat-divider {
     margin: 8px 0;
+    border-color: var(--neutral-color);
   }
 }

@@ -20,7 +20,7 @@
     background-image: url('../assets/overlays/auth-overlay.jpg');
     background-size: cover;
     background-attachment: fixed;
-    background-color: var(--auth-overlay-color);
+    background-color: rgba(map-get(theme-colors.$neutral-colors, 500), 0.8);
     background-blend-mode: overlay;
 
     ::ng-deep {
@@ -34,7 +34,7 @@
         @include mat.elevation(2);
         backdrop-filter: blur(10px);
         background: var(--card-background);
-        border: 1px solid var(--border-color);
+        border: 1px solid var(--neutral-color);
         transition: all 0.3s ease;
 
         &:hover {
@@ -62,6 +62,7 @@
     z-index: 2;
     height: auto;
     background-color: var(--surface-color);
+    border-bottom: 1px solid var(--neutral-color);
   }
 
   mat-sidenav-container {
@@ -72,33 +73,59 @@
       width: 320px;
       overflow: hidden;
       background-color: var(--surface-color);
-      border-right: 1px solid var(--border-color);
+      border-right: 1px solid var(--neutral-color);
     }
 
     mat-sidenav-content {
       background-color: var(--background-color);
 
       .main-content {
-        padding: 24px;
         height: calc(100vh - 120px);
         overflow-y: auto;
 
+        // Firefox scrollbar
+        scrollbar-width: thin;
+        scrollbar-color: var(--primary-color) var(--neutral-slim-dark);
+
+        // Webkit scrollbar
         &::-webkit-scrollbar {
-          width: 8px;
+          width: 6px;
+          height: 6px;
         }
 
         &::-webkit-scrollbar-track {
-          background: var(--scroll-track-color);
+          background: var(--neutral-lighter);
+          border-radius: 8px; // Changed from 25%
         }
 
         &::-webkit-scrollbar-thumb {
-          background-color: var(--scroll-thumb-color);
-          border-radius: 4px;
+          background-color: var(--primary-color);
+          border-radius: 8px; // Changed from 25%
+          transition: all 0.2s ease-in-out;
 
           &:hover {
-            background-color: var(--scroll-thumb-hover-color);
+            background-color: var(--primary-darker);
           }
         }
+      }
+    }
+  }
+}
+
+// Add this to handle dark theme scrollbars
+:host-context(.dark-theme) {
+  .main-content {
+    scrollbar-color: var(--neutral-color) var(--elevation-1);
+
+    &::-webkit-scrollbar-track {
+      background: var(--elevation-1);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--neutral-color);
+
+      &:hover {
+        background-color: var(--neutral-darker);
       }
     }
   }
@@ -113,6 +140,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--overlay-background);
+  background: rgba(map-get(theme-colors.$neutral-colors, 500), 0.8);
   z-index: 9999;
 }

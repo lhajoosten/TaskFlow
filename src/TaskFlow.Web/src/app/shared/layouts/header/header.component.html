@@ -1,9 +1,11 @@
 <mat-toolbar class="header">
     <div class="header-left">
         <div class="brand">
-            <div class="brand-text" style="display: flex; flex-direction: column; align-items: center;">
-                <span class="brand-name" style="font-size: x-large;"><img src="assets/brand/taskflow-brand.svg"
-                        class="sidebar-logo" alt="TaskFlow Logo"></span>
+            <div class="brand-text">
+                <span class="brand-name">
+                    <img [src]="(isDarkTheme$ | async) ? 'assets/brand/taskflow-brand-dark.svg' : 'assets/brand/taskflow-brand.svg'"
+                        class="brand-logo" alt="TaskFlow Logo" [ngClass]="{'theme-transition': true}">
+                </span>
             </div>
         </div>
     </div>

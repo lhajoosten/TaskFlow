@@ -4,15 +4,15 @@
   height: calc(100vh - 120px);
   background-color: var(--surface-color);
   color: var(--text-color);
-  border-right: 1px solid var(--border-color);
+  border-right: 1px solid var(--neutral-color);
   position: relative;
   min-width: 280px;
   transition: all 0.3s ease;
 
   .mat-nav-list {
     .active {
-      background-color: var(--primary-container-color);
-      color: var(--on-primary-container-color);
+      background-color: var(--elevation-1);
+      color: var(--primary-color);
     }
   }
 }
@@ -20,21 +20,31 @@
 .sidebar-content {
   flex: 1;
   overflow-y: auto;
-  padding: 1rem;
-  scrollbar-width: thin;
-  scrollbar-color: var(--scroll-thumb-color) var(--scroll-track-color);
+  padding: 1.5rem;
 
+  // Firefox scrollbar
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-color) var(--neutral-slim-dark);
+
+  // Webkit scrollbar
   &::-webkit-scrollbar {
     width: 6px;
+    height: 6px;
   }
 
   &::-webkit-scrollbar-track {
-    background: var(--scroll-track-color);
+    background: var(--neutral-lighter);
+    border-radius: 25px !important;
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: var(--scroll-thumb-color);
-    border-radius: 3px;
+    background-color: var(--primary-color);
+    border-radius: 25px !important;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: var(--primary-darker);
+    }
   }
 
   .mat-expansion-panel {
@@ -51,7 +61,7 @@
       height: 48px;
 
       &:hover {
-        background: var(--hover-color);
+        background: var(--hover-overlay);
       }
 
       .mat-expansion-panel-header-title {
@@ -63,7 +73,7 @@
         font-size: large;
 
         mat-icon {
-          color: var(--secondary-text-color);
+          color: var(--neutral-slim-light);
         }
       }
     }
@@ -82,12 +92,12 @@
       height: 40px;
 
       &:hover {
-        background-color: var(--hover-color);
+        background-color: var(--hover-overlay);
       }
 
       &.active {
-        background-color: var(--primary-container-color);
-        color: var(--on-primary-container-color);
+        background-color: var(--elevation-1);
+        color: var(--primary-color);
 
         mat-icon {
           color: var(--primary-color);
@@ -106,71 +116,126 @@
   bottom: 0;
   background-color: var(--surface-color);
   padding: 1rem;
-  border-top: 1px solid var(--border-color);
+  border-top: 1px solid var(--neutral-color);
   z-index: 10;
 
   .user-info {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    padding: 0.5rem;
+    padding: 0.75rem;
     margin-bottom: 1rem;
     border-radius: 8px;
-    background-color: var(--surface-variant-color);
+    background-color: var(--elevation-1);
+    border: 1px solid var(--neutral-color);
+    transition: all 0.2s ease;
+
+    &:hover {
+      border-color: var(--neutral-darker);
+      background-color: var(--hover-overlay);
+    }
 
     .user-avatar {
-      width: 36px;
-      height: 36px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       object-fit: cover;
+      border: 2px solid var(--surface-color);
     }
 
     .user-details {
       display: flex;
       flex-direction: column;
+      gap: 0.25rem;
 
       .user-name {
         font-weight: 500;
-        color: var(--text-color);
+        color: var(--primary-color);
+        font-size: 0.95rem;
       }
 
       .user-role {
-        font-size: 0.875rem;
-        color: var(--secondary-text-color);
+        font-size: 0.8rem;
+        color: var(--text-color);
       }
     }
   }
 
-  .mat-expansion-panel {
-    background: transparent;
-    box-shadow: none;
-  }
-
   .quick-actions-footer {
     display: flex;
-    justify-content: center;
-    gap: 0.75rem;
+    align-items: center;
+    gap: 1rem;
     padding: 0.75rem;
-    margin-top: 0.5rem;
-    background-color: var(--surface-variant-color);
-    border-radius: 8px;
+    background-color: var(--elevation-1);
+    border: 1px solid var(--neutral-color);
 
-    button {
-      background-color: var(--surface-color);
-      border: 1px solid var(--border-color);
+    .brand-logo {
+      flex: 0 0 auto;
 
-      &:hover {
-        background-color: var(--hover-color);
-        border-color: var(--primary-color);
+      img {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        justify-content: center;
+        width: 40px;
+        height: auto;
+        opacity: 0.8;
+        transition: opacity 0.2s ease;
 
-        mat-icon {
-          color: var(--primary-color);
+        &:hover {
+          opacity: 1;
         }
       }
+    }
 
-      mat-icon {
-        color: var(--secondary-text-color);
-        transition: color 0.2s ease;
+    .action-buttons {
+      display: flex;
+      gap: 0.5rem;
+      margin-left: auto;
+
+      button {
+        width: 40px;
+        height: 40px;
+        background-color: transparent;
+        border: 1px solid transparent;
+        transition: all 0.2s ease;
+        display: flex; // Added for centering
+        align-items: center; // Added for centering
+        justify-content: center; // Added for centering
+        padding: 0; // Reset padding
+
+        &:hover {
+          background-color: var(--hover-overlay);
+          border-color: var(--neutral-color);
+
+          mat-icon {
+            color: var(--primary-color);
+          }
+        }
+
+        &:active {
+          background-color: var(--pressed-overlay);
+          border-color: var(--primary-color);
+
+          mat-icon {
+            color: var(--primary-darker);
+          }
+        }
+
+        mat-icon {
+          width: 24px; // Adjusted size
+          height: 24px; // Adjusted size
+          font-size: 24px; // Matched size
+          color: var(--accent-color);
+          transition: color 0.2s ease;
+          display: flex; // Added for centering
+          align-items: center; // Added for centering
+          justify-content: center; // Added for centering
+
+          &:hover {
+            color: var(--primary-color);
+          }
+        }
       }
     }
   }
@@ -188,7 +253,7 @@
     top: 0;
     bottom: 0;
     width: 4px;
-    background-color: var(--primary-color);
+    background-color: var(--primary-lighter-color);
     border-radius: 0 4px 4px 0;
   }
 }

@@ -149,20 +149,22 @@
                 <span class="user-name">{{userName}}</span>
                 <span class="user-role">{{userRole}}</span>
             </div>
-
-
         </div>
         <div class="quick-actions-footer">
-            <img src="assets/brand/taskflow-logo.svg" alt="TaskFlow Logo" style="width: 50px; height: fit-content;">
-            <button mat-icon-button matTooltip="New Task" (click)="openQuickTaskDialog()">
-                <mat-icon>add_task</mat-icon>
-            </button>
-            <button mat-icon-button matTooltip="Quick Meeting" (click)="openQuickMeetingDialog()">
-                <mat-icon>meeting_room</mat-icon>
-            </button>
-            <button mat-icon-button matTooltip="New Project" (click)="openQuickProjectDialog()">
-                <mat-icon>folder_open</mat-icon>
-            </button>
+            <div class="brand-logo">
+                <img src="assets/brand/taskflow-logo.svg" alt="TaskFlow Logo">
+            </div>
+            <div class="action-buttons">
+                <button mat-icon-button matTooltip="New Task" (click)="openQuickTaskDialog()">
+                    <mat-icon>add_task</mat-icon>
+                </button>
+                <button mat-icon-button matTooltip="Quick Meeting" (click)="openQuickMeetingDialog()">
+                    <mat-icon>meeting_room</mat-icon>
+                </button>
+                <button mat-icon-button matTooltip="New Project" (click)="openQuickProjectDialog()">
+                    <mat-icon>folder_open</mat-icon>
+                </button>
+            </div>
         </div>
     </div>
 </div>

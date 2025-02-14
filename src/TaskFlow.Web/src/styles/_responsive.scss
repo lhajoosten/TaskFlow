@@ -32,7 +32,7 @@ $breakpoints: (
 // Helper classes for theme transitions
 @mixin theme-transition {
   transition:
-    background-color 200ms linear,
-    color 200ms linear,
-    border-color 200ms linear;
+    background-color 1.2s linear,
+    color 1.2s linear,
+    border-color 1.2s linear;
 }

@@ -12,48 +12,43 @@ $typography-config: mat.m2-define-typography-config(
 );
 
 // Define the base theme
-$light-theme-base: mat.m2-define-light-theme(
-  (
-    color: (
-      primary: colors.$primary-palette,
-      accent: colors.$accent-palette,
-      warn: colors.$warn-palette,
-    ),
-    typography: $typography-config,
-    density: 0,
-  )
+$custom-theme: (
+  success: colors.$success-palette,
+  info: colors.$info-palette,
+  secondary: colors.$secondary-palette,
+  neutral: colors.$neutral-palette,
 );
 
-// Create a complete theme by merging the base theme with custom palettes
+// Define the light theme
 $light-theme: map.merge(
-  $light-theme-base,
-  (
-    success: colors.$success-palette,
-    info: colors.$info-palette,
-    secondary: colors.$secondary-palette,
-  )
+  mat.m2-define-light-theme(
+    (
+      color: (
+        primary: colors.$primary-palette,
+        accent: colors.$accent-palette,
+        warn: colors.$warn-palette,
+      ),
+      typography: $typography-config,
+      density: 0,
+    )
+  ),
+  $custom-theme
 );
 
-// Dark theme configuration
-$dark-theme-base: mat.m2-define-dark-theme(
-  (
-    color: (
-      primary: colors.$primary-palette,
-      accent: colors.$accent-palette,
-      warn: colors.$warn-palette,
-    ),
-    typography: $typography-config,
-    density: 0,
-  )
-);
-
+// Define the dark theme
 $dark-theme: map.merge(
-  $dark-theme-base,
-  (
-    success: colors.$success-palette,
-    info: colors.$info-palette,
-    secondary: colors.$secondary-palette,
-  )
+  mat.m2-define-dark-theme(
+    (
+      color: (
+        primary: colors.$primary-palette,
+        accent: colors.$accent-palette,
+        warn: colors.$warn-palette,
+      ),
+      typography: $typography-config,
+      density: 0,
+    )
+  ),
+  $custom-theme
 );
 
 // Export themes

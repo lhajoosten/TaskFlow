@@ -1,7 +1,8 @@
 .dashboard-overview {
-  padding: 32px;
+  padding: 2.35rem;
   background-color: var(--background-color);
   min-height: 100vh;
+  transition: all 0.2s ease-in-out;
 
   .dashboard-header {
     display: flex;
@@ -14,10 +15,12 @@
       font-size: 2rem;
       font-weight: 500;
       color: var(--text-color);
+      transition: all 0.2s ease-in-out;
     }
 
     mat-form-field {
       width: 200px;
+      transition: all 0.2s ease-in-out;
     }
   }
 
@@ -32,18 +35,18 @@
       .stat-item {
         background: var(--surface-color);
         border-radius: 12px;
-        box-shadow: 0 4px 20px var(--shadow-color);
-        transition: transform 0.2s ease-in-out;
-        border: none;
+        border: 1px solid var(--neutral-color);
 
         &:hover {
           transform: translateY(-4px);
+          border-color: var(--neutral-darker);
+          background-color: var(--elevation-1);
         }
 
         mat-card-title {
           padding: 20px 24px 0;
           font-size: 1rem;
-          color: var(--secondary-text-color);
+          color: var(--neutral-slim-light);
         }
 
         .stat-content {
@@ -59,7 +62,7 @@
           }
 
           .trend-percentage {
-            font-size: 1rem;
+            font-size: 1.25rem;
             font-weight: 500;
             padding: 4px 8px;
             border-radius: 6px;
@@ -67,15 +70,21 @@
 
           .trend-up {
             color: var(--success-color);
-            background-color: var(--success-container-color);
+            height: fit-content;
+            width: auto;
+            font-size: xx-large;
           }
           .trend-down {
-            color: var(--error-color);
-            background-color: var(--error-container-color);
+            color: var(--warn-color);
+            height: fit-content;
+            width: auto;
+            font-size: xx-large;
           }
           .trend-stable {
-            color: var(--warn-color);
-            background-color: var(--warn-container-color);
+            color: var(--secondary-main);
+            height: fit-content;
+            width: auto;
+            font-size: xx-large;
           }
         }
       }
@@ -89,19 +98,25 @@
 
     mat-card {
       border-radius: 12px;
-      box-shadow: 0 4px 20px var(--shadow-color);
-      border: none;
       background: var(--surface-color);
+      border: 1px solid var(--neutral-color);
+      transition: all 0.2s ease-in-out;
+
+      &:hover {
+        background-color: var(--elevation-1);
+        border-color: var(--neutral-darker);
+      }
 
       mat-card-title {
         padding: 24px;
-        border-bottom: 1px solid var(--border-color);
+        border-bottom: 1px solid var(--neutral-color);
 
         h2 {
           margin: 0;
           font-size: 1.25rem;
           color: var(--text-color);
           font-weight: 500;
+          transition: all 0.2s ease-in-out;
         }
       }
 
@@ -113,19 +128,23 @@
     .recent-activities {
       mat-list-item {
         margin-bottom: 16px;
+        transition: all 0.2s ease-in-out;
 
         mat-icon {
-          color: var(--secondary-text-color);
+          color: var(--neutral-slim-light);
+          transition: all 0.2s ease-in-out;
         }
 
         [matListItemTitle] {
           color: var(--text-color);
           font-weight: 500;
+          transition: all 0.2s ease-in-out;
         }
 
         [matListItemLine] {
-          color: var(--secondary-text-color);
+          color: var(--neutral-lighter);
           font-size: 0.875rem;
+          transition: all 0.2s ease-in-out;
         }
       }
     }
@@ -138,8 +157,9 @@
         margin-bottom: 8px;
 
         span {
+          transition: all 0.2s ease-in-out;
           &:first-child {
-            color: var(--text-color);
+            color: var(--neutral-slim-light);
             font-weight: 500;
           }
         }
@@ -154,6 +174,7 @@
         margin-top: 8px;
         height: 6px;
         border-radius: 3px;
+        transition: all 0.2s ease-in-out;
       }
     }
 
@@ -172,6 +193,7 @@
           align-items: center;
           gap: 16px;
           margin-bottom: 12px;
+          transition: all 0.2s ease-in-out;
 
           .member-avatar {
             width: 40px;
@@ -179,10 +201,12 @@
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid var(--surface-color);
-            box-shadow: 0 2px 8px var(--shadow-color);
+            box-shadow: 0 2px 4px var(--elevation-1);
+            transition: all 0.2s ease-in-out;
           }
 
           span {
+            transition: all 0.2s ease-in-out;
             &:first-of-type {
               color: var(--text-color);
               font-weight: 500;
@@ -191,17 +215,19 @@
 
           .task-count {
             margin-left: auto;
-            color: var(--secondary-text-color);
+            color: var(--neutral-slim-light);
             font-size: 0.875rem;
-            background-color: var(--surface-variant-color);
+            background-color: var(--elevation-1);
             padding: 4px 8px;
             border-radius: 4px;
+            transition: all 0.2s ease-in-out;
           }
         }
 
         mat-progress-bar {
           height: 6px;
           border-radius: 3px;
+          transition: all 0.2s ease-in-out;
         }
       }
     }
@@ -211,11 +237,13 @@
 // Custom progress bar colors
 ::ng-deep {
   .mat-progress-bar-fill::after {
-    background-color: var(--success-color);
+    background-color: var(--primary-color);
+    transition: all 0.2s ease-in-out;
   }
 
   .mat-progress-bar-buffer {
-    background-color: var(--surface-variant-color);
+    background-color: var(--elevation-1);
+    transition: all 0.2s ease-in-out;
   }
 }
 
