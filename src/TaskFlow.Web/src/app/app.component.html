@@ -1,14 +1,27 @@
 <ng-container *ngIf="!isLoading && (authService.isAuthenticated() | async); else authLayout">
   <div class="layout-container">
-    <app-header class="header-fixed"></app-header>
+    <app-header #header class="header-fixed"></app-header>
     <mat-sidenav-container>
-      <mat-sidenav #sidenav [mode]="(layoutService.isLargeScreen$ | async) ? 'side' : 'over'"
-        [opened]="layoutService.sidebarOpen$ | async" [fixedInViewport]="true" [fixedTopGap]="80"
-        (closed)="layoutService.closeSidebar()">
-        <app-sidebar></app-sidebar>
+      <mat-sidenav
+        #sidenav
+        [mode]="(layoutService.isLargeScreen$ | async) ? 'side' : 'over'"
+        [opened]="layoutService.sidebarOpen$ | async"
+        [fixedInViewport]="true"
+        [fixedTopGap]="80"
+        (closed)="layoutService.closeSidebar()"
+      >
+      <app-sidebar
+      [headerMenus]="{
+        notifications: header.notificationsMenu,
+        filter: header.filterMenu
+      }"
+    ></app-sidebar>
       </mat-sidenav>
       <mat-sidenav-content
-        [class.overlay-active]="(layoutService.sidebarOpen$ | async) && !(layoutService.isLargeScreen$ | async)">
+        [class.overlay-active]="
+          (layoutService.sidebarOpen$ | async) && !(layoutService.isLargeScreen$ | async)
+        "
+      >
         <div class="main-content">
           <router-outlet></router-outlet>
         </div>

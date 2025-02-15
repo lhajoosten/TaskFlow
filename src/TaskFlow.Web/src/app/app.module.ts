@@ -17,13 +17,10 @@ import { TimeAgoPipe } from './core/pipes/time-ago.pipe';
 import { FormsModule } from '@angular/forms';
 import { SpinnerComponent } from './shared/components/spinner.component';
 import { CustomScrollbarDirective } from './core/directives/custom-scrollbar.directive';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    SidebarComponent,
-  ],
+  declarations: [AppComponent, HeaderComponent, SidebarComponent],
   imports: [
     // Standalone components
     SpinnerComponent,
@@ -33,6 +30,7 @@ import { CustomScrollbarDirective } from './core/directives/custom-scrollbar.dir
     FormsModule,
     BrowserModule,
     BrowserAnimationsModule,
+    RouterModule,
     HttpClientModule,
 
     // App modules
@@ -43,24 +41,25 @@ import { CustomScrollbarDirective } from './core/directives/custom-scrollbar.dir
 
     // Core items
     TimeAgoPipe,
-    CustomScrollbarDirective
+    CustomScrollbarDirective,
   ],
+  exports: [SidebarComponent],
   providers: [
     {
       provide: HttpClient,
-      useClass: HttpClient
+      useClass: HttpClient,
     },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoggerService,
-      multi: true
+      multi: true,
     },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
-      multi: true
-    }
+      multi: true,
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

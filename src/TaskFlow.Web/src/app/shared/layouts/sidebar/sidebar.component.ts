@@ -1,40 +1,79 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ThemeService } from '../../../core/services/theme.service';
 import { LayoutService } from '../../../core/services/layout.service';
+import { MatMenu } from '@angular/material/menu';
+import { AuthService } from '../../../core/services/auth.service';
+import { Router } from '@angular/router';
+
+export interface HeaderMenus {
+  notifications: MatMenu;
+  filter: MatMenu;
+}
 
 @Component({
-    selector: 'app-sidebar',
-    templateUrl: './sidebar.component.html',
-    styleUrls: ['./sidebar.component.scss'],
-    standalone: false
+  selector: 'app-sidebar',
+  templateUrl: './sidebar.component.html',
+  styleUrls: ['./sidebar.component.scss'],
+  standalone: false,
 })
 export class SidebarComponent {
-    userName = 'John Doe'; // Replace with actual user data
-    userRole = 'Project Manager'; // Replace with actual user role
-    userAvatar = 'assets/images/avatar-banner.jpg'; // Replace with actual user avatar
+  @Input() headerMenus!: HeaderMenus;
+  @ViewChild('profileMenu') profileMenu!: MatMenu;
 
-    isDarkTheme$: Observable<boolean>;
-    isSidebarOpen$: Observable<boolean>;
+  dueTodayCount = 7;
+  activeProjectsCount = 4;
+  notificationCount = 3;
 
-    constructor(private themeService: ThemeService, private layoutService: LayoutService) {
-        this.isDarkTheme$ = this.themeService.isDarkMode$;
-        this.isSidebarOpen$ = this.layoutService.sidebarOpen$;
+  userName = 'John Doe';
+  userEmail = 'john.doe@taskflow.com';
+  userRole = 'Project Manager';
+  userAvatar = 'assets/images/avatar-banner.jpg';
+  userStatus = 'online';
 
-    }
+  isDarkTheme$: Observable<boolean>;
+  isSidebarOpen$: Observable<boolean>;
 
-    openQuickTaskDialog() {
-        // Implement quick task dialog opening logic
-        console.log('Opening quick task dialog');
-    }
+  constructor(
+    private themeService: ThemeService,
+    protected layoutService: LayoutService,
+    private authService: AuthService,
+    private router: Router
+  ) {
+    this.isDarkTheme$ = this.themeService.isDarkMode$;
+    this.isSidebarOpen$ = this.layoutService.sidebarOpen$;
+  }
 
-    openQuickMeetingDialog() {
-        // Implement quick meeting dialog opening logic
-        console.log('Opening quick meeting dialog');
-    }
+  toggleTheme() {
+    this.themeService.toggleDarkMode();
+  }
 
-    openQuickProjectDialog() {
-        // Implement quick project dialog opening logic
-        console.log('Opening quick project dialog');
-    }
+  openAdvancedSearch() {
+    console.log('Opening advanced search');
+  }
+
+  openQuickTaskDialog() {
+    console.log('Opening quick task dialog');
+  }
+
+  openQuickMeetingDialog() {
+    console.log('Opening quick meeting dialog');
+  }
+
+  openQuickProjectDialog() {
+    console.log('Opening quick project dialog');
+  }
+
+  logout() {
+    this.authService.logout().subscribe({
+      next: () => {
+        // Handled by service
+      },
+      error: (err) => {
+        console.error('Logout failed', err);
+        this.authService['clearAuth']();
+        this.router.navigate(['/auth/login'], { replaceUrl: true });
+      },
+    });
+  }
 }

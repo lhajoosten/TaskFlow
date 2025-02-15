@@ -1,4 +1,3 @@
-// Main Header
 .header {
   display: flex;
   justify-content: space-between;
@@ -21,99 +20,20 @@
     display: flex;
     align-items: center;
 
-    .brand {
-      .brand-text {
-        display: flex;
-        align-items: center;
+    .brand-text {
+      display: flex;
+      align-items: center;
 
-        .brand-name {
-          .brand-logo {
-            height: 32px;
-            width: auto;
-            transition: opacity 0.2s ease-in-out;
+      .brand-logo {
+        height: 32px;
+        width: auto;
+        transition: opacity 0.2s ease-in-out;
 
-            &.theme-transition {
-              opacity: 0.95;
-              &:hover {
-                opacity: 1;
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  // Center Section
-  .header-center {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 32px;
-
-    .search-field {
-      width: 450px;
-      background-color: var(--elevation-1);
-
-      ::ng-deep {
-        .mat-mdc-form-field-subscript-wrapper {
-          display: none;
-        }
-
-        .mat-mdc-form-field-bottom-align {
-          height: 0;
-          padding: 0;
-          margin: 0;
-        }
-
-        .mat-form-field-wrapper {
-          padding: 0;
-          margin: 0;
-        }
-
-        .mat-form-field-flex {
-          height: 48px;
-          padding: 0 16px;
-          align-items: center;
-          border-radius: 24px;
-          background: var(--elevation-1);
-          transition: all 0.2s ease;
-
+        &.theme-transition {
+          opacity: 0.95;
           &:hover {
-            background: var(--hover-overlay);
+            opacity: 1;
           }
-        }
-
-        .mat-form-field-prefix,
-        .mat-form-field-suffix {
-          .mat-icon {
-            color: var(--primary-color);
-            font-size: 20px;
-            width: 20px;
-            height: 20px;
-          }
-        }
-
-        .mat-form-field-prefix {
-          margin-right: 12px;
-        }
-        .mat-form-field-suffix {
-          margin-left: 8px;
-        }
-
-        input {
-          font-size: 14px;
-          color: var(--text-color);
-
-          &::placeholder {
-            color: var(--accent-lighter-color);
-          }
-        }
-
-        .mat-focused .mat-form-field-flex {
-          background: var(--surface-color);
-          box-shadow: 0 2px 8px var(--elevation-2);
         }
       }
     }
@@ -161,143 +81,29 @@
         color: var(--accent-darker-color);
       }
     }
-
-    .profile-btn {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 12px;
-      border-radius: 24px;
-      background: var(--elevation-1);
-      border: 1px solid transparent;
-      transition: all 0.2s ease;
-
-      &:hover {
-        background: var(--hover-overlay);
-        border-color: var(--neutral-color);
-      }
-
-      .avatar {
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        border: 2px solid var(--surface-color);
-      }
-
-      .user-info {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-
-        .user-name {
-          font-size: 14px;
-          font-weight: 500;
-          color: var(--text-color);
-        }
-      }
-    }
   }
 
   // Responsive Styles
   @media screen and (max-width: 1024px) {
-    .header-center {
-      .search-field {
-        width: 300px;
-      }
+    .header-right {
+      display: none;
     }
 
     .menu-button {
       display: block;
     }
+
+    .header-left {
+      flex: 1;
+      justify-content: center;
+
+      .brand-text {
+        margin-left: -48px;
+      }
+    }
   }
 
   @media screen and (max-width: 768px) {
     padding: 0 16px;
-
-    .header-center {
-      display: none;
-    }
-
-    .header-right {
-      .quick-stats,
-      .notification-btn,
-      .theme-toggle {
-        display: none;
-      }
-
-      .profile-btn {
-        padding: 4px;
-        background: none;
-        border: none;
-
-        &:hover {
-          background: var(--hover-overlay);
-        }
-
-        .user-info,
-        mat-icon {
-          display: none;
-        }
-
-        .avatar {
-          margin: 0;
-          width: 36px;
-          height: 36px;
-        }
-      }
-    }
-  }
-}
-
-// Profile Menu Styles
-::ng-deep .profile-menu {
-  min-width: 280px;
-
-  .profile-header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 24px 16px;
-
-    .profile-avatar {
-      width: 75px;
-      height: 75px;
-      border-radius: 50%;
-      margin-bottom: 16px;
-      border: 3px solid var(--primary-color);
-    }
-
-    .profile-info {
-      text-align: center;
-
-      strong {
-        display: block;
-        font-size: 14px;
-        color: var(--text-color);
-        margin-bottom: 4px;
-      }
-
-      small {
-        font-size: 12px;
-        color: var(--neutral-darker);
-      }
-    }
-  }
-
-  .mat-menu-item {
-    height: 44px;
-
-    mat-icon {
-      margin-right: 12px;
-      color: var(--neutral-darker);
-    }
-
-    &:hover mat-icon {
-      color: var(--primary-color);
-    }
-  }
-
-  .mat-divider {
-    margin: 8px 0;
   }
 }
