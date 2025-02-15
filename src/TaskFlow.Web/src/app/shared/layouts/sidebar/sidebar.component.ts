@@ -18,7 +18,7 @@ export interface HeaderMenus {
   standalone: false,
 })
 export class SidebarComponent {
-  @Input() headerMenus!: HeaderMenus;
+  @Input() headerMenus: HeaderMenus | null = null;
   @ViewChild('profileMenu') profileMenu!: MatMenu;
 
   dueTodayCount = 7;

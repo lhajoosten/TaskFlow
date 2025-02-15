@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from './core/services/auth.service';
 import { AssetPreloaderService } from './core/services/asset-preloader.service';
 import { ThemeService } from './core/services/theme.service';
-import { CustomScrollbarDirective } from './core/directives/custom-scrollbar.directive';
 import { LayoutService } from './core/services/layout.service';
 import { Observable } from 'rxjs';
+import { HeaderComponent } from './shared/layouts/header/header.component';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +12,10 @@ import { Observable } from 'rxjs';
   styleUrls: ['./app.component.scss'],
   standalone: false,
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
+  @ViewChild('header') header: HeaderComponent | undefined;
+  headerMenus: any = null;
+
   isLoading = true;
   isLargeScreen$: Observable<boolean>;
 
@@ -21,6 +24,7 @@ export class AppComponent implements OnInit {
     protected layoutService: LayoutService,
     private assetPreloader: AssetPreloaderService,
     private themeService: ThemeService,
+    private cdr: ChangeDetectorRef
   ) {
     this.isLargeScreen$ = this.layoutService.isLargeScreen$;
   }
@@ -37,6 +41,20 @@ export class AppComponent implements OnInit {
       } else {
         document.body.classList.remove('dark-theme');
       }
+    });
+  }
+
+  ngAfterViewInit() {
+    // Initialize headerMenus in next cycle to avoid ExpressionChangedAfterItHasBeenCheckedError
+    setTimeout(() => {
+      if (this.header?.notificationsMenu && this.header?.filterMenu) {
+        this.headerMenus = {
+          notifications: this.header.notificationsMenu,
+          filter: this.header.filterMenu
+        };
+        this.cdr.detectChanges();
+      }
+      this.isLoading = false;
     });
   }
 }

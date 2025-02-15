@@ -10,12 +10,8 @@
         [fixedTopGap]="80"
         (closed)="layoutService.closeSidebar()"
       >
-      <app-sidebar
-      [headerMenus]="{
-        notifications: header.notificationsMenu,
-        filter: header.filterMenu
-      }"
-    ></app-sidebar>
+      <app-sidebar [headerMenus]="headerMenus"></app-sidebar>
+
       </mat-sidenav>
       <mat-sidenav-content
         [class.overlay-active]="
