@@ -1,4 +1,10 @@
-import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { AuthService } from './core/services/auth.service';
 import { AssetPreloaderService } from './core/services/asset-preloader.service';
 import { ThemeService } from './core/services/theme.service';

@@ -9,34 +9,69 @@
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Email</mat-label>
-          <input matInput type="email" formControlName="email" placeholder="Enter your email" />
+          <input
+            matInput
+            type="email"
+            formControlName="email"
+            placeholder="Enter your email"
+          />
           <mat-icon matPrefix>email</mat-icon>
-          <mat-error *ngIf="loginForm.get('email')?.hasError('required')">Email is required</mat-error>
-          <mat-error *ngIf="loginForm.get('email')?.hasError('email')">Please enter a valid email</mat-error>
+          <mat-error *ngIf="loginForm.get('email')?.hasError('required')"
+            >Email is required</mat-error
+          >
+          <mat-error *ngIf="loginForm.get('email')?.hasError('email')"
+            >Please enter a valid email</mat-error
+          >
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Password</mat-label>
-          <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" />
+          <input
+            matInput
+            [type]="hidePassword ? 'password' : 'text'"
+            formControlName="password"
+          />
           <mat-icon matPrefix>lock</mat-icon>
-          <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button">
-            <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="hidePassword = !hidePassword"
+            type="button"
+          >
+            <mat-icon>{{
+              hidePassword ? 'visibility_off' : 'visibility'
+            }}</mat-icon>
           </button>
-          <mat-error *ngIf="loginForm.get('password')?.hasError('required')">Password is required</mat-error>
+          <mat-error *ngIf="loginForm.get('password')?.hasError('required')"
+            >Password is required</mat-error
+          >
         </mat-form-field>
 
         <div class="form-footer">
-          <mat-checkbox formControlName="rememberMe" color="primary">Remember me</mat-checkbox>
-          <a mat-button color="primary" routerLink="/auth/forgot-password">Forgot Password?</a>
+          <mat-checkbox formControlName="rememberMe" color="primary"
+            >Remember me</mat-checkbox
+          >
+          <a mat-button color="primary" routerLink="/auth/forgot-password"
+            >Forgot Password?</a
+          >
         </div>
 
         <div class="form-actions full-width">
-          <button mat-raised-button color="primary" type="submit" class="full-width" [disabled]="loginForm.invalid || isLoading">
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            class="full-width"
+            [disabled]="loginForm.invalid || isLoading"
+          >
             <mat-spinner diameter="20" *ngIf="isLoading"></mat-spinner>
             <span *ngIf="!isLoading">Sign In</span>
           </button>
         </div>
-        <div class="register-link">Don't have an account? <a mat-button color="primary" routerLink="/auth/register">Sign Up</a></div>
+        <div class="register-link">
+          Don't have an account?
+          <a mat-button color="primary" routerLink="/auth/register">Sign Up</a>
+        </div>
       </form>
     </mat-card-content>
   </mat-card>

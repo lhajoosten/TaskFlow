@@ -1,0 +1,21 @@
+<h2 mat-dialog-title>Verify Phone Number</h2>
+<mat-dialog-content>
+  <p>We've sent a verification code to {{ data.phoneNumber }}</p>
+  <form [formGroup]="verificationForm">
+    <mat-form-field appearance="outline">
+      <mat-label>Verification Code</mat-label>
+      <input matInput formControlName="code" type="text" maxlength="6" />
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="dialogRef.close()">Cancel</button>
+  <button
+    mat-raised-button
+    color="primary"
+    [disabled]="!verificationForm.valid || loading"
+    (click)="verifyCode()"
+  >
+    Verify
+  </button>
+</mat-dialog-actions>

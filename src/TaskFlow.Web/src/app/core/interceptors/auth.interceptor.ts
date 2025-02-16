@@ -1,20 +1,41 @@
 import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { Observable, throwError, BehaviorSubject, catchError, switchMap, filter, take, tap } from 'rxjs';
+import {
+  HttpInterceptor,
+  HttpRequest,
+  HttpHandler,
+  HttpEvent,
+  HttpErrorResponse,
+  HttpResponse,
+} from '@angular/common/http';
+import {
+  Observable,
+  throwError,
+  BehaviorSubject,
+  catchError,
+  switchMap,
+  filter,
+  take,
+  tap,
+} from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   private isRefreshing = false;
-  private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(
+    null,
+  );
 
   constructor(
     private router: Router,
     private authService: AuthService,
   ) {}
 
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(
+    request: HttpRequest<any>,
+    next: HttpHandler,
+  ): Observable<HttpEvent<any>> {
     console.log('🚀 HTTP Request:', {
       url: request.url,
       method: request.method,
@@ -23,7 +44,10 @@ export class AuthInterceptor implements HttpInterceptor {
     });
 
     // Don't add token for auth endpoints except logout
-    if (request.url.includes('/api/auth/') && !request.url.includes('/api/auth/logout')) {
+    if (
+      request.url.includes('/api/auth/') &&
+      !request.url.includes('/api/auth/logout')
+    ) {
       return next.handle(request).pipe(
         tap({
           next: (event: HttpEvent<any>) => {

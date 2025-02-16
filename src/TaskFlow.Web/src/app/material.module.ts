@@ -31,8 +31,46 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRippleModule } from '@angular/material/core';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
+  imports: [
+    MatMenuModule,
+    MatButtonModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatSlideToggleModule,
+    MatListModule,
+    MatCardModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatRadioModule,
+    MatCheckboxModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSliderModule,
+    MatAutocompleteModule,
+    MatBadgeModule,
+    MatBottomSheetModule,
+    MatButtonToggleModule,
+    MatGridListModule,
+    MatExpansionModule,
+    MatDividerModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatTableModule,
+    MatTabsModule,
+    MatTooltipModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule,
+    MatRippleModule,
+    MatProgressBarModule,
+    MatDialogModule,
+    MatChipsModule,
+  ],
   exports: [
     MatMenuModule,
     MatButtonModule,
@@ -66,6 +104,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatProgressSpinnerModule,
     MatRippleModule,
     MatProgressBarModule,
+    MatDialogModule,
+    MatChipsModule,
   ],
 })
 export class MaterialModule {}

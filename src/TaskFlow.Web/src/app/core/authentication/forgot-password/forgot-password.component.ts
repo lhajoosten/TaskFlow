@@ -1,6 +1,11 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from '../../../material.module';
 import { AuthService } from '../../services/auth.service';
@@ -41,12 +46,18 @@ export class ForgotPasswordComponent implements OnInit {
       this.authService.forgotPassword(email).subscribe({
         next: (response) => {
           this.isEmailSent = true;
-          this.snackBar.open('Password reset instructions have been sent to your email.', 'Close', { duration: 5000 });
+          this.snackBar.open(
+            'Password reset instructions have been sent to your email.',
+            'Close',
+            { duration: 5000 },
+          );
           this.logger.info('Password reset email sent successfully');
         },
         error: (error) => {
           this.isLoading = false;
-          const message = error?.error?.message || 'Failed to send reset email. Please try again.';
+          const message =
+            error?.error?.message ||
+            'Failed to send reset email. Please try again.';
           this.snackBar.open(message, 'Close', { duration: 5000 });
           this.logger.error('Password reset request failed:', error);
         },

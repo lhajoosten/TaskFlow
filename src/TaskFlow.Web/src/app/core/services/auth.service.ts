@@ -1,6 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, map, Observable, tap, throwError, catchError, finalize } from 'rxjs';
+import {
+  BehaviorSubject,
+  map,
+  Observable,
+  tap,
+  throwError,
+  catchError,
+  finalize,
+} from 'rxjs';
 import { Router } from '@angular/router';
 import {
   AuthResponse,
@@ -37,11 +45,18 @@ export class AuthService {
 
   register(request: RegisterRequest): Observable<AuthResponse> {
     return this.http
-      .post<AuthResponse>(`${environment.apiUrl}${environment.authEndpoints.register}`, request)
+      .post<AuthResponse>(
+        `${environment.apiUrl}${environment.authEndpoints.register}`,
+        request,
+      )
       .pipe(tap((response) => this.handleAuthResponse(response)));
   }
 
-  login(email: string, password: string, rememberMe: boolean = false): Observable<AuthResponse> {
+  login(
+    email: string,
+    password: string,
+    rememberMe: boolean = false,
+  ): Observable<AuthResponse> {
     this.logger.info('Attempting login for user:', email);
     const request: LoginRequest = { email, password, rememberMe };
     const url = `${environment.apiUrl}${environment.authEndpoints.login}`;
@@ -63,42 +78,68 @@ export class AuthService {
   }
 
   logout(): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${environment.apiUrl}${environment.authEndpoints.logout}`, {}).pipe(
-      tap(() => {
-        this.clearAuth();
-      }),
-      // Add finalize to ensure navigation happens after everything
-      finalize(() => {
-        this.router.navigate(['/auth/login'], { replaceUrl: true });
-      }),
-    );
+    return this.http
+      .post<AuthResponse>(
+        `${environment.apiUrl}${environment.authEndpoints.logout}`,
+        {},
+      )
+      .pipe(
+        tap(() => {
+          this.clearAuth();
+        }),
+        // Add finalize to ensure navigation happens after everything
+        finalize(() => {
+          this.router.navigate(['/auth/login'], { replaceUrl: true });
+        }),
+      );
   }
 
   refreshToken(): Observable<AuthResponse> {
     const refreshToken = this.refreshTokenSubject.value;
-    if (!refreshToken) return throwError(() => new Error('No refresh token available'));
+    if (!refreshToken)
+      return throwError(() => new Error('No refresh token available'));
 
     const request: RefreshTokenRequest = { refreshToken };
     return this.http
-      .post<AuthResponse>(`${environment.apiUrl}${environment.authEndpoints.refreshToken}`, request)
+      .post<AuthResponse>(
+        `${environment.apiUrl}${environment.authEndpoints.refreshToken}`,
+        request,
+      )
       .pipe(tap((response) => this.handleAuthResponse(response)));
   }
 
   forgotPassword(email: string): Observable<AuthResponse> {
     const request: ForgotPasswordRequest = { email };
-    return this.http.post<AuthResponse>(`${environment.apiUrl}${environment.authEndpoints.forgotPassword}`, request);
+    return this.http.post<AuthResponse>(
+      `${environment.apiUrl}${environment.authEndpoints.forgotPassword}`,
+      request,
+    );
   }
 
-  resetPassword(email: string, token: string, newPassword: string): Observable<AuthResponse> {
+  resetPassword(
+    email: string,
+    token: string,
+    newPassword: string,
+  ): Observable<AuthResponse> {
     const request: ResetPasswordRequest = { email, token, newPassword };
-    return this.http.post<AuthResponse>(`${environment.apiUrl}${environment.authEndpoints.resetPassword}`, request);
+    return this.http.post<AuthResponse>(
+      `${environment.apiUrl}${environment.authEndpoints.resetPassword}`,
+      request,
+    );
   }
 
   confirmEmail(email: string, token: string): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${environment.apiUrl}${environment.authEndpoints.confirmEmail}`, null, { params: { email, token } });
+    return this.http.post<AuthResponse>(
+      `${environment.apiUrl}${environment.authEndpoints.confirmEmail}`,
+      null,
+      { params: { email, token } },
+    );
   }
 
-  private handleAuthResponse(response: AuthResponse, rememberMe: boolean = false): void {
+  private handleAuthResponse(
+    response: AuthResponse,
+    rememberMe: boolean = false,
+  ): void {
     // Clear any existing auth state first
     this.clearAuth();
 
@@ -116,7 +157,10 @@ export class AuthService {
         storage.setItem('tokenExpiration', response.tokenExpiration.toString());
       }
       if (response.refreshTokenExpiration) {
-        storage.setItem('refreshTokenExpiration', response.refreshTokenExpiration.toString());
+        storage.setItem(
+          'refreshTokenExpiration',
+          response.refreshTokenExpiration.toString(),
+        );
       }
 
       // Decode token and update user info - only set auth state once
@@ -160,7 +204,9 @@ export class AuthService {
       // Check if tokens are expired
       const now = new Date();
       const tokenExpiryDate = new Date(tokenExpiration);
-      const refreshTokenExpiryDate = refreshTokenExpiration ? new Date(refreshTokenExpiration) : null;
+      const refreshTokenExpiryDate = refreshTokenExpiration
+        ? new Date(refreshTokenExpiration)
+        : null;
 
       // Clear everything if refresh token is expired
       if (refreshTokenExpiryDate && refreshTokenExpiryDate <= now) {
@@ -169,7 +215,12 @@ export class AuthService {
       }
 
       // If token is expired but refresh token is valid, try to refresh
-      if (tokenExpiryDate <= now && refreshToken && refreshTokenExpiryDate && refreshTokenExpiryDate > now) {
+      if (
+        tokenExpiryDate <= now &&
+        refreshToken &&
+        refreshTokenExpiryDate &&
+        refreshTokenExpiryDate > now
+      ) {
         this.refreshToken().subscribe({
           error: () => this.clearAuth(),
         });

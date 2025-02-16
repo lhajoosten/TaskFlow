@@ -1,0 +1,74 @@
+<div class="two-factor-setup" [class.loading]="loading">
+  <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+
+  <h2 mat-dialog-title>Setup Two-Factor Authentication</h2>
+
+  <mat-dialog-content>
+    <!-- Step 1: QR Code and Initial Verification -->
+    <div *ngIf="currentStep === 1">
+      <p class="setup-instructions">
+        1. Install an authenticator app like Microsoft Authenticator or Google
+        Authenticator<br />
+        2. Scan the QR code below<br />
+        3. Enter the verification code from your authenticator app
+      </p>
+
+      <div class="qr-container" *ngIf="qrCodeUrl">
+        <img [src]="qrCodeUrl" alt="2FA QR Code" class="qr-code" />
+      </div>
+
+      <form [formGroup]="verificationForm">
+        <mat-form-field appearance="outline">
+          <mat-label>Verification Code</mat-label>
+          <input
+            matInput
+            formControlName="code"
+            placeholder="Enter 6-digit code"
+          />
+          <mat-error *ngIf="verificationForm.get('code')?.hasError('pattern')">
+            Please enter a valid 6-digit code
+          </mat-error>
+        </mat-form-field>
+      </form>
+    </div>
+
+    <!-- Step 2: Recovery Codes -->
+    <div *ngIf="currentStep === 2" class="recovery-codes">
+      <p class="important-notice">
+        Save these recovery codes in a secure location. If you lose access to
+        your authenticator app, you can use these codes to regain access.
+      </p>
+
+      <div class="codes-container">
+        <mat-list>
+          <mat-list-item *ngFor="let code of recoveryCodes">
+            {{ code }}
+          </mat-list-item>
+        </mat-list>
+      </div>
+
+      <button
+        mat-stroked-button
+        color="primary"
+        (click)="downloadRecoveryCodes()"
+      >
+        <mat-icon>download</mat-icon>
+        Download Recovery Codes
+      </button>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="dialogRef.close(false)" [disabled]="loading">
+      Cancel
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="verifySetup()"
+      [disabled]="(currentStep === 1 && !verificationForm.valid) || loading"
+    >
+      {{ currentStep === 1 ? 'Verify' : 'Complete Setup' }}
+    </button>
+  </mat-dialog-actions>
+</div>

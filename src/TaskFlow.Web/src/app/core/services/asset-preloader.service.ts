@@ -9,7 +9,9 @@ export class AssetPreloaderService {
   private preloadedAssets = new Set<string>();
 
   preloadAssets(): Observable<boolean> {
-    const imagesToPreload = assetManifest.images.filter((path) => !this.preloadedAssets.has(path)).map((path) => this.preloadImage(path));
+    const imagesToPreload = assetManifest.images
+      .filter((path) => !this.preloadedAssets.has(path))
+      .map((path) => this.preloadImage(path));
 
     return forkJoin(imagesToPreload).pipe(map(() => true));
   }

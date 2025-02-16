@@ -1,0 +1,138 @@
+.profile-security-tab {
+  max-width: 1250px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+
+  mat-card {
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+    mat-card-header {
+      padding: 1.5rem 1.5rem 0.5rem;
+
+      mat-card-title {
+        font-size: 1.5rem;
+        font-weight: 500;
+        color: #2c3e50;
+      }
+
+      mat-card-subtitle {
+        color: #7f8c8d;
+        font-size: 0.9rem;
+      }
+    }
+
+    mat-card-content {
+      padding: 1.5rem;
+
+      .section {
+        margin-bottom: 2rem;
+
+        h2 {
+          font-size: 1.2rem;
+          color: #34495e;
+          margin-bottom: 1.5rem;
+          font-weight: 500;
+        }
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+
+      mat-divider {
+        margin: 2rem 0;
+        opacity: 0.6;
+      }
+
+      .full-width {
+        width: 100%;
+        margin-bottom: 2rem;
+      }
+
+      .button-group {
+        display: flex;
+        justify-content: flex-start;
+        margin-top: 1.5rem;
+
+        button {
+          min-width: 150px;
+          padding: 0.5rem 1.5rem;
+          font-weight: 500;
+
+          &:not(:last-child) {
+            margin-right: 1rem;
+          }
+
+          &[disabled] {
+            opacity: 0.7;
+          }
+        }
+      }
+
+      .two-factor-section {
+        .toggle {
+          display: block;
+          margin-top: 1rem;
+        }
+      }
+
+      mat-form-field {
+        .mat-form-field-wrapper {
+          padding-bottom: 0.5rem;
+        }
+
+        mat-hint {
+          font-size: 0.8rem;
+          line-height: 1.4;
+          color: #7f8c8d;
+        }
+      }
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 600px) {
+  .profile-security-tab {
+    margin: 1rem auto;
+
+    mat-card-content {
+      padding: 1rem;
+    }
+
+    .button-group {
+      flex-direction: column;
+
+      button {
+        width: 100%;
+        margin-bottom: 0.5rem;
+
+        &:not(:last-child) {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+}
+
+// Optional: Animation for hover effects
+@media (hover: hover) {
+  .profile-security-tab {
+    mat-card {
+      transition: box-shadow 0.3s ease;
+
+      &:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+    }
+
+    button:not([disabled]) {
+      transition: transform 0.2s ease;
+
+      &:hover {
+        transform: translateY(-1px);
+      }
+    }
+  }
+}

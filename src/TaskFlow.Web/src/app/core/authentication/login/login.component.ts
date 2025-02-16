@@ -1,7 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from '../../../material.module';
 import { AuthService } from '../../services/auth.service';
@@ -63,7 +68,9 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.authService.login(email, password, rememberMe).subscribe({
         next: (response) => {
           if (response.token) {
-            this.snackBar.open('Login successful!', 'Close', { duration: 3000 });
+            this.snackBar.open('Login successful!', 'Close', {
+              duration: 3000,
+            });
             // Force a new navigation
             this.router
               .navigate(['/dashboard'], {
@@ -79,7 +86,8 @@ export class LoginComponent implements OnInit, OnDestroy {
         },
         error: (error) => {
           this.isLoading = false;
-          const message = error.error?.message || 'Login failed. Please try again.';
+          const message =
+            error.error?.message || 'Login failed. Please try again.';
           this.snackBar.open(message, 'Close', { duration: 5000 });
         },
         complete: () => {

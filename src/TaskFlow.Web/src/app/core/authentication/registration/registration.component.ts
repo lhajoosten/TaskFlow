@@ -1,5 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
 import { MaterialModule } from '../../../material.module';
 import { AuthService } from '../../services/auth.service';
@@ -54,25 +59,36 @@ export class RegistrationComponent implements OnInit {
   onSubmit(): void {
     if (this.registrationForm.valid) {
       this.isLoading = true;
-      const { firstName, lastName, email, password } = this.registrationForm.value;
+      const { firstName, lastName, email, password } =
+        this.registrationForm.value;
 
-      this.authService.register({ firstName, lastName, email, password }).subscribe({
-        next: (response) => {
-          this.snackBar.open('Registration successful! Please check your email to verify your account.', 'Close', {
-            duration: 5000,
-          });
-          this.router.navigate(['/auth/login']);
-        },
-        error: (error) => {
-          this.snackBar.open(error.error.message || 'Registration failed. Please try again.', 'Close', {
-            duration: 5000,
-          });
-          this.isLoading = false;
-        },
-        complete: () => {
-          this.isLoading = false;
-        },
-      });
+      this.authService
+        .register({ firstName, lastName, email, password })
+        .subscribe({
+          next: (response) => {
+            this.snackBar.open(
+              'Registration successful! Please check your email to verify your account.',
+              'Close',
+              {
+                duration: 5000,
+              },
+            );
+            this.router.navigate(['/auth/login']);
+          },
+          error: (error) => {
+            this.snackBar.open(
+              error.error.message || 'Registration failed. Please try again.',
+              'Close',
+              {
+                duration: 5000,
+              },
+            );
+            this.isLoading = false;
+          },
+          complete: () => {
+            this.isLoading = false;
+          },
+        });
     }
   }
 }

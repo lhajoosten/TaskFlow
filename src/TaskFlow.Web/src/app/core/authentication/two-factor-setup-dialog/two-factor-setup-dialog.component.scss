@@ -1,0 +1,67 @@
+.two-factor-setup {
+  position: relative;
+  min-height: 400px;
+
+  &.loading {
+    pointer-events: none;
+    opacity: 0.7;
+  }
+
+  mat-progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .setup-instructions {
+    margin: 16px 0;
+    line-height: 1.6;
+  }
+
+  .qr-container {
+    display: flex;
+    justify-content: center;
+    margin: 24px 0;
+
+    .qr-code {
+      max-width: 200px;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      padding: 8px;
+    }
+  }
+
+  .recovery-codes {
+    .important-notice {
+      color: #f44336;
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+
+    .codes-container {
+      background: rgba(0, 0, 0, 0.04);
+      border-radius: 4px;
+      padding: 16px;
+      margin: 16px 0;
+      max-height: 200px;
+      overflow-y: auto;
+
+      mat-list-item {
+        font-family: monospace;
+        font-size: 1.1em;
+      }
+    }
+
+    button {
+      margin-top: 16px;
+    }
+  }
+
+  mat-dialog-content {
+    min-height: 300px;
+  }
+
+  mat-form-field {
+    width: 100%;
+  }
+}

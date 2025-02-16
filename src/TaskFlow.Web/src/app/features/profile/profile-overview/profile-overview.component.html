@@ -1,0 +1,165 @@
+<mat-card class="profile-card">
+  <mat-card-title>Profile Overview</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+      <!-- Profile Header: Picture & Basic Info -->
+      <div class="profile-header">
+        <div class="profile-image">
+          <img
+            *ngIf="user?.profilePictureUrl; else defaultPic"
+            [src]="user?.profilePictureUrl"
+            alt="Profile Picture"
+          />
+          <ng-template #defaultPic>
+            <img
+              src="assets/images/avatar-banner.jpg"
+              alt="Default Profile Picture"
+            />
+          </ng-template>
+          <!-- Hidden File Input for Profile Picture Update -->
+          <input
+            type="file"
+            #fileInput
+            (change)="onFileSelected($event)"
+            accept="image/*"
+            hidden
+          />
+          <button
+            mat-button
+            color="primary"
+            type="button"
+            (click)="fileInput.click()"
+          >
+            Change Picture
+          </button>
+        </div>
+
+        <div class="personal-info">
+          <mat-form-field appearance="fill">
+            <mat-label>First Name</mat-label>
+            <input matInput formControlName="firstName" required />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Last Name</mat-label>
+            <input matInput formControlName="lastName" required />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Username</mat-label>
+            <input matInput formControlName="userName" required />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" required type="email" />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Job Details Section -->
+      <div class="job-details">
+        <mat-form-field appearance="fill">
+          <mat-label>Job Title</mat-label>
+          <input matInput formControlName="jobTitle" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Department</mat-label>
+          <mat-select formControlName="department">
+            <mat-option *ngFor="let dept of departments" [value]="dept.value">
+              {{ dept.label }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <!-- Preferences Section -->
+      <div class="preferences">
+        <h3>Preferences</h3>
+        <div class="preference-fields">
+          <mat-form-field appearance="fill">
+            <mat-label>Language</mat-label>
+            <mat-select formControlName="language">
+              <mat-option *ngFor="let lang of languages" [value]="lang.value">
+                {{ lang.label }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Time Zone</mat-label>
+            <mat-select formControlName="timeZone">
+              <mat-option *ngFor="let tz of timeZones" [value]="tz.value">
+                {{ tz.label }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="notification-toggles">
+          <mat-slide-toggle formControlName="emailNotifications">
+            Email Notifications
+          </mat-slide-toggle>
+          <mat-slide-toggle formControlName="desktopNotifications">
+            Desktop Notifications
+          </mat-slide-toggle>
+          <mat-slide-toggle formControlName="darkMode">
+            Dark Mode
+          </mat-slide-toggle>
+        </div>
+      </div>
+
+      <!-- About Me Section -->
+      <div class="about-me">
+        <h3>About Me</h3>
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Bio</mat-label>
+          <textarea
+            matInput
+            formControlName="bio"
+            rows="5"
+            placeholder="Tell us about yourself..."
+          ></textarea>
+          <mat-hint align="end"
+            >{{ profileForm.get('bio')?.value?.length || 0 }} / 500</mat-hint
+          >
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Skills</mat-label>
+          <mat-chip-grid #chipGrid>
+            <mat-chip-row
+              *ngFor="let skill of skills"
+              [removable]="true"
+              (removed)="removeSkill(skill)"
+            >
+              {{ skill }}
+              <button matChipRemove aria-label="Remove skill">
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip-row>
+            <input
+              placeholder="New skill..."
+              [matChipInputFor]="chipGrid"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              (matChipInputTokenEnd)="addSkill($event)"
+            />
+          </mat-chip-grid>
+        </mat-form-field>
+      </div>
+
+      <!-- Form Submission -->
+      <div class="form-actions">
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="loading || profileForm.invalid"
+          >
+          Save Changes
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

@@ -63,7 +63,14 @@
     <div class="left-column">
       <mat-card class="recent-activities">
         <mat-card-title>
-          <div class="section-header" style="display: flex; justify-content: space-between; align-items: center">
+          <div
+            class="section-header"
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+            "
+          >
             <h2 style="margin: 0">Recent Activities</h2>
             <button mat-icon-button [matMenuTriggerFor]="menu">
               <mat-icon>more_vert</mat-icon>
@@ -84,7 +91,14 @@
       <!-- Add the new Weekly Calendar card -->
       <mat-card class="weekly-calendar">
         <mat-card-title>
-          <div class="section-header" style="display: flex; justify-content: space-between; align-items: center">
+          <div
+            class="section-header"
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+            "
+          >
             <h2 style="margin: 0">Weekly Calendar</h2>
             <button mat-icon-button routerLink="/calendar/week">
               <mat-icon>open_in_new</mat-icon>
@@ -99,7 +113,11 @@
                 <span class="day-date">{{ day.date }}</span>
               </div>
               <div class="day-events">
-                <div class="event" *ngFor="let event of day.events" [style.backgroundColor]="event.color">
+                <div
+                  class="event"
+                  *ngFor="let event of day.events"
+                  [style.backgroundColor]="event.color"
+                >
                   <span class="event-time">{{ event.time }}</span>
                   <span class="event-title">{{ event.title }}</span>
                 </div>
@@ -120,7 +138,9 @@
             <mat-list-item *ngFor="let deadline of upcomingDeadlines">
               <div matListItemTitle class="deadline-item">
                 <span>{{ deadline.taskName }}</span>
-                <span class="deadline-date">{{ deadline.date | date: 'mediumDate' }}</span>
+                <span class="deadline-date">{{
+                  deadline.date | date: 'mediumDate'
+                }}</span>
               </div>
               <mat-progress-bar [value]="deadline.progress"></mat-progress-bar>
             </mat-list-item>
@@ -139,16 +159,31 @@
               <span>{{ member.name }}</span>
               <span class="task-count">{{ member.taskCount }} tasks</span>
             </div>
-            <mat-progress-bar [value]="member.workloadPercentage"></mat-progress-bar>
+            <mat-progress-bar
+              [value]="member.workloadPercentage"
+            ></mat-progress-bar>
           </div>
         </mat-card-content>
       </mat-card>
 
       <mat-card class="activity-feed">
         <mat-card-title>
-          <div class="section-header" style="display: flex; justify-content: space-between; align-items: center">
+          <div
+            class="section-header"
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+            "
+          >
             <h2>Recent Notifications</h2>
-            <button mat-button color="primary" [routerLink]="['/notifications']">View All</button>
+            <button
+              mat-button
+              color="primary"
+              [routerLink]="['/notifications']"
+            >
+              View All
+            </button>
           </div>
         </mat-card-title>
         <mat-card-content>
@@ -160,7 +195,9 @@
                 </div>
                 <div class="notification-content">
                   <p class="notification-text">{{ notification.message }}</p>
-                  <span class="notification-time">{{ notification.time | timeAgo }}</span>
+                  <span class="notification-time">{{
+                    notification.time | timeAgo
+                  }}</span>
                 </div>
               </div>
             </mat-list-item>

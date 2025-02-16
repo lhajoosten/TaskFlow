@@ -19,9 +19,18 @@
 
 // Apply themes to root elements
 :root {
-  --primary-color: #{get-color-from-palette(map.get(theme.$light-theme, 'primary'))};
-  --accent-color: #{get-color-from-palette(map.get(theme.$light-theme, 'accent'))};
-  --background-color: #{get-color-from-palette(map.get(theme.$light-theme, 'background', 'background'))};
+  --primary-color: #{get-color-from-palette(
+      map.get(theme.$light-theme, 'primary')
+    )};
+  --accent-color: #{get-color-from-palette(
+      map.get(theme.$light-theme, 'accent')
+    )};
+  --background-color: #{get-color-from-palette(
+      map.get(theme.$light-theme, 'background', 'background')
+    )};
+
+  --text-secondary-color: rgba(0, 0, 0, 0.6);
+  --primary-color-rgb: 103, 58, 183;
 
   --elevation-1: rgba(0, 0, 0, 0.02);
   --elevation-2: rgba(0, 0, 0, 0.04);
@@ -35,9 +44,18 @@
 
 // Dark mode styles
 .dark-theme {
-  --primary-color: #{get-color-from-palette(map.get(theme.$dark-theme, 'primary'))};
-  --accent-color: #{get-color-from-palette(map.get(theme.$dark-theme, 'accent'))};
-  --background-color: #{get-color-from-palette(map.get(theme.$dark-theme, 'background', 'background'))};
+  --primary-color: #{get-color-from-palette(
+      map.get(theme.$dark-theme, 'primary')
+    )};
+  --accent-color: #{get-color-from-palette(
+      map.get(theme.$dark-theme, 'accent')
+    )};
+  --background-color: #{get-color-from-palette(
+      map.get(theme.$dark-theme, 'background', 'background')
+    )};
+
+  --text-secondary-color: rgba(255, 255, 255, 0.6);
+  --primary-color-rgb: 255, 64, 129;
 
   --elevation-1: rgba(255, 255, 255, 0.05);
   --elevation-2: rgba(255, 255, 255, 0.08);

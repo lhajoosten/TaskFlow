@@ -1,0 +1,84 @@
+<div class="profile-security-tab">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>User Profile Security</mat-card-title>
+      <mat-card-subtitle>Manage your security settings</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <!-- Phone Number Verification Section -->
+      <section class="section phone-section">
+        <h2>Phone Number Verification</h2>
+        <form [formGroup]="phoneNumberForm">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Phone Number</mat-label>
+            <input
+              matInput
+              formControlName="phoneNumber"
+              placeholder="+1 234 567 890"
+            />
+          </mat-form-field>
+          <div class="button-group">
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="verifyPhoneNumber()"
+              [disabled]="loading"
+            >
+              Verify Phone Number
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <mat-divider></mat-divider>
+
+      <!-- Two-Factor Authentication Section -->
+      <section class="section two-factor-section">
+        <h2>Two-Factor Authentication</h2>
+        <mat-slide-toggle
+          (change)="toggleTwoFactor($event)"
+          [checked]="user?.twoFactorEnabled"
+          [disabled]="loading"
+          class="toggle"
+        >
+          Enable Two-Factor Authentication
+        </mat-slide-toggle>
+      </section>
+
+      <mat-divider></mat-divider>
+
+      <!-- Password Change Section -->
+      <section class="section password-section">
+        <h2>Change Password</h2>
+        <form [formGroup]="passwordForm" (ngSubmit)="changePassword()">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Current Password</mat-label>
+            <input matInput type="password" formControlName="currentPassword" />
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>New Password</mat-label>
+            <input matInput type="password" formControlName="newPassword" />
+            <mat-hint>
+              At least 8 characters, including uppercase, lowercase, number,
+              and special character.
+            </mat-hint>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Confirm New Password</mat-label>
+            <input matInput type="password" formControlName="confirmPassword" />
+          </mat-form-field>
+          <div class="button-group">
+            <button
+              mat-raised-button
+              color="accent"
+              type="submit"
+              [disabled]="loading || passwordForm.invalid"
+            >
+              Change Password
+            </button>
+          </div>
+        </form>
+      </section>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -10,13 +10,23 @@ const routes: Routes = [
   },
   {
     path: 'auth',
-    loadChildren: () => import('./core/authentication/auth.module').then((m) => m.AuthModule),
+    loadChildren: () =>
+      import('./core/authentication/auth.module').then((m) => m.AuthModule),
+  },
+  {
+    path: 'profile',
+    loadChildren: () =>
+      import('./features/profile/profile.module').then((m) => m.ProfileModule),
+    canActivate: [AuthGuard],
   },
   {
     path: 'dashboard',
     canActivate: [AuthGuard],
     data: { requiresAuth: true },
-    loadChildren: () => import('./features/dashboard/dashboard.module').then((m) => m.DashboardModule),
+    loadChildren: () =>
+      import('./features/dashboard/dashboard.module').then(
+        (m) => m.DashboardModule,
+      ),
   },
 ];
 

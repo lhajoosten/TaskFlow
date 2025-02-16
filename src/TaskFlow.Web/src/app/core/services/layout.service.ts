@@ -1,11 +1,20 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, fromEvent, startWith, map, distinctUntilChanged, shareReplay } from 'rxjs';
+import {
+  BehaviorSubject,
+  fromEvent,
+  startWith,
+  map,
+  distinctUntilChanged,
+  shareReplay,
+} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LayoutService {
-  private sidebarOpenSubject = new BehaviorSubject<boolean>(window.innerWidth > 1024);
+  private sidebarOpenSubject = new BehaviorSubject<boolean>(
+    window.innerWidth > 1024,
+  );
   sidebarOpen$ = this.sidebarOpenSubject.asObservable();
 
   isLargeScreen$ = fromEvent(window, 'resize').pipe(

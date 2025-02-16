@@ -3,25 +3,57 @@
   <div class="sidebar-quick-actions">
     <div class="action-buttons">
       <div class="brand-icon">
-        <img [src]="(isDarkTheme$ | async) ? 'assets/brand/taskflow-icon-dark.svg' : 'assets/brand/taskflow-icon-light.svg'" alt="Brand Logo" />
+        <img
+          [src]="
+            (isDarkTheme$ | async)
+              ? 'assets/brand/taskflow-icon-dark.svg'
+              : 'assets/brand/taskflow-icon-light.svg'
+          "
+          alt="Brand Logo"
+        />
       </div>
-      <button mat-icon-button matTooltip="New Task" (click)="openQuickTaskDialog()">
+      <button
+        mat-icon-button
+        matTooltip="New Task"
+        (click)="openQuickTaskDialog()"
+      >
         <mat-icon>add_task</mat-icon>
       </button>
-      <button mat-icon-button matTooltip="Quick Meeting" (click)="openQuickMeetingDialog()">
+      <button
+        mat-icon-button
+        matTooltip="Quick Meeting"
+        (click)="openQuickMeetingDialog()"
+      >
         <mat-icon>event</mat-icon>
       </button>
-      <button mat-icon-button matTooltip="New Project" (click)="openQuickProjectDialog()">
+      <button
+        mat-icon-button
+        matTooltip="New Project"
+        (click)="openQuickProjectDialog()"
+      >
         <mat-icon>create_new_folder</mat-icon>
       </button>
     </div>
   </div>
 
   <!-- Search Field - Always visible -->
-  <mat-form-field appearance="outline" class="search-field" style="margin-top: 12px !important; padding: 8px 12px !important">
+  <mat-form-field
+    appearance="outline"
+    class="search-field"
+    style="margin-top: 12px !important; padding: 8px 12px !important"
+  >
     <mat-icon matPrefix>search</mat-icon>
-    <input matInput placeholder="Search tasks, projects, or team members..." [matAutocomplete]="auto" />
-    <button mat-icon-button matSuffix matTooltip="Advanced Search" (click)="openAdvancedSearch()">
+    <input
+      matInput
+      placeholder="Search tasks, projects, or team members..."
+      [matAutocomplete]="auto"
+    />
+    <button
+      mat-icon-button
+      matSuffix
+      matTooltip="Advanced Search"
+      (click)="openAdvancedSearch()"
+    >
       <mat-icon>tune</mat-icon>
     </button>
     <mat-autocomplete #auto="matAutocomplete"></mat-autocomplete>
@@ -51,15 +83,27 @@
             <mat-icon matListItemIcon>list</mat-icon>
             <span matListItemTitle>All Tasks</span>
           </a>
-          <a mat-list-item routerLink="/tasks/my-tasks" routerLinkActive="active">
+          <a
+            mat-list-item
+            routerLink="/tasks/my-tasks"
+            routerLinkActive="active"
+          >
             <mat-icon matListItemIcon>person</mat-icon>
             <span matListItemTitle>My Tasks</span>
           </a>
-          <a mat-list-item routerLink="/tasks/assigned" routerLinkActive="active">
+          <a
+            mat-list-item
+            routerLink="/tasks/assigned"
+            routerLinkActive="active"
+          >
             <mat-icon matListItemIcon>group</mat-icon>
             <span matListItemTitle>Assigned to Me</span>
           </a>
-          <a mat-list-item routerLink="/tasks/archived" routerLinkActive="active">
+          <a
+            mat-list-item
+            routerLink="/tasks/archived"
+            routerLinkActive="active"
+          >
             <mat-icon matListItemIcon>archive</mat-icon>
             <span matListItemTitle>Archived</span>
           </a>
@@ -76,15 +120,27 @@
         </mat-expansion-panel-header>
 
         <mat-nav-list dense>
-          <a mat-list-item routerLink="/projects/overview" routerLinkActive="active">
+          <a
+            mat-list-item
+            routerLink="/projects/overview"
+            routerLinkActive="active"
+          >
             <mat-icon matListItemIcon>space_dashboard</mat-icon>
             <span matListItemTitle>Overview</span>
           </a>
-          <a mat-list-item routerLink="/projects/active" routerLinkActive="active">
+          <a
+            mat-list-item
+            routerLink="/projects/active"
+            routerLinkActive="active"
+          >
             <mat-icon matListItemIcon>rocket_launch</mat-icon>
             <span matListItemTitle>Active Projects</span>
           </a>
-          <a mat-list-item routerLink="/projects/completed" routerLinkActive="active">
+          <a
+            mat-list-item
+            routerLink="/projects/completed"
+            routerLinkActive="active"
+          >
             <mat-icon matListItemIcon>task_alt</mat-icon>
             <span matListItemTitle>Completed</span>
           </a>
@@ -101,19 +157,35 @@
         </mat-expansion-panel-header>
 
         <mat-nav-list dense>
-          <a mat-list-item routerLink="/calendar/month" routerLinkActive="active">
+          <a
+            mat-list-item
+            routerLink="/calendar/month"
+            routerLinkActive="active"
+          >
             <mat-icon matListItemIcon>view_module</mat-icon>
             <span matListItemTitle>Month View</span>
           </a>
-          <a mat-list-item routerLink="/calendar/week" routerLinkActive="active">
+          <a
+            mat-list-item
+            routerLink="/calendar/week"
+            routerLinkActive="active"
+          >
             <mat-icon matListItemIcon>view_week</mat-icon>
             <span matListItemTitle>Week View</span>
           </a>
-          <a mat-list-item routerLink="/calendar/schedule" routerLinkActive="active">
+          <a
+            mat-list-item
+            routerLink="/calendar/schedule"
+            routerLinkActive="active"
+          >
             <mat-icon matListItemIcon>schedule</mat-icon>
             <span matListItemTitle>Schedule</span>
           </a>
-          <a mat-list-item routerLink="/calendar/events" routerLinkActive="active">
+          <a
+            mat-list-item
+            routerLink="/calendar/events"
+            routerLinkActive="active"
+          >
             <mat-icon matListItemIcon>event_note</mat-icon>
             <span matListItemTitle>Events</span>
           </a>
@@ -134,11 +206,19 @@
             <mat-icon matListItemIcon>people</mat-icon>
             <span matListItemTitle>Members</span>
           </a>
-          <a mat-list-item routerLink="/team/workload" routerLinkActive="active">
+          <a
+            mat-list-item
+            routerLink="/team/workload"
+            routerLinkActive="active"
+          >
             <mat-icon matListItemIcon>assessment</mat-icon>
             <span matListItemTitle>Workload</span>
           </a>
-          <a mat-list-item routerLink="/team/performance" routerLinkActive="active">
+          <a
+            mat-list-item
+            routerLink="/team/performance"
+            routerLinkActive="active"
+          >
             <mat-icon matListItemIcon>insights</mat-icon>
             <span matListItemTitle>Performance</span>
           </a>
@@ -155,15 +235,27 @@
         </mat-expansion-panel-header>
 
         <mat-nav-list dense>
-          <a mat-list-item routerLink="/reports/analytics" routerLinkActive="active">
+          <a
+            mat-list-item
+            routerLink="/reports/analytics"
+            routerLinkActive="active"
+          >
             <mat-icon matListItemIcon>analytics</mat-icon>
             <span matListItemTitle>Analytics</span>
           </a>
-          <a mat-list-item routerLink="/reports/time-tracking" routerLinkActive="active">
+          <a
+            mat-list-item
+            routerLink="/reports/time-tracking"
+            routerLinkActive="active"
+          >
             <mat-icon matListItemIcon>timer</mat-icon>
             <span matListItemTitle>Time Tracking</span>
           </a>
-          <a mat-list-item routerLink="/reports/export" routerLinkActive="active">
+          <a
+            mat-list-item
+            routerLink="/reports/export"
+            routerLinkActive="active"
+          >
             <mat-icon matListItemIcon>download</mat-icon>
             <span matListItemTitle>Export</span>
           </a>
@@ -173,7 +265,10 @@
   </div>
 
   <!-- Mobile Header Items -->
-  <div class="mobile-header-items" *ngIf="!(layoutService.isLargeScreen$ | async)">
+  <div
+    class="mobile-header-items"
+    *ngIf="!(layoutService.isLargeScreen$ | async)"
+  >
     <div class="quick-stats">
       <div class="stat-item" matTooltip="Tasks Due Today">
         <mat-icon [class.warning]="dueTodayCount > 5">assignment_late</mat-icon>
@@ -185,18 +280,34 @@
       </div>
     </div>
 
-    <button mat-icon-button [matMenuTriggerFor]="profileMenu" class="notification-btn">
-      <mat-icon [matBadge]="notificationCount" [matBadgeHidden]="notificationCount === 0" matBadgeColor="warn">notifications</mat-icon>
+    <button
+      mat-icon-button
+      [matMenuTriggerFor]="profileMenu"
+      class="notification-btn"
+    >
+      <mat-icon
+        [matBadge]="notificationCount"
+        [matBadgeHidden]="notificationCount === 0"
+        matBadgeColor="warn"
+        >notifications</mat-icon
+      >
     </button>
 
     <button mat-icon-button class="theme-toggle" (click)="toggleTheme()">
-      <mat-icon>{{ (isDarkTheme$ | async) ? 'light_mode' : 'dark_mode' }}</mat-icon>
+      <mat-icon>{{
+        (isDarkTheme$ | async) ? 'light_mode' : 'dark_mode'
+      }}</mat-icon>
     </button>
   </div>
 
   <!-- User Profile - Always in sidebar -->
   <div class="sidebar-footer">
-    <button mat-button class="user-profile-button" [matMenuTriggerFor]="profileMenu" #profileMenuTrigger="matMenuTrigger">
+    <button
+      mat-button
+      class="user-profile-button"
+      [matMenuTriggerFor]="profileMenu"
+      #profileMenuTrigger="matMenuTrigger"
+    >
       <div class="button-content">
         <div class="user-info">
           <img [src]="userAvatar" alt="User Avatar" class="user-avatar" />
@@ -205,7 +316,9 @@
             <span class="user-role">{{ userRole }}</span>
           </div>
         </div>
-        <mat-icon [class.rotated]="profileMenuTrigger.menuOpen">expand_more</mat-icon>
+        <mat-icon [class.rotated]="profileMenuTrigger.menuOpen"
+          >expand_more</mat-icon
+        >
       </div>
     </button>
   </div>
@@ -219,7 +332,10 @@
       <span class="menu-user-name">{{ userName }}</span>
       <span class="menu-user-email">{{ userEmail }}</span>
       <span class="menu-user-status">
-        <span class="status-dot" [class.online]="userStatus === 'online'"></span>
+        <span
+          class="status-dot"
+          [class.online]="userStatus === 'online'"
+        ></span>
         {{ userStatus }}
       </span>
     </div>

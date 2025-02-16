@@ -7,7 +7,11 @@
       <div class="brand-text">
         <span class="brand-name">
           <img
-            [src]="(isDarkTheme$ | async) ? 'assets/brand/taskflow-brand-dark.svg' : 'assets/brand/taskflow-brand.svg'"
+            [src]="
+              (isDarkTheme$ | async)
+                ? 'assets/brand/taskflow-brand-dark.svg'
+                : 'assets/brand/taskflow-brand.svg'
+            "
             class="brand-logo"
             alt="TaskFlow Logo"
             [ngClass]="{ 'theme-transition': true }"
@@ -29,7 +33,12 @@
       </div>
     </div>
 
-    <button mat-icon-button [matMenuTriggerFor]="notificationsMenu" class="notification-btn" matTooltip="Notifications">
+    <button
+      mat-icon-button
+      [matMenuTriggerFor]="notificationsMenu"
+      class="notification-btn"
+      matTooltip="Notifications"
+    >
       <mat-icon
         [matBadge]="notificationCount"
         [matBadgeHidden]="notificationCount === 0"
@@ -45,9 +54,13 @@
       mat-icon-button
       class="theme-toggle"
       (click)="toggleTheme()"
-      [matTooltip]="(isDarkTheme$ | async) ? 'Switch to Light Mode' : 'Switch to Dark Mode'"
+      [matTooltip]="
+        (isDarkTheme$ | async) ? 'Switch to Light Mode' : 'Switch to Dark Mode'
+      "
     >
-      <mat-icon>{{ (isDarkTheme$ | async) ? 'light_mode' : 'dark_mode' }}</mat-icon>
+      <mat-icon>{{
+        (isDarkTheme$ | async) ? 'light_mode' : 'dark_mode'
+      }}</mat-icon>
     </button>
   </div>
 </mat-toolbar>
@@ -56,21 +69,41 @@
   <div class="notifications-header">
     <h3>Notifications</h3>
     <div class="notification-actions">
-      <button mat-icon-button matTooltip="Filter Notifications" [matMenuTriggerFor]="filterMenu">
+      <button
+        mat-icon-button
+        matTooltip="Filter Notifications"
+        [matMenuTriggerFor]="filterMenu"
+      >
         <mat-icon>filter_list</mat-icon>
       </button>
-      <button mat-button color="primary" (click)="markAllAsRead()">Mark all as read</button>
+      <button mat-button color="primary" (click)="markAllAsRead()">
+        Mark all as read
+      </button>
     </div>
   </div>
   <mat-divider></mat-divider>
-  <div class="notifications-list" *ngIf="notifications.length; else noNotifications">
-    <button mat-menu-item *ngFor="let notification of notifications" [class.unread]="!notification.read" (click)="handleNotification(notification)">
-      <mat-icon [class.unread]="!notification.read">{{ notification.icon }}</mat-icon>
+  <div
+    class="notifications-list"
+    *ngIf="notifications.length; else noNotifications"
+  >
+    <button
+      mat-menu-item
+      *ngFor="let notification of notifications"
+      [class.unread]="!notification.read"
+      (click)="handleNotification(notification)"
+    >
+      <mat-icon [class.unread]="!notification.read">{{
+        notification.icon
+      }}</mat-icon>
       <div class="notification-content">
         <span class="notification-message">{{ notification.message }}</span>
         <span class="notification-time">{{ notification.time | timeAgo }}</span>
       </div>
-      <button mat-icon-button class="notification-action" (click)="$event.stopPropagation(); markAsRead(notification)">
+      <button
+        mat-icon-button
+        class="notification-action"
+        (click)="$event.stopPropagation(); markAsRead(notification)"
+      >
         <mat-icon>check</mat-icon>
       </button>
     </button>
@@ -84,7 +117,11 @@
 </mat-menu>
 
 <mat-menu #filterMenu="matMenu">
-  <button mat-menu-item *ngFor="let filter of notificationFilters" (click)="filterNotifications(filter.type)">
+  <button
+    mat-menu-item
+    *ngFor="let filter of notificationFilters"
+    (click)="filterNotifications(filter.type)"
+  >
     <mat-icon>{{ filter.icon }}</mat-icon>
     <span>{{ filter.label }}</span>
   </button>

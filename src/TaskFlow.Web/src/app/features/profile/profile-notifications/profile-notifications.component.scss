@@ -1,0 +1,114 @@
+mat-card {
+  max-width: 1200px;
+  margin: 24px auto;
+  padding: 24px;
+
+  mat-card-header {
+    margin-bottom: 24px;
+
+    mat-card-title {
+      font-size: 24px;
+      font-weight: 500;
+    }
+
+    mat-card-subtitle {
+      font-size: 16px;
+      color: rgba(0, 0, 0, 0.6);
+    }
+  }
+}
+
+.notification-table {
+  width: 100%;
+  margin-bottom: 32px;
+
+  th.mat-header-cell {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.87);
+    padding: 16px;
+
+    mat-checkbox {
+      margin-left: 8px;
+    }
+  }
+
+  td.mat-cell {
+    padding: 16px;
+  }
+}
+
+mat-divider {
+  margin: 20px 0;
+}
+
+.digest-settings,
+.quiet-hours-settings {
+  padding: 12px 0;
+
+  h3 {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 16px;
+    color: rgba(0, 0, 0, 0.87);
+  }
+
+  .full-width {
+    width: 100%;
+    max-width: 300px;
+    margin-top: 16px;
+  }
+
+  mat-slide-toggle {
+    margin-right: 32px;
+  }
+}
+
+.time-fields {
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
+
+  mat-form-field {
+    width: 200px;
+  }
+}
+
+.button-group {
+  margin-top: 32px;
+  display: flex;
+  justify-content: flex-end;
+
+  button {
+    min-width: 120px;
+    padding: 8px 24px;
+
+    &:disabled {
+      opacity: 0.7;
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  mat-card {
+    margin: 16px;
+    padding: 16px;
+  }
+
+  .time-fields {
+    flex-direction: column;
+    gap: 8px;
+
+    mat-form-field {
+      width: 100%;
+    }
+  }
+
+  .notification-table {
+    th.mat-header-cell,
+    td.mat-cell {
+      padding: 8px;
+    }
+  }
+}

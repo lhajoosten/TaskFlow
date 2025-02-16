@@ -1,5 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import {
+  HttpEvent,
+  HttpHandler,
+  HttpInterceptor,
+  HttpRequest,
+  HttpResponse,
+  HttpErrorResponse,
+} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
@@ -15,9 +22,14 @@ export enum LogLevel {
   providedIn: 'root',
 })
 export class LoggerService implements HttpInterceptor {
-  private logLevel: LogLevel = environment.production ? LogLevel.Warn : LogLevel.Debug;
+  private logLevel: LogLevel = environment.production
+    ? LogLevel.Warn
+    : LogLevel.Debug;
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(
+    req: HttpRequest<any>,
+    next: HttpHandler,
+  ): Observable<HttpEvent<any>> {
     const startTime = Date.now();
     return next.handle(req).pipe(
       tap({
@@ -62,7 +74,11 @@ export class LoggerService implements HttpInterceptor {
     return `[${timestamp}] [${level}] ${message}`;
   }
 
-  private logHttpSuccess(req: HttpRequest<any>, event: HttpResponse<any>, startTime: number): void {
+  private logHttpSuccess(
+    req: HttpRequest<any>,
+    event: HttpResponse<any>,
+    startTime: number,
+  ): void {
     const elapsedTime = Date.now() - startTime;
     const message = `${req.method} ${req.urlWithParams} ${event.status} (${elapsedTime}ms)`;
 
@@ -77,7 +93,11 @@ export class LoggerService implements HttpInterceptor {
     }
   }
 
-  private logHttpError(req: HttpRequest<any>, error: HttpErrorResponse, startTime: number): void {
+  private logHttpError(
+    req: HttpRequest<any>,
+    error: HttpErrorResponse,
+    startTime: number,
+  ): void {
     const elapsedTime = Date.now() - startTime;
     const message = `${req.method} ${req.urlWithParams} failed (${elapsedTime}ms)`;
     this.error(message, {

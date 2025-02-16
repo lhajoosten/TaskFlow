@@ -56,7 +56,8 @@ export class ConfirmEmailComponent implements OnInit {
       },
       error: (error) => {
         this.isSuccess = false;
-        this.message = error.error.message || 'Failed to confirm email. Please try again.';
+        this.message =
+          error.error.message || 'Failed to confirm email. Please try again.';
         this.snackBar.open(this.message, 'Close', {
           duration: 5000,
         });

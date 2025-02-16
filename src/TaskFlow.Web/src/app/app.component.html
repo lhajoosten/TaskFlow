@@ -1,4 +1,6 @@
-<ng-container *ngIf="!isLoading && (authService.isAuthenticated() | async); else authLayout">
+<ng-container
+  *ngIf="!isLoading && (authService.isAuthenticated() | async); else authLayout"
+>
   <div class="layout-container">
     <app-header #header class="header-fixed"></app-header>
     <mat-sidenav-container>
@@ -12,7 +14,12 @@
       >
         <app-sidebar [headerMenus]="headerMenus"></app-sidebar>
       </mat-sidenav>
-      <mat-sidenav-content [class.overlay-active]="(layoutService.sidebarOpen$ | async) && !(layoutService.isLargeScreen$ | async)">
+      <mat-sidenav-content
+        [class.overlay-active]="
+          (layoutService.sidebarOpen$ | async) &&
+          !(layoutService.isLargeScreen$ | async)
+        "
+      >
         <div class="main-content">
           <router-outlet></router-outlet>
         </div>

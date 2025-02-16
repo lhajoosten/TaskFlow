@@ -29,7 +29,11 @@ export class DashboardComponent implements OnInit {
   weekDays: WeekDay[] = [];
 
   recentActivities = [
-    { icon: 'check_circle', title: 'Completed task "Design Homepage"', time: new Date() },
+    {
+      icon: 'check_circle',
+      title: 'Completed task "Design Homepage"',
+      time: new Date(),
+    },
     {
       icon: 'play_circle',
       title: 'Started task "Develop Login Module"',
@@ -43,13 +47,41 @@ export class DashboardComponent implements OnInit {
   ];
 
   upcomingDeadlines = [
-    { taskName: 'Frontend Development', date: new Date(Date.now() + 86400000 * 2), progress: 75 },
-    { taskName: 'API Integration', date: new Date(Date.now() + 86400000 * 5), progress: 45 },
-    { taskName: 'User Testing', date: new Date(Date.now() + 86400000 * 7), progress: 20 },
-    { taskName: 'API Integration', date: new Date(Date.now() + 86400000 * 4), progress: 95 },
-    { taskName: 'User Testing', date: new Date(Date.now() + 86400000 * 12), progress: 69 },
-    { taskName: 'Frontend Development', date: new Date(Date.now() + 86400000 * 2), progress: 75 },
-    { taskName: 'Frontend Development', date: new Date(Date.now() + 86400000 * 2), progress: 75 },
+    {
+      taskName: 'Frontend Development',
+      date: new Date(Date.now() + 86400000 * 2),
+      progress: 75,
+    },
+    {
+      taskName: 'API Integration',
+      date: new Date(Date.now() + 86400000 * 5),
+      progress: 45,
+    },
+    {
+      taskName: 'User Testing',
+      date: new Date(Date.now() + 86400000 * 7),
+      progress: 20,
+    },
+    {
+      taskName: 'API Integration',
+      date: new Date(Date.now() + 86400000 * 4),
+      progress: 95,
+    },
+    {
+      taskName: 'User Testing',
+      date: new Date(Date.now() + 86400000 * 12),
+      progress: 69,
+    },
+    {
+      taskName: 'Frontend Development',
+      date: new Date(Date.now() + 86400000 * 2),
+      progress: 75,
+    },
+    {
+      taskName: 'Frontend Development',
+      date: new Date(Date.now() + 86400000 * 2),
+      progress: 75,
+    },
   ];
 
   teamWorkload = [
@@ -137,7 +169,9 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  private getEventsForDate(date: Date): { time: string; title: string; color: string }[] {
+  private getEventsForDate(
+    date: Date,
+  ): { time: string; title: string; color: string }[] {
     // This is a mock implementation - replace with actual data from your service
     return [
       {

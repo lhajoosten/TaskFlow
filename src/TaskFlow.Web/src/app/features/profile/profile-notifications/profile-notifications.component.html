@@ -1,0 +1,109 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Notification Settings</mat-card-title>
+    <mat-card-subtitle>Manage your notification preferences</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="notificationForm" (ngSubmit)="onSubmit()">
+      <!-- Notification Settings Table -->
+      <table mat-table [dataSource]="notificationSettings" class="notification-table">
+        <!-- Notification Type Column -->
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef> Notification Type </th>
+          <td mat-cell *matCellDef="let setting"> {{ setting.description }} </td>
+        </ng-container>
+
+        <!-- Email Column -->
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef>
+            Email
+            <mat-checkbox
+              (change)="toggleAllEmail($event.checked)"
+              [checked]="allEmailEnabled">
+            </mat-checkbox>
+          </th>
+          <td mat-cell *matCellDef="let setting">
+            <mat-slide-toggle [formControlName]="setting.type + 'Email'"></mat-slide-toggle>
+          </td>
+        </ng-container>
+
+        <!-- Push Column -->
+        <ng-container matColumnDef="push">
+          <th mat-header-cell *matHeaderCellDef>
+            Push
+            <mat-checkbox
+              (change)="toggleAllPush($event.checked)"
+              [checked]="allPushEnabled">
+            </mat-checkbox>
+          </th>
+          <td mat-cell *matCellDef="let setting">
+            <mat-slide-toggle [formControlName]="setting.type + 'Push'"></mat-slide-toggle>
+          </td>
+        </ng-container>
+
+        <!-- In-App Column -->
+        <ng-container matColumnDef="inApp">
+          <th mat-header-cell *matHeaderCellDef>
+            In-App
+            <mat-checkbox
+              (change)="toggleAllInApp($event.checked)"
+              [checked]="allInAppEnabled">
+            </mat-checkbox>
+          </th>
+          <td mat-cell *matCellDef="let setting">
+            <mat-slide-toggle [formControlName]="setting.type + 'InApp'"></mat-slide-toggle>
+          </td>
+        </ng-container>
+
+        <!-- Header and Row Declarations -->
+        <tr mat-header-row *matHeaderRowDef="['description', 'email', 'push', 'inApp']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['description', 'email', 'push', 'inApp'];"></tr>
+      </table>
+
+      <mat-divider></mat-divider>
+
+      <!-- Digest Settings -->
+      <div class="digest-settings">
+        <h3>Digest Settings</h3>
+        <mat-slide-toggle formControlName="emailDigest">
+          Receive Email Digest
+        </mat-slide-toggle>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Digest Frequency</mat-label>
+          <mat-select formControlName="digestFrequency">
+            <mat-option value="daily">Daily</mat-option>
+            <mat-option value="weekly">Weekly</mat-option>
+            <mat-option value="monthly">Monthly</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <!-- Quiet Hours Settings -->
+      <div class="quiet-hours-settings">
+        <h3>Quiet Hours</h3>
+        <mat-slide-toggle formControlName="quietHoursEnabled">
+          Enable Quiet Hours
+        </mat-slide-toggle>
+        <div class="time-fields" *ngIf="notificationForm.get('quietHoursEnabled')?.value">
+          <mat-form-field appearance="outline">
+            <mat-label>Start Time</mat-label>
+            <input matInput formControlName="quietHoursStart" type="time" />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>End Time</mat-label>
+            <input matInput formControlName="quietHoursEnd" type="time" />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="button-group">
+        <button mat-raised-button color="primary" type="submit" [disabled]="loading || notificationForm.invalid">
+          Save Settings
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
