@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using TaskFlow.Mailing.Interfaces;
+using TaskFlow.Common.Services;
 using TaskFlow.Mailing.Services;
 
 namespace TaskFlow.Mailing.Configurations

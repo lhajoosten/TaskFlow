@@ -7,7 +7,7 @@ namespace TaskFlow.Domain.Entities.UserAggregate
     {
         public string Type { get; }
         public string Description { get; }
-        public bool Email { get; private set; }
+        public bool EmailNotification { get; private set; }
         public bool Push { get; private set; }
         public bool InApp { get; private set; }
 
@@ -18,14 +18,14 @@ namespace TaskFlow.Domain.Entities.UserAggregate
 
             Type = type;
             Description = description;
-            Email = true;
+            EmailNotification = true;
             Push = true;
             InApp = true;
         }
 
         public void UpdatePreferences(bool email, bool push, bool inApp)
         {
-            Email = email;
+            EmailNotification = email;
             Push = push;
             InApp = inApp;
         }
@@ -34,7 +34,7 @@ namespace TaskFlow.Domain.Entities.UserAggregate
         {
             yield return Type;
             yield return Description;
-            yield return Email;
+            yield return EmailNotification;
             yield return Push;
             yield return InApp;
         }

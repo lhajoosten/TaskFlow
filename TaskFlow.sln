@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskFlow.Persistence", "src
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskFlow.Domain", "src\TaskFlow.Domain\TaskFlow.Domain.csproj", "{554691FE-439F-4C8C-BC5C-F2B6D12E1061}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskFlow.Common", "src\TaskFlow.Common\TaskFlow.Common.csproj", "{87E0D5D9-EEBB-46BC-AE4A-6B18E3DAAA1D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +75,10 @@ Global
 		{554691FE-439F-4C8C-BC5C-F2B6D12E1061}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{554691FE-439F-4C8C-BC5C-F2B6D12E1061}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{554691FE-439F-4C8C-BC5C-F2B6D12E1061}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87E0D5D9-EEBB-46BC-AE4A-6B18E3DAAA1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87E0D5D9-EEBB-46BC-AE4A-6B18E3DAAA1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87E0D5D9-EEBB-46BC-AE4A-6B18E3DAAA1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87E0D5D9-EEBB-46BC-AE4A-6B18E3DAAA1D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -90,5 +96,6 @@ Global
 		{872F3CC8-D47C-461E-8202-013E6588CF82} = {36B8791D-105D-49A1-B00F-6A37C5E5A6BA}
 		{43F7D5A8-8A01-40D1-B98D-A4DEC9354CDD} = {36B8791D-105D-49A1-B00F-6A37C5E5A6BA}
 		{554691FE-439F-4C8C-BC5C-F2B6D12E1061} = {62399AFF-FF00-4CF5-AA90-E8D08EE3C4A4}
+		{87E0D5D9-EEBB-46BC-AE4A-6B18E3DAAA1D} = {62399AFF-FF00-4CF5-AA90-E8D08EE3C4A4}
 	EndGlobalSection
 EndGlobal

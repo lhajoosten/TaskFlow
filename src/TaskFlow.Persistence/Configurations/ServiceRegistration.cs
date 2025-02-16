@@ -1,7 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using TaskFlow.Common.Constants;
+using TaskFlow.Common.Interfaces;
 using TaskFlow.Persistence.Persistence;
+using TaskFlow.Persistence.Repositories;
 
 namespace TaskFlow.Persistence.Configurations
 {
@@ -16,8 +19,11 @@ namespace TaskFlow.Persistence.Configurations
                 options.UseSqlServer(connectionString, sqlOptions =>
                 {
                     // Store migrations in the default schema
-                    sqlOptions.MigrationsHistoryTable("__EFMigrationsHistory", "dbo");
+                    sqlOptions.MigrationsHistoryTable("__EFMigrationsHistory", SchemaNames.Default);
                 }));
+
+            services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;
         }

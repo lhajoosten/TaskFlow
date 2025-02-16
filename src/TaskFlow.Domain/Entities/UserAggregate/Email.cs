@@ -3,11 +3,11 @@ using TaskFlow.Common.ValueObjects;
 
 namespace TaskFlow.Domain.Entities.UserAggregate
 {
-    public class Email : ValueObject
+    public class EmailAddress : ValueObject
     {
         public string Value { get; }
 
-        public Email(string value)
+        public EmailAddress(string value)
         {
             Guard.AgainstNullOrEmpty(value, nameof(value));
             Guard.Against(!IsValidEmail(value), "Invalid email format");

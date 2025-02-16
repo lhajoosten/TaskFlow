@@ -5,13 +5,13 @@ namespace TaskFlow.Domain.Entities.UserAggregate
 {
     public class UserProfile : ValueObject
     {
-        public string FirstName { get; private set; }
-        public string LastName { get; private set; }
+        public string FirstName { get; private set; } = string.Empty;
+        public string LastName { get; private set; } = string.Empty;
         public string FullName => $"{FirstName} {LastName}";
         public string? JobTitle { get; private set; }
         public string? Department { get; private set; }
         public string? Bio { get; private set; }
-        public List<string> Skills { get; private set; } = new();
+        public List<string> Skills { get; private set; } = [];
 
         private UserProfile() { }
 
@@ -33,6 +33,18 @@ namespace TaskFlow.Domain.Entities.UserAggregate
             LastName = lastName;
             JobTitle = jobTitle;
             Department = department;
+        }
+
+        public void AddSkill(string skill)
+        {
+            Guard.AgainstNullOrEmpty(skill, nameof(skill));
+            Skills.Add(skill);
+        }
+
+        public void RemoveSkill(string skill)
+        {
+            Guard.AgainstNullOrEmpty(skill, nameof(skill));
+            Skills.Remove(skill);
         }
 
         protected override IEnumerable<object> GetEqualityComponents()

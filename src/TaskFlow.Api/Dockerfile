@@ -13,6 +13,7 @@ WORKDIR /src
 
 # Fix paths to correctly reference `src/` in GitHub Actions
 COPY src/TaskFlow.Api/TaskFlow.Api.csproj TaskFlow.Api/
+COPY src/TaskFlow.Common/TaskFlow.Common.csproj TaskFlow.Common/
 COPY src/TaskFlow.Application/TaskFlow.Application.csproj TaskFlow.Application/
 COPY src/TaskFlow.Domain/TaskFlow.Domain.csproj TaskFlow.Domain/
 COPY src/TaskFlow.Persistence/TaskFlow.Persistence.csproj TaskFlow.Persistence/

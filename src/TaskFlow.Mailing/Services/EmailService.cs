@@ -1,8 +1,8 @@
 ﻿using MailKit.Security;
 using Microsoft.Extensions.Options;
 using MimeKit;
+using TaskFlow.Common.Services;
 using TaskFlow.Mailing.Configurations;
-using TaskFlow.Mailing.Interfaces;
 using TaskFlow.Mailing.Models;
 
 namespace TaskFlow.Mailing.Services
@@ -16,11 +16,11 @@ namespace TaskFlow.Mailing.Services
             _emailSettings = emailSettings.Value ?? throw new ArgumentNullException(nameof(emailSettings));
         }
 
-        public async Task<bool> SendEmailAsync(EmailDto emailDto)
+        public async Task<bool> SendEmailAsync(string to, string subject, string body)
         {
             try
             {
-                var email = CreateMimeMessage(emailDto.To, emailDto.Subject, emailDto.Body);
+                var email = CreateMimeMessage(to, subject, body);
                 return await SendEmailInternalAsync(email);
             }
             catch (Exception ex)
@@ -53,7 +53,7 @@ namespace TaskFlow.Mailing.Services
                 <p style='font-size: 12px; color: #999;'>You are receiving this email because you recently created a new TaskFlow account. If this wasn't you, please disregard this email.</p>
             </div>"
             };
-            return await SendEmailAsync(emailDto);
+            return await SendEmailAsync(emailDto.To, emailDto.Subject, emailDto.Body);
         }
 
         public async Task<bool> SendPasswordResetEmailAsync(string email, string token)
@@ -78,7 +78,7 @@ namespace TaskFlow.Mailing.Services
                 <p style='font-size: 12px; color: #999;'>You are receiving this email because a password reset request was made for your TaskFlow account. If this wasn't you, please disregard this email.</p>
             </div>"
             };
-            return await SendEmailAsync(emailDto);
+            return await SendEmailAsync(emailDto.To, emailDto.Subject, emailDto.Body);
         }
 
         private MimeMessage CreateMimeMessage(string to, string subject, string body)

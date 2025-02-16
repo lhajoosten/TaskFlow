@@ -5,12 +5,11 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using TaskFlow.Common.Services;
 using TaskFlow.Identity.Configurations;
 using TaskFlow.Identity.DTOs;
 using TaskFlow.Identity.Interfaces;
 using TaskFlow.Identity.Models;
-using TaskFlow.Mailing.Interfaces;
-using TaskFlow.Mailing.Models;
 
 namespace TaskFlow.Identity.Services
 {

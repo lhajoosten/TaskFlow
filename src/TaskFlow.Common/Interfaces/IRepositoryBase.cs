@@ -20,9 +20,9 @@ namespace TaskFlow.Common.Interfaces
         Task DeleteRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default);
 
         // Query operations
-        Task<T?> FirstOrDefaultAsync(Specification<T> specification, CancellationToken cancellationToken = default);
-        Task<IReadOnlyList<T>> ListAsync(Specification<T> specification, CancellationToken cancellationToken = default);
-        Task<int> CountAsync(Specification<T> specification, CancellationToken cancellationToken = default);
-        Task<bool> AnyAsync(Specification<T> specification, CancellationToken cancellationToken = default);
+        Task<T?> FirstOrDefaultAsync(BaseSpecification<T> specification, CancellationToken cancellationToken = default);
+        Task<IReadOnlyList<T>> ListAsync(BaseSpecification<T> specification, CancellationToken cancellationToken = default);
+        Task<int> CountAsync(BaseSpecification<T> specification, CancellationToken cancellationToken = default);
+        Task<bool> AnyAsync(BaseSpecification<T> specification, CancellationToken cancellationToken = default);
     }
 }

@@ -3,7 +3,6 @@ using TaskFlow.Application.Common.Configurations;
 using TaskFlow.Identity.Configurations;
 using TaskFlow.Persistence.Configurations;
 using TaskFlow.Mailing.Configurations;
-using Microsoft.AspNetCore.Http;
 
 namespace TaskFlow.Api
 {

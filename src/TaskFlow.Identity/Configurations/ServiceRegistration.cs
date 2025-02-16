@@ -5,6 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using TaskFlow.Common.Constants;
+using TaskFlow.Common.Services;
 using TaskFlow.Identity.Interfaces;
 using TaskFlow.Identity.Models;
 using TaskFlow.Identity.Services;
@@ -22,7 +24,7 @@ namespace TaskFlow.Identity.Configurations
                 options.UseSqlServer(connectionString, sqlOptions =>
                 {
                     // Store migrations in "identity" schema
-                    sqlOptions.MigrationsHistoryTable("__EFMigrationsHistory", "TaskFlowIdentity");
+                    sqlOptions.MigrationsHistoryTable("__EFMigrationsHistory", SchemaNames.Identity);
                 }));
 
             // Register JWT Settings
@@ -84,6 +86,7 @@ namespace TaskFlow.Identity.Configurations
 
             // Register Identity Module Service
             services.AddScoped<IIdentityService, IdentityService>();
+            services.AddScoped<ICurrentUserService, CurrentUserService>();
 
             return services;
         }
