@@ -1,132 +1,196 @@
 <div class="dashboard-overview">
-    <div class="dashboard-header">
-        <h1 class="page-titel">Dashboard Overview</h1>
-        <mat-form-field appearance="fill">
-            <mat-label>Time Range</mat-label>
-            <mat-select [(value)]="selectedTimeRange">
-                <mat-option value="today">Today</mat-option>
-                <mat-option value="week">This Week</mat-option>
-                <mat-option value="month">This Month</mat-option>
-            </mat-select>
-        </mat-form-field>
+  <div class="dashboard-header">
+    <h1 class="page-titel">Dashboard Overview</h1>
+    <mat-form-field appearance="fill">
+      <mat-label>Time Range</mat-label>
+      <mat-select [(value)]="selectedTimeRange">
+        <mat-option value="today">Today</mat-option>
+        <mat-option value="week">This Week</mat-option>
+        <mat-option value="month">This Month</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="stats-container">
+    <div class="stats">
+      <mat-card class="stat-item">
+        <mat-card-title>Tasks Completed</mat-card-title>
+        <mat-card-content>
+          <div class="stat-content">
+            <span class="stat-number">150</span>
+            <mat-icon class="trend-up">trending_up</mat-icon>
+            <span class="trend-percentage">+15%</span>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="stat-item">
+        <mat-card-title>Tasks Pending</mat-card-title>
+        <mat-card-content>
+          <div class="stat-content">
+            <span class="stat-number">45</span>
+            <mat-icon class="trend-down">trending_down</mat-icon>
+            <span class="trend-percentage">-5%</span>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="stat-item">
+        <mat-card-title>New Tasks</mat-card-title>
+        <mat-card-content>
+          <div class="stat-content">
+            <span class="stat-number">10</span>
+            <mat-icon class="trend-stable">trending_flat</mat-icon>
+            <span class="trend-percentage">0%</span>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="stat-item">
+        <mat-card-title>Team Productivity</mat-card-title>
+        <mat-card-content>
+          <div class="stat-content">
+            <span class="stat-number">87%</span>
+            <mat-icon class="trend-up">trending_up</mat-icon>
+            <span class="trend-percentage">+7%</span>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+  <div class="dashboard-content" style="margin-bottom: 20px">
+    <div class="left-column">
+      <mat-card class="recent-activities">
+        <mat-card-title>
+          <div
+            class="section-header"
+            style="display: flex; justify-content: space-between; align-items: center"
+          >
+            <h2 style="margin: 0">Recent Activities</h2>
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+          </div>
+        </mat-card-title>
+        <mat-card-content>
+          <mat-list>
+            <mat-list-item *ngFor="let activity of recentActivities">
+              <mat-icon matListItemIcon>{{ activity.icon }}</mat-icon>
+              <div matListItemTitle>{{ activity.title }}</div>
+              <div matListItemLine>{{ activity.time | timeAgo }}</div>
+            </mat-list-item>
+          </mat-list>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Add the new Weekly Calendar card -->
+      <mat-card class="weekly-calendar">
+        <mat-card-title>
+          <div
+            class="section-header"
+            style="display: flex; justify-content: space-between; align-items: center"
+          >
+            <h2 style="margin: 0">Weekly Calendar</h2>
+            <button mat-icon-button routerLink="/calendar/week">
+              <mat-icon>open_in_new</mat-icon>
+            </button>
+          </div>
+        </mat-card-title>
+        <mat-card-content>
+          <div class="week-view">
+            <div class="week-day" *ngFor="let day of weekDays">
+              <div class="day-header" [class.today]="day.isToday">
+                <span class="day-name">{{ day.name }}</span>
+                <span class="day-date">{{ day.date }}</span>
+              </div>
+              <div class="day-events">
+                <div
+                  class="event"
+                  *ngFor="let event of day.events"
+                  [style.backgroundColor]="event.color"
+                >
+                  <span class="event-time">{{ event.time }}</span>
+                  <span class="event-title">{{ event.title }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
     </div>
 
-    <div class="stats-container">
-        <div class="stats">
-            <mat-card class="stat-item">
-                <mat-card-title>Tasks Completed</mat-card-title>
-                <mat-card-content>
-                    <div class="stat-content">
-                        <span class="stat-number">150</span>
-                        <mat-icon class="trend-up">trending_up</mat-icon>
-                        <span class="trend-percentage">+15%</span>
-                    </div>
-                </mat-card-content>
-            </mat-card>
+    <div class="right-column">
+      <mat-card class="upcoming-deadlines">
+        <mat-card-title>
+          <h2>Upcoming Deadlines</h2>
+        </mat-card-title>
+        <mat-card-content>
+          <mat-list>
+            <mat-list-item *ngFor="let deadline of upcomingDeadlines">
+              <div matListItemTitle class="deadline-item">
+                <span>{{ deadline.taskName }}</span>
+                <span class="deadline-date">{{ deadline.date | date: 'mediumDate' }}</span>
+              </div>
+              <mat-progress-bar [value]="deadline.progress"></mat-progress-bar>
+            </mat-list-item>
+          </mat-list>
+        </mat-card-content>
+      </mat-card>
 
-            <mat-card class="stat-item">
-                <mat-card-title>Tasks Pending</mat-card-title>
-                <mat-card-content>
-                    <div class="stat-content">
-                        <span class="stat-number">45</span>
-                        <mat-icon class="trend-down">trending_down</mat-icon>
-                        <span class="trend-percentage">-5%</span>
-                    </div>
-                </mat-card-content>
-            </mat-card>
+      <mat-card class="team-workload">
+        <mat-card-title>
+          <h2>Team Workload</h2>
+        </mat-card-title>
+        <mat-card-content>
+          <div class="team-member" *ngFor="let member of teamWorkload">
+            <div class="member-info">
+              <img [src]="member.avatar" class="member-avatar" />
+              <span>{{ member.name }}</span>
+              <span class="task-count">{{ member.taskCount }} tasks</span>
+            </div>
+            <mat-progress-bar [value]="member.workloadPercentage"></mat-progress-bar>
+          </div>
+        </mat-card-content>
+      </mat-card>
 
-            <mat-card class="stat-item">
-                <mat-card-title>New Tasks</mat-card-title>
-                <mat-card-content>
-                    <div class="stat-content">
-                        <span class="stat-number">10</span>
-                        <mat-icon class="trend-stable">trending_flat</mat-icon>
-                        <span class="trend-percentage">0%</span>
-                    </div>
-                </mat-card-content>
-            </mat-card>
-
-            <mat-card class="stat-item">
-                <mat-card-title>Team Productivity</mat-card-title>
-                <mat-card-content>
-                    <div class="stat-content">
-                        <span class="stat-number">87%</span>
-                        <mat-icon class="trend-up">trending_up</mat-icon>
-                        <span class="trend-percentage">+7%</span>
-                    </div>
-                </mat-card-content>
-            </mat-card>
-        </div>
+      <mat-card class="activity-feed">
+        <mat-card-title>
+          <div
+            class="section-header"
+            style="display: flex; justify-content: space-between; align-items: center"
+          >
+            <h2>Recent Notifications</h2>
+            <button mat-button color="primary" [routerLink]="['/notifications']">View All</button>
+          </div>
+        </mat-card-title>
+        <mat-card-content>
+          <mat-list>
+            <mat-list-item *ngFor="let notification of recentNotifications">
+              <div class="notification-item">
+                <div class="notification-icon" [ngClass]="notification.type">
+                  <mat-icon>{{ notification.icon }}</mat-icon>
+                </div>
+                <div class="notification-content">
+                  <p class="notification-text">{{ notification.message }}</p>
+                  <span class="notification-time">{{ notification.time | timeAgo }}</span>
+                </div>
+              </div>
+            </mat-list-item>
+          </mat-list>
+        </mat-card-content>
+      </mat-card>
     </div>
-
-    <div class="dashboard-content" style="margin-bottom: 20px;">
-        <div class="left-column">
-            <mat-card class="recent-activities">
-                <mat-card-title>
-                    <div class="section-header"
-                        style="display: flex; justify-content: space-between; align-items: center;">
-                        <h2 style="margin: 0;">Recent Activities</h2>
-                        <button mat-icon-button [matMenuTriggerFor]="menu">
-                            <mat-icon>more_vert</mat-icon>
-                        </button>
-                    </div>
-                </mat-card-title>
-                <mat-card-content>
-                    <mat-list>
-                        <mat-list-item *ngFor="let activity of recentActivities">
-                            <mat-icon matListItemIcon>{{activity.icon}}</mat-icon>
-                            <div matListItemTitle>{{activity.title}}</div>
-                            <div matListItemLine>{{activity.time | timeAgo}}</div>
-                        </mat-list-item>
-                    </mat-list>
-                </mat-card-content>
-            </mat-card>
-        </div>
-
-        <div class="right-column">
-            <mat-card class="upcoming-deadlines">
-                <mat-card-title>
-                    <h2>Upcoming Deadlines</h2>
-                </mat-card-title>
-                <mat-card-content>
-                    <mat-list>
-                        <mat-list-item *ngFor="let deadline of upcomingDeadlines">
-                            <div matListItemTitle class="deadline-item">
-                                <span>{{deadline.taskName}}</span>
-                                <span class="deadline-date">{{deadline.date | date:'mediumDate'}}</span>
-                            </div>
-                            <mat-progress-bar [value]="deadline.progress"></mat-progress-bar>
-                        </mat-list-item>
-                    </mat-list>
-                </mat-card-content>
-            </mat-card>
-
-            <mat-card class="team-workload">
-                <mat-card-title>
-                    <h2>Team Workload</h2>
-                </mat-card-title>
-                <mat-card-content>
-                    <div class="team-member" *ngFor="let member of teamWorkload">
-                        <div class="member-info">
-                            <img [src]="member.avatar" class="member-avatar" />
-                            <span>{{member.name}}</span>
-                            <span class="task-count">{{member.taskCount}} tasks</span>
-                        </div>
-                        <mat-progress-bar [value]="member.workloadPercentage"></mat-progress-bar>
-                    </div>
-                </mat-card-content>
-            </mat-card>
-        </div>
-    </div>
+  </div>
 </div>
 
 <mat-menu #menu="matMenu">
-    <button mat-menu-item>
-        <mat-icon>refresh</mat-icon>
-        <span>Refresh</span>
-    </button>
-    <button mat-menu-item>
-        <mat-icon>filter_list</mat-icon>
-        <span>Filter</span>
-    </button>
+  <button mat-menu-item>
+    <mat-icon>refresh</mat-icon>
+    <span>Refresh</span>
+  </button>
+  <button mat-menu-item>
+    <mat-icon>filter_list</mat-icon>
+    <span>Filter</span>
+  </button>
 </mat-menu>
