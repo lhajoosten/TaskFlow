@@ -6,22 +6,22 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'dashboard'
+    redirectTo: 'dashboard',
   },
   {
     path: 'auth',
-    loadChildren: () => import('./core/authentication/auth.module').then(m => m.AuthModule)
+    loadChildren: () => import('./core/authentication/auth.module').then((m) => m.AuthModule),
   },
   {
     path: 'dashboard',
     canActivate: [AuthGuard],
     data: { requiresAuth: true },
-    loadChildren: () => import('./features/dashboard/dashboard.module').then(m => m.DashboardModule)
-  }
+    loadChildren: () => import('./features/dashboard/dashboard.module').then((m) => m.DashboardModule),
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

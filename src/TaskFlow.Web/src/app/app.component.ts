@@ -24,18 +24,18 @@ export class AppComponent implements OnInit, AfterViewInit {
     protected layoutService: LayoutService,
     private assetPreloader: AssetPreloaderService,
     private themeService: ThemeService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
   ) {
     this.isLargeScreen$ = this.layoutService.isLargeScreen$;
   }
 
   ngOnInit() {
     this.assetPreloader.preloadAssets().subscribe({
-      next: () => this.isLoading = false,
-      error: () => this.isLoading = false
+      next: () => (this.isLoading = false),
+      error: () => (this.isLoading = false),
     });
 
-    this.themeService.isDarkMode$.subscribe(isDark => {
+    this.themeService.isDarkMode$.subscribe((isDark) => {
       if (isDark) {
         document.body.classList.add('dark-theme');
       } else {
@@ -50,7 +50,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       if (this.header?.notificationsMenu && this.header?.filterMenu) {
         this.headerMenus = {
           notifications: this.header.notificationsMenu,
-          filter: this.header.filterMenu
+          filter: this.header.filterMenu,
         };
         this.cdr.detectChanges();
       }

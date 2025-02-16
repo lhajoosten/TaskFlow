@@ -2,7 +2,6 @@
   padding: 38px 28px;
   background-color: var(--background-color);
   min-height: 100vh;
-  transition: all 0.2s ease-in-out;
 
   .dashboard-header {
     display: flex;
@@ -15,12 +14,10 @@
       font-size: 2rem;
       font-weight: 500;
       color: var(--text-color);
-      transition: all 0.2s ease-in-out;
     }
 
     mat-form-field {
       width: 200px;
-      transition: all 0.2s ease-in-out;
     }
   }
 
@@ -100,7 +97,6 @@
       border-radius: 12px;
       background: var(--surface-color);
       border: 1px solid var(--neutral-color);
-      transition: all 0.2s ease-in-out;
 
       &:hover {
         background-color: var(--elevation-1);
@@ -116,7 +112,6 @@
           font-size: 1.25rem;
           color: var(--text-color);
           font-weight: 500;
-          transition: all 0.2s ease-in-out;
         }
       }
 
@@ -128,23 +123,19 @@
     .recent-activities {
       mat-list-item {
         margin-bottom: 16px;
-        transition: all 0.2s ease-in-out;
 
         mat-icon {
           color: var(--neutral-slim-light);
-          transition: all 0.2s ease-in-out;
         }
 
         [matListItemTitle] {
           color: var(--text-color);
           font-weight: 500;
-          transition: all 0.2s ease-in-out;
         }
 
         [matListItemLine] {
           color: var(--neutral-lighter);
           font-size: 0.875rem;
-          transition: all 0.2s ease-in-out;
         }
       }
     }
@@ -217,7 +208,6 @@
         margin-bottom: 8px;
 
         span {
-          transition: all 0.2s ease-in-out;
           &:first-child {
             color: var(--neutral-slim-light);
             font-weight: 500;
@@ -234,7 +224,6 @@
         margin-top: 8px;
         height: 6px;
         border-radius: 3px;
-        transition: all 0.2s ease-in-out;
       }
     }
 
@@ -253,7 +242,6 @@
           align-items: center;
           gap: 16px;
           margin-bottom: 12px;
-          transition: all 0.2s ease-in-out;
 
           .member-avatar {
             width: 40px;
@@ -262,11 +250,9 @@
             object-fit: cover;
             border: 2px solid var(--surface-color);
             box-shadow: 0 2px 4px var(--elevation-1);
-            transition: all 0.2s ease-in-out;
           }
 
           span {
-            transition: all 0.2s ease-in-out;
             &:first-of-type {
               color: var(--text-color);
               font-weight: 500;
@@ -280,14 +266,12 @@
             background-color: var(--elevation-1);
             padding: 4px 8px;
             border-radius: 4px;
-            transition: all 0.2s ease-in-out;
           }
         }
 
         mat-progress-bar {
           height: 6px;
           border-radius: 3px;
-          transition: all 0.2s ease-in-out;
         }
       }
     }
@@ -296,47 +280,55 @@
       margin-top: 20px;
 
       .notification-item {
-          display: flex;
-          align-items: flex-start;
-          gap: 16px;
-          padding: 8px 0;
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 8px 0;
       }
 
       .notification-icon {
-          width: 32px;
-          height: 32px;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
-          &.info { background-color: rgba(33, 150, 243, 0.1); }
-          &.success { background-color: rgba(76, 175, 80, 0.1); }
-          &.warning { background-color: rgba(255, 152, 0, 0.1); }
-          &.error { background-color: rgba(244, 67, 54, 0.1); }
+        &.info {
+          background-color: rgba(33, 150, 243, 0.1);
+        }
+        &.success {
+          background-color: rgba(76, 175, 80, 0.1);
+        }
+        &.warning {
+          background-color: rgba(255, 152, 0, 0.1);
+        }
+        &.error {
+          background-color: rgba(244, 67, 54, 0.1);
+        }
 
-          mat-icon {
-              font-size: 18px;
-              width: 18px;
-              height: 18px;
-          }
+        mat-icon {
+          font-size: 18px;
+          width: 18px;
+          height: 18px;
+        }
       }
 
       .notification-content {
-          flex: 1;
+        flex: 1;
 
-          .notification-text {
-              margin: 0;
-              font-size: 14px;
-              line-height: 1.4;
-          }
+        .notification-text {
+          margin: 0;
+          font-size: 14px;
+          line-height: 1.4;
+        }
 
-          .notification-time {
-              font-size: 12px;
-              color: rgba(0, 0, 0, 0.54);
-          }
+        .notification-time {
+          font-size: 12px;
+          color: rgba(0, 0, 0, 0.54);
+        }
       }
-  }
+    }
   }
 }
 
@@ -344,12 +336,10 @@
 ::ng-deep {
   .mat-progress-bar-fill::after {
     background-color: var(--primary-color);
-    transition: all 0.2s ease-in-out;
   }
 
   .mat-progress-bar-buffer {
     background-color: var(--elevation-1);
-    transition: all 0.2s ease-in-out;
   }
 }
 

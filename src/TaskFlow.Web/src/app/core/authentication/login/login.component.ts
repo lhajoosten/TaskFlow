@@ -11,14 +11,9 @@ import { filter, Subscription, take } from 'rxjs';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MaterialModule,
-    RouterModule
-  ],
+  imports: [CommonModule, ReactiveFormsModule, MaterialModule, RouterModule],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
   loginForm!: FormGroup;
@@ -30,27 +25,29 @@ export class LoginComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     protected authService: AuthService,
     private router: Router,
-    private snackBar: MatSnackBar
-  ) { }
+    private snackBar: MatSnackBar,
+  ) {}
 
   ngOnInit(): void {
     // Check if already authenticated
-    this.subscription = this.authService.authState$.pipe(
-      filter(state => state !== null),  // Only react to non-null states
-      take(1)
-    ).subscribe(user => {
-      if (user) {
-        this.router.navigate(['/dashboard'], {
-          replaceUrl: true,
-          onSameUrlNavigation: 'reload'  // Force router state update
-        });
-      }
-    });
+    this.subscription = this.authService.authState$
+      .pipe(
+        filter((state) => state !== null), // Only react to non-null states
+        take(1),
+      )
+      .subscribe((user) => {
+        if (user) {
+          this.router.navigate(['/dashboard'], {
+            replaceUrl: true,
+            onSameUrlNavigation: 'reload', // Force router state update
+          });
+        }
+      });
 
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
-      rememberMe: [false]
+      rememberMe: [false],
     });
   }
 
@@ -68,14 +65,16 @@ export class LoginComponent implements OnInit, OnDestroy {
           if (response.token) {
             this.snackBar.open('Login successful!', 'Close', { duration: 3000 });
             // Force a new navigation
-            this.router.navigate(['/dashboard'], {
-              replaceUrl: true,
-              onSameUrlNavigation: 'reload',
-              skipLocationChange: false
-            }).then(() => {
-              // Force route reload
-              window.location.reload();
-            });
+            this.router
+              .navigate(['/dashboard'], {
+                replaceUrl: true,
+                onSameUrlNavigation: 'reload',
+                skipLocationChange: false,
+              })
+              .then(() => {
+                // Force route reload
+                window.location.reload();
+              });
           }
         },
         error: (error) => {
@@ -85,7 +84,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         },
         complete: () => {
           this.isLoading = false;
-        }
+        },
       });
     }
   }

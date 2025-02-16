@@ -10,14 +10,9 @@
         [fixedTopGap]="80"
         (closed)="layoutService.closeSidebar()"
       >
-      <app-sidebar [headerMenus]="headerMenus"></app-sidebar>
-
+        <app-sidebar [headerMenus]="headerMenus"></app-sidebar>
       </mat-sidenav>
-      <mat-sidenav-content
-        [class.overlay-active]="
-          (layoutService.sidebarOpen$ | async) && !(layoutService.isLargeScreen$ | async)
-        "
-      >
+      <mat-sidenav-content [class.overlay-active]="(layoutService.sidebarOpen$ | async) && !(layoutService.isLargeScreen$ | async)">
         <div class="main-content">
           <router-outlet></router-outlet>
         </div>

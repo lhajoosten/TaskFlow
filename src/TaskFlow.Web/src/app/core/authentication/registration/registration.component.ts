@@ -9,12 +9,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-registration',
   standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MaterialModule,
-    RouterModule
-  ],
+  imports: [CommonModule, ReactiveFormsModule, MaterialModule, RouterModule],
   templateUrl: './registration.component.html',
   styleUrl: './registration.component.scss',
 })
@@ -27,20 +22,23 @@ export class RegistrationComponent implements OnInit {
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private snackBar: MatSnackBar
-  ) { }
+    private snackBar: MatSnackBar,
+  ) {}
 
   ngOnInit(): void {
-    this.registrationForm = this.fb.group({
-      firstName: ['', [Validators.required]],
-      lastName: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
-      confirmPassword: ['', [Validators.required]],
-      acceptTerms: [false, [Validators.requiredTrue]]
-    }, {
-      validators: this.passwordMatchValidator
-    });
+    this.registrationForm = this.fb.group(
+      {
+        firstName: ['', [Validators.required]],
+        lastName: ['', [Validators.required]],
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required, Validators.minLength(8)]],
+        confirmPassword: ['', [Validators.required]],
+        acceptTerms: [false, [Validators.requiredTrue]],
+      },
+      {
+        validators: this.passwordMatchValidator,
+      },
+    );
   }
 
   passwordMatchValidator(form: FormGroup) {
@@ -61,19 +59,19 @@ export class RegistrationComponent implements OnInit {
       this.authService.register({ firstName, lastName, email, password }).subscribe({
         next: (response) => {
           this.snackBar.open('Registration successful! Please check your email to verify your account.', 'Close', {
-            duration: 5000
+            duration: 5000,
           });
           this.router.navigate(['/auth/login']);
         },
         error: (error) => {
           this.snackBar.open(error.error.message || 'Registration failed. Please try again.', 'Close', {
-            duration: 5000
+            duration: 5000,
           });
           this.isLoading = false;
         },
         complete: () => {
           this.isLoading = false;
-        }
+        },
       });
     }
   }

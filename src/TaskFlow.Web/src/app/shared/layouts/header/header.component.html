@@ -1,83 +1,91 @@
 <mat-toolbar class="header">
-    <button mat-icon-button class="menu-button" (click)="toggleSidebar()">
-        <mat-icon>{{ (isSidebarOpen$ | async) ? 'close' : 'menu' }}</mat-icon>
+  <button mat-icon-button class="menu-button" (click)="toggleSidebar()">
+    <mat-icon>{{ (isSidebarOpen$ | async) ? 'close' : 'menu' }}</mat-icon>
+  </button>
+  <div class="header-left">
+    <div class="brand">
+      <div class="brand-text">
+        <span class="brand-name">
+          <img
+            [src]="(isDarkTheme$ | async) ? 'assets/brand/taskflow-brand-dark.svg' : 'assets/brand/taskflow-brand.svg'"
+            class="brand-logo"
+            alt="TaskFlow Logo"
+            [ngClass]="{ 'theme-transition': true }"
+          />
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="header-right">
+    <div class="quick-stats">
+      <div class="stat-item" matTooltip="Tasks Due Today">
+        <mat-icon [class.warning]="dueTodayCount > 5">assignment_late</mat-icon>
+        <span>{{ dueTodayCount }}</span>
+      </div>
+      <div class="stat-item" matTooltip="Active Projects">
+        <mat-icon>folder_special</mat-icon>
+        <span>{{ activeProjectsCount }}</span>
+      </div>
+    </div>
+
+    <button mat-icon-button [matMenuTriggerFor]="notificationsMenu" class="notification-btn" matTooltip="Notifications">
+      <mat-icon
+        [matBadge]="notificationCount"
+        [matBadgeHidden]="notificationCount === 0"
+        matBadgeColor="warn"
+        aria-hidden="false"
+        [attr.aria-label]="'You have ' + notificationCount + ' notifications'"
+      >
+        notifications
+      </mat-icon>
     </button>
-    <div class="header-left">
-        <div class="brand">
-            <div class="brand-text">
-                <span class="brand-name">
-                    <img [src]="(isDarkTheme$ | async) ? 'assets/brand/taskflow-brand-dark.svg' : 'assets/brand/taskflow-brand.svg'"
-                        class="brand-logo" alt="TaskFlow Logo" [ngClass]="{'theme-transition': true}">
-                </span>
-            </div>
-        </div>
-    </div>
 
-    <div class="header-right">
-        <div class="quick-stats">
-            <div class="stat-item" matTooltip="Tasks Due Today">
-                <mat-icon [class.warning]="dueTodayCount > 5">assignment_late</mat-icon>
-                <span>{{dueTodayCount}}</span>
-            </div>
-            <div class="stat-item" matTooltip="Active Projects">
-                <mat-icon>folder_special</mat-icon>
-                <span>{{activeProjectsCount}}</span>
-            </div>
-        </div>
-
-        <button mat-icon-button [matMenuTriggerFor]="notificationsMenu" class="notification-btn"
-            matTooltip="Notifications">
-            <mat-icon [matBadge]="notificationCount" [matBadgeHidden]="notificationCount === 0" matBadgeColor="warn"
-                aria-hidden="false" [attr.aria-label]="'You have ' + notificationCount + ' notifications'">
-                notifications
-            </mat-icon>
-        </button>
-
-        <button mat-icon-button class="theme-toggle" (click)="toggleTheme()"
-            [matTooltip]="(isDarkTheme$ | async) ? 'Switch to Light Mode' : 'Switch to Dark Mode'">
-            <mat-icon>{{ (isDarkTheme$ | async) ? 'light_mode' : 'dark_mode' }}</mat-icon>
-        </button>
-    </div>
+    <button
+      mat-icon-button
+      class="theme-toggle"
+      (click)="toggleTheme()"
+      [matTooltip]="(isDarkTheme$ | async) ? 'Switch to Light Mode' : 'Switch to Dark Mode'"
+    >
+      <mat-icon>{{ (isDarkTheme$ | async) ? 'light_mode' : 'dark_mode' }}</mat-icon>
+    </button>
+  </div>
 </mat-toolbar>
 
 <mat-menu #notificationsMenu="matMenu" class="notifications-menu">
-    <div class="notifications-header">
-        <h3>Notifications</h3>
-        <div class="notification-actions">
-            <button mat-icon-button matTooltip="Filter Notifications" [matMenuTriggerFor]="filterMenu">
-                <mat-icon>filter_list</mat-icon>
-            </button>
-            <button mat-button color="primary" (click)="markAllAsRead()">
-                Mark all as read
-            </button>
-        </div>
+  <div class="notifications-header">
+    <h3>Notifications</h3>
+    <div class="notification-actions">
+      <button mat-icon-button matTooltip="Filter Notifications" [matMenuTriggerFor]="filterMenu">
+        <mat-icon>filter_list</mat-icon>
+      </button>
+      <button mat-button color="primary" (click)="markAllAsRead()">Mark all as read</button>
     </div>
-    <mat-divider></mat-divider>
-    <div class="notifications-list" *ngIf="notifications.length; else noNotifications">
-        <button mat-menu-item *ngFor="let notification of notifications" [class.unread]="!notification.read"
-            (click)="handleNotification(notification)">
-            <mat-icon [class.unread]="!notification.read">{{ notification.icon }}</mat-icon>
-            <div class="notification-content">
-                <span class="notification-message">{{ notification.message }}</span>
-                <span class="notification-time">{{ notification.time | timeAgo }}</span>
-            </div>
-            <button mat-icon-button class="notification-action"
-                (click)="$event.stopPropagation(); markAsRead(notification)">
-                <mat-icon>check</mat-icon>
-            </button>
-        </button>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="notifications-list" *ngIf="notifications.length; else noNotifications">
+    <button mat-menu-item *ngFor="let notification of notifications" [class.unread]="!notification.read" (click)="handleNotification(notification)">
+      <mat-icon [class.unread]="!notification.read">{{ notification.icon }}</mat-icon>
+      <div class="notification-content">
+        <span class="notification-message">{{ notification.message }}</span>
+        <span class="notification-time">{{ notification.time | timeAgo }}</span>
+      </div>
+      <button mat-icon-button class="notification-action" (click)="$event.stopPropagation(); markAsRead(notification)">
+        <mat-icon>check</mat-icon>
+      </button>
+    </button>
+  </div>
+  <ng-template #noNotifications>
+    <div class="no-notifications">
+      <mat-icon>notifications_none</mat-icon>
+      <span>No new notifications</span>
     </div>
-    <ng-template #noNotifications>
-        <div class="no-notifications">
-            <mat-icon>notifications_none</mat-icon>
-            <span>No new notifications</span>
-        </div>
-    </ng-template>
+  </ng-template>
 </mat-menu>
 
 <mat-menu #filterMenu="matMenu">
-    <button mat-menu-item *ngFor="let filter of notificationFilters" (click)="filterNotifications(filter.type)">
-        <mat-icon>{{filter.icon}}</mat-icon>
-        <span>{{filter.label}}</span>
-    </button>
+  <button mat-menu-item *ngFor="let filter of notificationFilters" (click)="filterNotifications(filter.type)">
+    <mat-icon>{{ filter.icon }}</mat-icon>
+    <span>{{ filter.label }}</span>
+  </button>
 </mat-menu>

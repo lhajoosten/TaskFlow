@@ -3,147 +3,58 @@
 @use './styles/responsive' as responsive;
 @use 'styles/scrollbar';
 @use 'sass:map';
+@use 'sass:meta';
+
+// Helper function to get color from palette
+@function get-color-from-palette($palette, $hue: 'default') {
+  @if meta.type-of($palette) == 'map' {
+    @return map.get($palette, $hue);
+  } @else {
+    @return $palette; // Return as-is if it's already a color
+  }
+}
 
 // Include the common styles for Angular Material
 @include mat.core();
 
-// Include theme styles for core and each component
-@include mat.all-component-themes(theme.$theme);
-
-.dark-theme {
-  @include mat.all-component-colors(theme.$dark-theme);
-}
-
-// Helper function to get color from palette
-@function get-color-from-palette($palette, $hue: 'default') {
-  @return map.get($palette, $hue);
-}
-
-// Custom CSS variables
+// Apply themes to root elements
 :root {
-  // Theme colors
-  --primary-color: #{get-color-from-palette(map.get(theme.$theme, 'primary'), 500)}; // chocolate_cosmos
-  --primary-lighter: #{get-color-from-palette(map.get(theme.$theme, 'primary'), 100)}; // #140106
-  --primary-darker: #{get-color-from-palette(map.get(theme.$theme, 'primary'), 700)}; // #ef1d52
+  --primary-color: #{get-color-from-palette(map.get(theme.$light-theme, 'primary'))};
+  --accent-color: #{get-color-from-palette(map.get(theme.$light-theme, 'accent'))};
+  --background-color: #{get-color-from-palette(map.get(theme.$light-theme, 'background', 'background'))};
 
-  // Light theme contrast colors
-  --primary-contrast: #{get-color-from-palette(map.get(theme.$theme, 'primary'), 500)};
-  --accent-contrast: #{get-color-from-palette(map.get(theme.$theme, 'accent'), 500)};
-  --warn-contrast: #{get-color-from-palette(map.get(theme.$theme, 'warn'), 500)};
+  --elevation-1: rgba(0, 0, 0, 0.02);
+  --elevation-2: rgba(0, 0, 0, 0.04);
+  --elevation-3: rgba(0, 0, 0, 0.06);
+  --elevation-4: rgba(0, 0, 0, 0.08);
 
-  --accent-color: #{get-color-from-palette(map.get(theme.$theme, 'accent'), 500)}; // field_drab
-  --accent-lighter: #{get-color-from-palette(map.get(theme.$theme, 'accent'), 300)}; // #3e2f15
-  --accent-darker: #{get-color-from-palette(map.get(theme.$theme, 'accent'), 700)}; // #c69e59
-
-  --secondary-color: #{get-color-from-palette(map.get(theme.$theme, 'secondary'), 500)}; // violet_blue
-  --secondary-lighter: #{get-color-from-palette(map.get(theme.$theme, 'secondary'), 300)}; // #3e2f15
-  --secondary-darker: #{get-color-from-palette(map.get(theme.$theme, 'secondary'), 700)}; // #c69e59
-  --secondary-main: #{get-color-from-palette(map.get(theme.$theme, 'secondary'), 600)}; // violet_blue
-
-  --warn-color: #{get-color-from-palette(map.get(theme.$theme, 'warn'), 500)}; // melon
-  --info-color: #{get-color-from-palette(map.get(theme.$theme, 'info'), 500)}; // brunswick_green
-  --success-color: #{get-color-from-palette(map.get(theme.$theme, 'success'), 500)}; // pigment_green
-
-  // Container/Surface colors
-  --background-color: #{mat.get-theme-color(theme.$theme, 'background', 'background')};
-  --surface-color: #{mat.get-theme-color(theme.$theme, 'background', 'card')};
-  --card-background: rgba(255, 255, 255, 0.9);
-
-  // Neutral colors (platinum)
-  --neutral-color: #{get-color-from-palette(map.get(theme.$theme, 'neutral'), 500)}; // #dcdfe5
-  --neutral-lighter: #{get-color-from-palette(map.get(theme.$theme, 'neutral'), 200)}; // #4c5567
-  --neutral-darker: #{get-color-from-palette(map.get(theme.$theme, 'neutral'), 700)}; // #eaecef
-  --neutral-slim-light: #{get-color-from-palette(map.get(theme.$theme, 'neutral'), 300)}; // #f8f9fa
-  --neutral-slim-dark: #{get-color-from-palette(map.get(theme.$theme, 'neutral'), 600)}; // #343a40
-
-  // Text colors
-  --text-color: var(--neutral-lighter);
-  --text-on-primary: #ffffff;
-  --text-on-accent: #ffffff;
-  --text-on-warn: #000000;
-
-  // Status colors
-  --success-container: #{get-color-from-palette(map.get(theme.$theme, 'success'), 100)};
-  --info-container: #{get-color-from-palette(map.get(theme.$theme, 'info'), 100)};
-  --warn-container: #{get-color-from-palette(map.get(theme.$theme, 'warn'), 100)};
-  --error-container: #{get-color-from-palette(map.get(theme.$theme, 'warn'), 100)};
-
-  // Interactive states
-  --hover-overlay: rgba(0, 0, 0, 0.04);
-  --focus-overlay: rgba(0, 0, 0, 0.12);
-  --selected-overlay: rgba(0, 0, 0, 0.08);
-  --pressed-overlay: rgba(0, 0, 0, 0.16);
-
-  // Elevation colors
-  --elevation-1: rgba(0, 0, 0, 0.05);
-  --elevation-2: rgba(0, 0, 0, 0.08);
-  --elevation-3: rgba(0, 0, 0, 0.11);
-  --elevation-4: rgba(0, 0, 0, 0.12);
+  // Soft contrast for text readability
+  --text-color: #333;
+  --neutral-color: #666;
 }
 
+// Dark mode styles
 .dark-theme {
-  // Theme colors with dark variants
-  --primary-color: #{get-color-from-palette(map.get(theme.$dark-theme, 'primary'), 300)}; // Lighter for dark theme
-  --primary-lighter: #{get-color-from-palette(map.get(theme.$dark-theme, 'primary'), 100)};
-  --primary-darker: #{get-color-from-palette(map.get(theme.$dark-theme, 'primary'), 700)};
+  --primary-color: #{get-color-from-palette(map.get(theme.$dark-theme, 'primary'))};
+  --accent-color: #{get-color-from-palette(map.get(theme.$dark-theme, 'accent'))};
+  --background-color: #{get-color-from-palette(map.get(theme.$dark-theme, 'background', 'background'))};
 
-  // Dark theme contrast colors
-  --primary-contrast: #{get-color-from-palette(
-      map.get(map.get(theme.$dark-theme, 'primary'), 'contrast'),
-      700
-    )};
-  --accent-contrast: #{get-color-from-palette(
-      map.get(map.get(theme.$dark-theme, 'accent'), 'contrast'),
-      700
-    )};
-  --warn-contrast: #{get-color-from-palette(
-      map.get(map.get(theme.$dark-theme, 'warn'), 'contrast'),
-      700
-    )};
-
-  --accent-color: #{get-color-from-palette(map.get(theme.$dark-theme, 'accent'), 300)}; // Lighter for dark theme
-  --accent-lighter: #{get-color-from-palette(map.get(theme.$dark-theme, 'accent'), 100)};
-  --accent-darker: #{get-color-from-palette(map.get(theme.$dark-theme, 'accent'), 700)};
-
-  --secondary-color: #{get-color-from-palette(map.get(theme.$dark-theme, 'secondary'), 300)}; // Lighter for dark theme
-  --secondary-lighter: #{get-color-from-palette(map.get(theme.$dark-theme, 'secondary'), 100)};
-  --secondary-darker: #{get-color-from-palette(map.get(theme.$dark-theme, 'secondary'), 700)};
-
-  // Surface colors
-  --background-color: #{mat.get-theme-color(theme.$dark-theme, 'background', 'background')};
-  --surface-color: #{mat.get-theme-color(theme.$dark-theme, 'background', 'card')};
-  --card-background: rgba(0, 0, 0, 0.8);
-
-  // Neutral colors dark variant
-  --neutral-color: #{get-color-from-palette(map.get(theme.$dark-theme, 'neutral'), 700)};
-  --neutral-lighter: #{get-color-from-palette(map.get(theme.$dark-theme, 'neutral'), 500)};
-  --neutral-darker: #{get-color-from-palette(map.get(theme.$dark-theme, 'neutral'), 900)};
-  --neutral-slim-light: #{get-color-from-palette(map.get(theme.$dark-theme, 'neutral'), 800)};
-  --neutral-slim-dark: #{get-color-from-palette(map.get(theme.$dark-theme, 'neutral'), 600)};
-
-  // Text colors
-  --text-color: var(--neutral-lighter);
-  --text-on-primary: #000000;
-  --text-on-accent: #000000;
-  --text-on-warn: #ffffff;
-
-  // Status colors dark variants
-  --success-container: #{get-color-from-palette(map.get(theme.$dark-theme, 'success'), 700)};
-  --info-container: #{get-color-from-palette(map.get(theme.$dark-theme, 'info'), 700)};
-  --warn-container: #{get-color-from-palette(map.get(theme.$dark-theme, 'warn'), 700)};
-  --error-container: #{get-color-from-palette(map.get(theme.$dark-theme, 'warn'), 700)};
-
-  // Interactive states for dark theme
-  --hover-overlay: rgba(255, 255, 255, 0.04);
-  --focus-overlay: rgba(255, 255, 255, 0.12);
-  --selected-overlay: rgba(255, 255, 255, 0.08);
-  --pressed-overlay: rgba(255, 255, 255, 0.16);
-
-  // Elevation colors for dark theme
   --elevation-1: rgba(255, 255, 255, 0.05);
   --elevation-2: rgba(255, 255, 255, 0.08);
   --elevation-3: rgba(255, 255, 255, 0.11);
   --elevation-4: rgba(255, 255, 255, 0.12);
+
+  // Soft contrast for text readability
+  --text-color: #e0e0e0;
+  --neutral-color: #b0b0b0;
+}
+
+// Apply global theme styles
+@include mat.all-component-themes(theme.$light-theme);
+
+// Dark mode override
+.dark-theme {
+  @include mat.all-component-colors(theme.$dark-theme);
 }
 
 // Global styles

@@ -3,14 +3,7 @@
   <div class="sidebar-quick-actions">
     <div class="action-buttons">
       <div class="brand-icon">
-        <img
-          [src]="
-            (isDarkTheme$ | async)
-              ? 'assets/brand/taskflow-icon-dark.svg'
-              : 'assets/brand/taskflow-icon-light.svg'
-          "
-          alt="Brand Logo"
-        />
+        <img [src]="(isDarkTheme$ | async) ? 'assets/brand/taskflow-icon-dark.svg' : 'assets/brand/taskflow-icon-light.svg'" alt="Brand Logo" />
       </div>
       <button mat-icon-button matTooltip="New Task" (click)="openQuickTaskDialog()">
         <mat-icon>add_task</mat-icon>
@@ -25,13 +18,9 @@
   </div>
 
   <!-- Search Field - Always visible -->
-  <mat-form-field appearance="outline" class="search-field" style="margin-top: 12px!important; padding: 8px 12px!important;">
+  <mat-form-field appearance="outline" class="search-field" style="margin-top: 12px !important; padding: 8px 12px !important">
     <mat-icon matPrefix>search</mat-icon>
-    <input
-      matInput
-      placeholder="Search tasks, projects, or team members..."
-      [matAutocomplete]="auto"
-    />
+    <input matInput placeholder="Search tasks, projects, or team members..." [matAutocomplete]="auto" />
     <button mat-icon-button matSuffix matTooltip="Advanced Search" (click)="openAdvancedSearch()">
       <mat-icon>tune</mat-icon>
     </button>
@@ -197,12 +186,7 @@
     </div>
 
     <button mat-icon-button [matMenuTriggerFor]="profileMenu" class="notification-btn">
-      <mat-icon
-        [matBadge]="notificationCount"
-        [matBadgeHidden]="notificationCount === 0"
-        matBadgeColor="warn"
-        >notifications</mat-icon
-      >
+      <mat-icon [matBadge]="notificationCount" [matBadgeHidden]="notificationCount === 0" matBadgeColor="warn">notifications</mat-icon>
     </button>
 
     <button mat-icon-button class="theme-toggle" (click)="toggleTheme()">
@@ -212,12 +196,7 @@
 
   <!-- User Profile - Always in sidebar -->
   <div class="sidebar-footer">
-    <button
-      mat-button
-      class="user-profile-button"
-      [matMenuTriggerFor]="profileMenu"
-      #profileMenuTrigger="matMenuTrigger"
-    >
+    <button mat-button class="user-profile-button" [matMenuTriggerFor]="profileMenu" #profileMenuTrigger="matMenuTrigger">
       <div class="button-content">
         <div class="user-info">
           <img [src]="userAvatar" alt="User Avatar" class="user-avatar" />

@@ -1,9 +1,4 @@
-@mixin custom-scrollbar(
-  $width: 10px,
-  $track-color: var(--surface-color),
-  $thumb-color: var(--neutral-color),
-  $thumb-radius: 20px
-) {
+@mixin custom-scrollbar($width: 10px, $track-color: var(--surface-color), $thumb-color: var(--neutral-color), $thumb-radius: 20px) {
   // Firefox
   scrollbar-width: thin;
   scrollbar-color: $thumb-color $track-color;
@@ -52,10 +47,7 @@
 
 // Custom scrollbar variants with updated colors
 .scrollbar-primary {
-  @include custom-scrollbar(
-    $thumb-color: var(--primary-contrast),
-    $track-color: var(--surface-color)
-  );
+  @include custom-scrollbar($thumb-color: var(--primary-contrast), $track-color: var(--surface-color));
 }
 
 .scrollbar-dark {
@@ -63,8 +55,5 @@
 }
 
 .scrollbar-light {
-  @include custom-scrollbar(
-    $thumb-color: var(--neutral-slim-light),
-    $track-color: var(--surface-color)
-  );
+  @include custom-scrollbar($thumb-color: var(--neutral-slim-light), $track-color: var(--surface-color));
 }

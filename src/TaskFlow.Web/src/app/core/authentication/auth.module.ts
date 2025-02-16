@@ -5,11 +5,6 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { AuthRoutingModule } from './auth-routing.module';
 
 @NgModule({
-  imports: [
-    AuthRoutingModule,
-    LoginComponent,
-    RegistrationComponent,
-    ForgotPasswordComponent
-  ]
+  imports: [AuthRoutingModule, LoginComponent, RegistrationComponent, ForgotPasswordComponent],
 })
-export class AuthModule { }
+export class AuthModule {}

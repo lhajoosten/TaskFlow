@@ -38,7 +38,7 @@ export class SidebarComponent {
     private themeService: ThemeService,
     protected layoutService: LayoutService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
   ) {
     this.isDarkTheme$ = this.themeService.isDarkMode$;
     this.isSidebarOpen$ = this.layoutService.sidebarOpen$;

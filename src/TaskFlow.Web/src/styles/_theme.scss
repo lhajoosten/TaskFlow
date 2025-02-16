@@ -40,15 +40,21 @@ $dark-theme: map.merge(
   mat.m2-define-dark-theme(
     (
       color: (
-        primary: colors.$primary-palette,
-        accent: colors.$accent-palette,
-        warn: colors.$warn-palette,
+        primary: colors.$dark-primary-palette,
+        accent: colors.$dark-accent-palette,
+        warn: colors.$dark-warn-palette,
       ),
-      typography: $typography-config,
+      background: colors.$dark-background-colors,
+      typography: (
+        font-family: "'Roboto', sans-serif",
+      ),
       density: 0,
     )
   ),
-  $custom-theme
+  (
+    secondary: colors.$dark-secondary-palette,
+    neutral: colors.$dark-neutral-palette,
+  )
 );
 
 // Export themes

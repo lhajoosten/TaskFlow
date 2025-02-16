@@ -1,12 +1,8 @@
 import { NgModule } from '@angular/core';
 import { DashboardModule } from './dashboard/dashboard.module';
 
-
-
 @NgModule({
-    declarations: [],
-    imports: [
-        DashboardModule
-    ]
+  declarations: [],
+  imports: [DashboardModule],
 })
-export class FeaturesModule { }
+export class FeaturesModule {}

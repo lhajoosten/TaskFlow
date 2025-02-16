@@ -185,3 +185,93 @@ $success-palette: mat.m2-define-palette($success-colors);
 $info-palette: mat.m2-define-palette($info-colors);
 $secondary-palette: mat.m2-define-palette($secondary-colors);
 $neutral-palette: mat.m2-define-palette($neutral-colors);
+
+// Dark theme palettes
+$dark-primary-colors: (
+  50: #3d0214,
+  100: #65071e,
+  200: #af0c35,
+  300: #ef1d52,
+  400: #f5688b,
+  500: #fab4c5,
+  600: #fab4c5,
+  700: #fab4c5,
+  800: #fab4c5,
+  900: #fab4c5,
+  contrast: (
+    50: #ffffff,
+    100: #ffffff,
+    200: #ffffff,
+    300: #ffffff,
+    400: #ffffff,
+    500: #000000,
+    600: #000000,
+    700: #000000,
+    800: #000000,
+    900: #000000,
+  ),
+);
+
+$dark-accent-colors: (
+  50: #3e2f15,
+  100: #523e1c,
+  200: #674e23,
+  300: #9e7836,
+  400: #c69e59,
+  500: #d9be90,
+  600: #d9be90,
+  700: #d9be90,
+  800: #d9be90,
+  900: #d9be90,
+  contrast: (
+    50: #ffffff,
+    100: #ffffff,
+    200: #ffffff,
+    300: #000000,
+    400: #000000,
+    500: #000000,
+    600: #000000,
+    700: #000000,
+    800: #000000,
+    900: #000000,
+  ),
+);
+
+$dark-secondary-colors: (
+  50: #141a42,
+  100: #1e2763,
+  200: #273484,
+  300: #3140a5,
+  400: #495ac9,
+  500: #7683d6,
+  600: #a4ace4,
+  700: #d1d6f1,
+  800: #e8ebf8,
+  900: #f5f7fc,
+  contrast: (
+    50: #ffffff,
+    100: #ffffff,
+    200: #ffffff,
+    300: #ffffff,
+    400: #ffffff,
+    500: #000000,
+    600: #000000,
+    700: #000000,
+    800: #000000,
+    900: #000000,
+  ),
+);
+
+$dark-background-colors: (
+  background: #121212,
+  card: #1e1e1e,
+  dialog: #2a2a2a,
+  tooltip: #333333,
+);
+
+// Define the palettes
+$dark-primary-palette: mat.m2-define-palette($dark-primary-colors);
+$dark-accent-palette: mat.m2-define-palette($dark-accent-colors);
+$dark-secondary-palette: mat.m2-define-palette($dark-secondary-colors);
+$dark-warn-palette: mat.m2-define-palette($warn-colors);
+$dark-neutral-palette: mat.m2-define-palette($neutral-colors);
